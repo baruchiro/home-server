@@ -1,0 +1,16 @@
+# Cache
+Cache
+CacheInfo
+
+
+.device-id
+
+# Plug-in Support
+Plug-in Support/*
+# HTTPCookies
+# StoredValues
+# Dict
+!Plug-in Support/Preferences
+
+# Logs
+*.log.[0-9]*

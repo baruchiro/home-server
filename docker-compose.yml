@@ -1,0 +1,31 @@
+version: '3'
+services:
+  plex:
+    container_name: plex
+    image: plexinc/pms-docker
+    restart: unless-stopped
+    network_mode: host
+    environment:
+      - TZ=Asia/Jerusalem
+    #  - PLEX_CLAIM=<claimToken>
+    volumes:
+      - plex-config:/config
+      - plex-transcode:/transcode
+      - media:/data
+
+volumes:
+  media:
+    driver_opts:
+      type: none
+      device: ${PWD}/media/
+      o: bind
+  plex-config:
+    driver_opts:
+      type: none
+      device: ${PWD}/plex/database
+      o: bind
+  plex-transcode:
+    driver_opts:
+      type: none
+      device: ${PWD}/plex/transcode
+      o: bind
