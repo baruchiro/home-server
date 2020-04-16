@@ -12,6 +12,15 @@ services:
       - plex-config:/config
       - plex-transcode:/transcode
       - media:/data
+  
+  telegram-db-bot:
+    build: telegram-downloader-bot-master/
+    environment:
+      TELEGRAM_BOT_TOKEN: ${TELEGRAM_TVSHOWS_TOKEN}
+      TELEGRAM_CHAT_ID: ${CHAT_ID}
+    volumes:
+       - tv-shows:/downloads
+    restart: unless-stopped
 
 volumes:
   media:
@@ -28,4 +37,9 @@ volumes:
     driver_opts:
       type: none
       device: ${PWD}/plex/transcode
+      o: bind
+  tv-shows:
+      driver_opts:
+      type: none
+      device: ${PWD}/media/TV-Shows
       o: bind
