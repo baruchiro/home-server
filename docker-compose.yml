@@ -40,6 +40,6 @@ volumes:
       o: bind
   tv-shows:
       driver_opts:
-      type: none
-      device: ${PWD}/media/TV-Shows
-      o: bind
+        type: none
+        device: ${PWD}/media/TV-Shows
+        o: bind
