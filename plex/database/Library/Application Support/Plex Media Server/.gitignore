@@ -1,0 +1,12 @@
+*
+
+!.gitignore
+
+!Plug-in*Support
+!Plug-in*Support/Databases
+!Plug-in*Support/Databases/*.db
+
+!Plug-in*Support/Metadata*Combination
+!Plug-in*Support/Metadata*Combination/*
+
+!*.xml
