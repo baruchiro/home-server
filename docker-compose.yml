@@ -1,5 +1,17 @@
 version: '3'
 services:
+  telegram-download-deamon:
+    image: docker.pkg.github.com/baruchiro/telegram-download-daemon/telegram-download-deamon
+    environment:
+      TELEGRAM_DEAMON_API_ID: ${TELEGRAM_API_ID}
+      TELEGRAM_DEAMON_API_HASH: ${TELEGRAM_API_HASH}
+      TELEGRAM_DEAMON_CHANNEL: ${TELEGRAM_TV_CHANNEL_ID}
+      TELEGRAM_DEAMON_DEST: "/downloads"
+      TELEGRAM_DEAMON_SESSION_PATH: "/session"
+    volumes:
+      - tv-shows:/downloads
+      - sessions:/session
+    restart: unless-stopped
   plex:
     container_name: plex
     image: plexinc/pms-docker
@@ -14,6 +26,7 @@ services:
       - media:/data
 
 volumes:
+  sessions:
   media:
     driver_opts:
       type: none
@@ -29,3 +42,8 @@ volumes:
       type: none
       device: ${PWD}/plex/transcode
       o: bind
+  tv-shows:
+      driver_opts:
+        type: none
+        device: ${PWD}/media/TV-Shows
+        o: bind
