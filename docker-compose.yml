@@ -22,7 +22,22 @@ services:
       - ./jellyfin/config/:/config
       - /cache
       - tv-shows:/media/tv-shows
+      - movies:/media/movies
+  
+  deluge:
+    # 8112
+    image: linuxserver/deluge
+    container_name: deluge
+    network_mode: host
+    restart: unless-stopped
+    env_file:
+      - shared.env
+    volumes:
+      - ./deluge/config:/config
+      - tv-shows:/downloads/tv-shows
+      - movies:/downloads/movies
 
 volumes:
   sessions:
   tv-shows:
+  movies:
