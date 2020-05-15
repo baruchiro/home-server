@@ -23,6 +23,16 @@ services:
       - /cache
       - tv-shows:/media/tv-shows
 
+  homeassistant:
+    container_name: home-assistant
+    image: homeassistant/home-assistant:stable
+    network_mode: host
+    volumes:
+      - ./home-assistant:/config
+    env_file: shared.env
+    restart: always
+    network_mode: host
+
 volumes:
   sessions:
   tv-shows:
