@@ -1,14 +1,14 @@
 version: '3'
 services:
-  telegram-download-deamon:
+  telegram-download-daemon:
     container_name: telegram-download-deamon
     image: baruchiro/telegram-download-daemon
     environment:
-      TELEGRAM_DEAMON_API_ID: ${TELEGRAM_API_ID}
-      TELEGRAM_DEAMON_API_HASH: ${TELEGRAM_API_HASH}
-      TELEGRAM_DEAMON_CHANNEL: ${TELEGRAM_TV_CHANNEL_ID}
-      TELEGRAM_DEAMON_DEST: "/downloads"
-      TELEGRAM_DEAMON_SESSION_PATH: "/session"
+      TELEGRAM_DAEMON_API_ID: ${TELEGRAM_API_ID}
+      TELEGRAM_DAEMON_API_HASH: ${TELEGRAM_API_HASH}
+      TELEGRAM_DAEMON_CHANNEL: ${TELEGRAM_TV_CHANNEL_ID}
+      TELEGRAM_DAEMON_DEST: "/downloads"
+      TELEGRAM_DAEMON_SESSION_PATH: "/session"
     volumes:
       - tv-shows:/downloads
       - sessions:/session
