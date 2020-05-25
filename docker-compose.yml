@@ -1,7 +1,8 @@
 version: '3'
 services:
   telegram-download-deamon:
-    image: docker.pkg.github.com/baruchiro/telegram-download-daemon/telegram-download-deamon
+    container_name: telegram-download-deamon
+    image: baruchiro/telegram-download-daemon
     environment:
       TELEGRAM_DEAMON_API_ID: ${TELEGRAM_API_ID}
       TELEGRAM_DEAMON_API_HASH: ${TELEGRAM_API_HASH}
@@ -14,7 +15,7 @@ services:
     restart: unless-stopped
   
   jellyfin:
-    container_name: plex
+    container_name: jellyfin
     image: jellyfin/jellyfin
     restart: unless-stopped
     network_mode: host
