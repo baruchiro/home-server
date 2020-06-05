@@ -1,27 +1,93 @@
 version: '3'
 services:
-  telegram-download-deamon:
-    image: docker.pkg.github.com/baruchiro/telegram-download-daemon/telegram-download-deamon
+  telegram-download-daemon:
+    container_name: telegram-download-deamon
+    image: baruchiro/telegram-download-daemon
     environment:
-      TELEGRAM_DEAMON_API_ID: ${TELEGRAM_API_ID}
-      TELEGRAM_DEAMON_API_HASH: ${TELEGRAM_API_HASH}
-      TELEGRAM_DEAMON_CHANNEL: ${TELEGRAM_TV_CHANNEL_ID}
-      TELEGRAM_DEAMON_DEST: "/downloads"
-      TELEGRAM_DEAMON_SESSION_PATH: "/session"
+      TELEGRAM_DAEMON_API_ID: ${TELEGRAM_API_ID}
+      TELEGRAM_DAEMON_API_HASH: ${TELEGRAM_API_HASH}
+      TELEGRAM_DAEMON_CHANNEL: ${TELEGRAM_TV_CHANNEL_ID}
+      TELEGRAM_DAEMON_DEST: "/downloads"
+      TELEGRAM_DAEMON_SESSION_PATH: "/session"
     volumes:
       - tv-shows:/downloads
       - sessions:/session
     restart: unless-stopped
   
   jellyfin:
-    container_name: plex
+    # port 8096
+    container_name: jellyfin
     image: jellyfin/jellyfin
     restart: unless-stopped
     network_mode: host
+    env_file:
+      - shared.env
     volumes:
-      - ./jellyfin/config/:/config
+      - /config
       - /cache
       - tv-shows:/media/tv-shows
+  
+  jackett:
+    # port 9117
+    image: linuxserver/jackett
+    container_name: jackett
+    network_mode: host
+    env_file:
+      - shared.env
+    environment:
+      - PUID=0
+      - PGID=0
+      - AUTO_UPDATE=true
+    volumes:
+      - /config
+      - downloads:/downloads
+    restart: unless-stopped
+  
+  deluge:
+    # port 8112
+    image: linuxserver/deluge
+    container_name: deluge
+    network_mode: host
+    restart: unless-stopped
+    env_file:
+      - shared.env
+    volumes:
+      - /config
+      - downloads:/downloads
+
+  sonarr:
+    # port 8989
+    image: linuxserver/sonarr:preview
+    container_name: sonarr
+    network_mode: host
+    depends_on:
+      - jackett
+      - deluge
+    env_file:
+      - shared.env
+    environment:
+      - PUID=0
+      - PGID=0
+    volumes:
+      - tv-shows:/tv
+      - /config
+      - downloads:/downloads
+    restart: unless-stopped
+  
+  bazarr:
+    # port 6767
+    image: linuxserver/bazarr
+    container_name: bazarr
+    network_mode: host
+    env_file:
+      - shared.env
+    environment:
+      - PUID=0
+      - PGID=0
+    volumes:
+      - /config
+      - tv-shows:/tv
+    restart: unless-stopped
 
   homeassistant:
     container_name: home-assistant
@@ -36,3 +102,4 @@ services:
 volumes:
   sessions:
   tv-shows:
+  downloads:
