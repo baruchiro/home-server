@@ -68,11 +68,11 @@ Open **Deluge** and see the downloading torrent.
 ### Jellyfin
 
  - **Media Library**
-  - **Content type:** `TV Shows`
-  - **Folders:** `/media/tv-shows`
+   - **Content type:** `TV Shows`
+   - **Folders:** `/media/tv-shows`
 
 ### Bazarr
 
  - **Connection Settings**
-  - **Hostname or IP Address:** `localhost`
-  - **API Key:** Get from `Sonarr -> Settings -> General`
+   - **Hostname or IP Address:** `localhost`
+   - **API Key:** Get from `Sonarr -> Settings -> General`
