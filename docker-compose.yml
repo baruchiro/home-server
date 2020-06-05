@@ -19,11 +19,60 @@ services:
     image: jellyfin/jellyfin
     restart: unless-stopped
     network_mode: host
+    env_file:
+      - shared.env
     volumes:
       - ./jellyfin/config/:/config
       - /cache
       - tv-shows:/media/tv-shows
+  
+  jackett:
+    # port 9117
+    image: linuxserver/jackett
+    container_name: jackett
+    network_mode: host
+    env_file:
+      - shared.env
+    environment:
+      - PUID=0
+      - PGID=0
+      - AUTO_UPDATE=true
+    volumes:
+      - ./jackett/config:/config
+      - downloads:/downloads
+    restart: unless-stopped
+  
+  deluge:
+    # port 8112
+    image: linuxserver/deluge
+    container_name: deluge
+    network_mode: host
+    restart: unless-stopped
+    env_file:
+      - shared.env
+    volumes:
+      - ./deluge/config:/config
+      - downloads:/downloads
+
+  sonarr:
+    # port 8989
+    image: linuxserver/sonarr:preview
+    container_name: sonarr
+    network_mode: host
+    depends_on:
+      - jackett
+      - deluge
+    env_file:
+      - shared.env
+    environment:
+      - PUID=0
+      - PGID=0
+    volumes:
+      - tv-shows:/tv
+      - ./sonarr/config:/config
+      - downloads:/downloads
 
 volumes:
   sessions:
   tv-shows:
+  downloads:
