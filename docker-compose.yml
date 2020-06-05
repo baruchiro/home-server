@@ -15,6 +15,7 @@ services:
     restart: unless-stopped
   
   jellyfin:
+    # port 8096
     container_name: jellyfin
     image: jellyfin/jellyfin
     restart: unless-stopped
@@ -22,7 +23,7 @@ services:
     env_file:
       - shared.env
     volumes:
-      - ./jellyfin/config/:/config
+      - /config
       - /cache
       - tv-shows:/media/tv-shows
   
@@ -38,7 +39,7 @@ services:
       - PGID=0
       - AUTO_UPDATE=true
     volumes:
-      - ./jackett/config:/config
+      - /config
       - downloads:/downloads
     restart: unless-stopped
   
@@ -51,7 +52,7 @@ services:
     env_file:
       - shared.env
     volumes:
-      - ./deluge/config:/config
+      - /config
       - downloads:/downloads
 
   sonarr:
@@ -69,7 +70,7 @@ services:
       - PGID=0
     volumes:
       - tv-shows:/tv
-      - ./sonarr/config:/config
+      - /config
       - downloads:/downloads
 
 volumes:

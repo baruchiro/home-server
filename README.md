@@ -23,3 +23,51 @@ You expect to see the message `Signed in successfully as {youe name}`.
 ### Deluge
 
  - `Preference -> Plugin -> Label` make sure the `Label` is checked, otherwise, Sonarr will can't contact with the downloads.
+ - `Preference -> Downloads -> Download To` set to `/downloads`
+ - `Preference -> Queue`
+   - **Seeding:** `0`
+   - **Share Ratio:** `0`
+   - **Time Ratio:** `0`
+
+### Jackett
+
+Add indexers you want.
+
+### Sonarr
+
+Open the settings and check to show advanced settings.
+
+#### Media Management
+
+ - **Rename Episodes:** 
+   - **Standard Episode Format:** `{Episode Title} S{season:00}E{episode:00} .`
+   - **Series Folder Format:** `{Series TitleYear}`
+   - **Season Folder Format:** `Season {season:00}`
+
+#### Indexers
+
+ - `Add Indexer -> Toznab`
+    - **URL:** `http://localhost:9117/torznab/all`
+    - **API Key:** Get from Jackett interface
+
+#### Doanload Client
+
+`Add Client -> Deluge`
+
+#### Add Series
+
+ - **Configuration**
+   - **Root Folder:** `/tv`
+   - **Quality Profile:** Select one
+
+Now select seasons and/or episods to monitor. Click on "Search" icon to download monitored.
+
+In **Queue**, make sure you see values in **Inexer**, **Download Client**, **Output Path** and **Progress** columns.
+
+Open **Deluge** and see the downloading torrent.
+
+### Jellyfin
+
+ - **Media Library**
+  - **Content type:** `TV Shows`
+  - **Folders:** `/media/tv-shows`
