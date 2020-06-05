@@ -40,7 +40,6 @@ Open the settings and check to show advanced settings.
 #### Media Management
 
  - **Rename Episodes:** 
-   - **Standard Episode Format:** `{Episode Title} S{season:00}E{episode:00} .`
    - **Series Folder Format:** `{Series TitleYear}`
    - **Season Folder Format:** `Season {season:00}`
 
@@ -71,3 +70,9 @@ Open **Deluge** and see the downloading torrent.
  - **Media Library**
   - **Content type:** `TV Shows`
   - **Folders:** `/media/tv-shows`
+
+### Bazarr
+
+ - **Connection Settings**
+  - **Hostname or IP Address:** `localhost`
+  - **API Key:** Get from `Sonarr -> Settings -> General`

@@ -72,6 +72,22 @@ services:
       - tv-shows:/tv
       - /config
       - downloads:/downloads
+    restart: unless-stopped
+  
+  bazarr:
+    # port 6767
+    image: linuxserver/bazarr
+    container_name: bazarr
+    network_mode: host
+    env_file:
+      - shared.env
+    environment:
+      - PUID=0
+      - PGID=0
+    volumes:
+      - /config
+      - tv-shows:/tv
+    restart: unless-stopped
 
 volumes:
   sessions:
