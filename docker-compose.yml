@@ -90,6 +90,7 @@ services:
     restart: unless-stopped
 
   homeassistant:
+    # port 8123
     container_name: home-assistant
     image: homeassistant/home-assistant:stable
     network_mode: host
