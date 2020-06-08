@@ -23,8 +23,8 @@ services:
     env_file:
       - shared.env
     volumes:
-      - /config
-      - /cache
+      - jellyfin:/config
+      - jellyfin:/cache
       - tv-shows:/media/tv-shows
   
   jackett:
@@ -39,7 +39,7 @@ services:
       - PGID=0
       - AUTO_UPDATE=true
     volumes:
-      - /config
+      - jackett:/config
       - downloads:/downloads
     restart: unless-stopped
   
@@ -52,7 +52,7 @@ services:
     env_file:
       - shared.env
     volumes:
-      - /config
+      - deluge:/config
       - downloads:/downloads
 
   sonarr:
@@ -70,7 +70,7 @@ services:
       - PGID=0
     volumes:
       - tv-shows:/tv
-      - /config
+      - sonarr:/config
       - downloads:/downloads
     restart: unless-stopped
   
@@ -85,7 +85,7 @@ services:
       - PUID=0
       - PGID=0
     volumes:
-      - /config
+      - bazarr:/config
       - tv-shows:/tv
     restart: unless-stopped
 
@@ -93,3 +93,10 @@ volumes:
   sessions:
   tv-shows:
   downloads:
+  
+  # Configs
+  jellyfin:
+  jackett:
+  deluge:
+  sonarr:
+  bazarr:
