@@ -1,0 +1,13 @@
+
+# Configure a default setup of Home Assistant (frontend, api, etc)
+default_config:
+
+media_extractor:
+  customize:
+    media_player.forked_daapd_server:
+      music: 'https://soundcloud.com/bruttoband/brutto-11'
+
+group: !include groups.yaml
+automation: !include automations.yaml
+script: !include scripts.yaml
+scene: !include scenes.yaml

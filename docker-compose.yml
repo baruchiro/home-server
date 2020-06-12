@@ -97,8 +97,15 @@ services:
     volumes:
       - ./home-assistant:/config
     env_file: shared.env
-    restart: always
+    restart: unless-stopped
     network_mode: host
+
+  daapd:
+    image: linuxserver/daapd
+    container_name: daapd
+    network_mode: host
+    env_file: shared.env
+    restart: unless-stopped
 
 volumes:
   sessions:
