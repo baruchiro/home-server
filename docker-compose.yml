@@ -89,6 +89,18 @@ services:
       - tv-shows:/tv
     restart: unless-stopped
 
+  portainer:
+    image: portainer/portainer
+    command: -H unix:///var/run/docker.sock
+    restart: always
+    ports:
+      - 9000:9000
+      - 8000:8000
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - portainer:/data
+
+
 volumes:
   sessions:
   tv-shows:
@@ -100,3 +112,4 @@ volumes:
   deluge:
   sonarr:
   bazarr:
+  portainer:
