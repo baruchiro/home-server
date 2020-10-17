@@ -24,7 +24,8 @@ services:
       - shared.env
     volumes:
       - jellyfin:/config
-      - jellyfin:/cache
+      - jellyfin-cache:/cache
+      - all-media:/media
       - tv-shows:/media/tv-shows
   
   jackett:
@@ -105,11 +106,13 @@ services:
 
 volumes:
   sessions:
+  all-media:
   tv-shows:
   downloads:
   
   # Configs
   jellyfin:
+  jellyfin-cache:
   jackett:
   deluge:
   sonarr:
