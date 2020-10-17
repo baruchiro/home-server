@@ -91,7 +91,7 @@ services:
     restart: unless-stopped
 
   portainer:
-    image: portainer/portainer
+    image: portainer/portainer-ce
     command: -H unix:///var/run/docker.sock
     restart: always
     ports:
