@@ -27,10 +27,11 @@ services:
       - jellyfin-cache:/cache
       - all-media:/media
       - tv-shows:/media/tv-shows
+      - movies:/media/movies
   
   jackett:
     # port 9117
-    image: linuxserver/jackett
+    image: ghcr.io/linuxserver/jackett
     container_name: jackett
     network_mode: host
     env_file:
@@ -46,7 +47,7 @@ services:
   
   deluge:
     # port 8112
-    image: linuxserver/deluge
+    image: ghcr.io/linuxserver/deluge
     container_name: deluge
     network_mode: host
     restart: unless-stopped
@@ -58,7 +59,7 @@ services:
 
   sonarr:
     # port 8989
-    image: linuxserver/sonarr:preview
+    image: ghcr.io/linuxserver/sonarr:preview
     container_name: sonarr
     network_mode: host
     depends_on:
@@ -74,10 +75,29 @@ services:
       - sonarr:/config
       - downloads:/downloads
     restart: unless-stopped
+
+  radarr:
+    # port 7878
+    image: ghcr.io/linuxserver/radarr
+    container_name: radarr
+    network_mode: host
+    depends_on:
+      - jackett
+      - deluge
+    env_file:
+      - shared.env
+    environment:
+      - PUID=0
+      - PGID=0
+    volumes:
+      - movies:/movies
+      - radarr:/config
+      - downloads:/downloads
+    restart: unless-stopped
   
   bazarr:
     # port 6767
-    image: linuxserver/bazarr
+    image: ghcr.io/linuxserver/bazarr
     container_name: bazarr
     network_mode: host
     env_file:
@@ -88,6 +108,7 @@ services:
     volumes:
       - bazarr:/config
       - tv-shows:/tv
+      - movies:/movies
     restart: unless-stopped
 
   portainer:
@@ -108,6 +129,7 @@ volumes:
   sessions:
   all-media:
   tv-shows:
+  movies:
   downloads:
   
   # Configs
@@ -116,5 +138,6 @@ volumes:
   jackett:
   deluge:
   sonarr:
+  radarr:
   bazarr:
   portainer:
