@@ -65,6 +65,10 @@ In **Queue**, make sure you see values in **Inexer**, **Download Client**, **Out
 
 Open **Deluge** and see the downloading torrent.
 
+#### Connect
+
+Add **Telegram**.
+
 ### Jellyfin
 
  - **Media Library**
@@ -73,6 +77,7 @@ Open **Deluge** and see the downloading torrent.
 
 ### Bazarr
 
- - **Connection Settings**
+ - **Sonarr**
    - **Hostname or IP Address:** `localhost`
    - **API Key:** Get from `Sonarr -> Settings -> General`
+ - **Notifications:** Telegram
