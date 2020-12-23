@@ -12,6 +12,21 @@ Set the next variables in the `.env` file. You need to get this values from [Tel
  - `TELEGRAM_API_HASH`
  - `TELEGRAM_TV_CHANNEL_ID`
 
+### telegram2twitter
+
+Set the next variables in the `.env` file.
+
+The next values are available in your [Twitter Developer Portal](https://developer.twitter.com/en/portal/projects-and-apps):
+
+ - `TELEGRAM_TWITTER_CONSUMER_KEY`
+ - `TELEGRAM_TWITTER_CONSUMER_SECRET`
+ - `TELEGRAM_TWITTER_ACCESS_TOKEN`
+ - `TELEGRAM_TWITTER_TOKEN_SECRET`
+
+You need also to ask Telegram [BotFather](https://t.me/botfather) to give you the *Bot Access Token* for `TELEGRAM_TWITTER_BOT_TOKEN`.
+
+Last variable is your `TELEGRAM_TWITTER_USER_ID`. You can launch the bot without it, and then you can get it by running the command `/id` in the bot.
+
 ## First Running
 
 ### telegram-download-daemon

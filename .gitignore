@@ -1,3 +1,6 @@
 .env
 jellyfin
 GITHUB_TOKEN
+
+# VSCode bug
+debug.log
