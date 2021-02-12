@@ -4,3 +4,6 @@ GITHUB_TOKEN
 
 # VSCode bug
 debug.log
+
+id_rsa
+seed/Dockerfile
