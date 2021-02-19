@@ -7,3 +7,4 @@ debug.log
 
 id_rsa
 seed/Dockerfile
+id_ed25519

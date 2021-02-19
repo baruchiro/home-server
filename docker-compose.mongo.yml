@@ -15,5 +15,6 @@ services:
         REPO_USER: baruchiro
         REPOSITORY: Accounts
         RESTORE_SCRIPT: mongo/load.sh
+        KEY_FILE: id_rsa
     links:
     - mongodb
