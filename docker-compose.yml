@@ -148,6 +148,10 @@ services:
   mongo-seed:
     build:
       context: ./seed
+      args:
+        REPO_USER: baruchiro
+        REPOSITORY: Accounts
+        RESTORE_SCRIPT: mongo/load.sh
     links:
     - mongodb
     
