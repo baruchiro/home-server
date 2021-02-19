@@ -2,7 +2,9 @@
 sudo systemctl stop home-server-compose.service
 git pull
 seed/init.sh
-docker-compose build --no-cache mongo-seed
-docker-compose pull
+# docker-compose -f docker-compose.yml -f docker-compose.mongo.yml build --no-cache mongo-seed
+docker-compose -f docker-compose.yml -f docker-compose.mongo.yml build mongo-seed
+docker-compose -f docker-compose.yml -f docker-compose.mongo.yml pull
 sudo systemctl start home-server-compose.service
+docker image prune -f
 journalctl -u home-server-compose.service -f

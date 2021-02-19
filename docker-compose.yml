@@ -136,24 +136,6 @@ services:
       TELEGRAM_TWITTER_BOT_TOKEN: ${TELEGRAM_TWITTER_BOT_TOKEN}
       TELEGRAM_TWITTER_USER_ID: ${TELEGRAM_TWITTER_USER_ID}
     restart: unless-stopped
-
-  mongodb:
-    image: mongo
-    ports:
-    - 27017:27017
-    environment:
-      MONGO_INITDB_ROOT_USERNAME: 
-      MONGO_INITDB_ROOT_PASSWORD:
-  
-  mongo-seed:
-    build:
-      context: ./seed
-      args:
-        REPO_USER: baruchiro
-        REPOSITORY: Accounts
-        RESTORE_SCRIPT: mongo/load.sh
-    links:
-    - mongodb
     
 
 
