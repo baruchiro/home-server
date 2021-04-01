@@ -60,7 +60,7 @@ services:
 
   sonarr:
     # port 8989
-    image: ghcr.io/linuxserver/sonarr:preview
+    image: ghcr.io/linuxserver/sonarr
     container_name: sonarr
     network_mode: host
     depends_on:
