@@ -8,9 +8,9 @@ You need to create a `.env` file alongside the `docker-compose.yml` file. The `d
 
 Set the next variables in the `.env` file. You need to get this values from [Telegram App Configuration](https://my.telegram.org/apps) page.
 
- - `TELEGRAM_API_ID`
- - `TELEGRAM_API_HASH`
- - `TELEGRAM_TV_CHANNEL_ID`
+- `TELEGRAM_API_ID`
+- `TELEGRAM_API_HASH`
+- `TELEGRAM_TV_CHANNEL_ID`
 
 ### telegram2twitter
 
@@ -18,10 +18,10 @@ Set the next variables in the `.env` file.
 
 The next values are available in your [Twitter Developer Portal](https://developer.twitter.com/en/portal/projects-and-apps):
 
- - `TELEGRAM_TWITTER_CONSUMER_KEY`
- - `TELEGRAM_TWITTER_CONSUMER_SECRET`
- - `TELEGRAM_TWITTER_ACCESS_TOKEN`
- - `TELEGRAM_TWITTER_TOKEN_SECRET`
+- `TELEGRAM_TWITTER_CONSUMER_KEY`
+- `TELEGRAM_TWITTER_CONSUMER_SECRET`
+- `TELEGRAM_TWITTER_ACCESS_TOKEN`
+- `TELEGRAM_TWITTER_TOKEN_SECRET`
 
 You need also to ask Telegram [BotFather](https://t.me/botfather) to give you the *Bot Access Token* for `TELEGRAM_TWITTER_BOT_TOKEN`.
 
@@ -37,12 +37,12 @@ You expect to see the message `Signed in successfully as {youe name}`.
 
 ### Deluge
 
- - `Preference -> Plugin -> Label` make sure the `Label` is checked, otherwise, Sonarr will can't contact with the downloads.
- - `Preference -> Downloads -> Download To` set to `/downloads`
- - `Preference -> Queue`
-   - **Seeding:** `0`
-   - **Share Ratio:** `0`
-   - **Time Ratio:** `0`
+- `Preference -> Plugin -> Label` make sure the `Label` is checked, otherwise, Sonarr will can't contact with the downloads.
+- `Preference -> Downloads -> Download To` set to `/downloads`
+- `Preference -> Queue`
+  - **Seeding:** `0`
+  - **Share Ratio:** `0`
+  - **Time Ratio:** `0`
 
 ### Jackett
 
@@ -54,15 +54,15 @@ Open the settings and check to show advanced settings.
 
 #### Media Management
 
- - **Rename Episodes:** 
-   - **Series Folder Format:** `{Series TitleYear}`
-   - **Season Folder Format:** `Season {season:00}`
+- **Rename Episodes:**
+  - **Series Folder Format:** `{Series TitleYear}`
+  - **Season Folder Format:** `Season {season:00}`
 
 #### Indexers
 
- - `Add Indexer -> Toznab`
-    - **URL:** `http://localhost:9117/torznab/all`
-    - **API Key:** Get from Jackett interface
+- `Add Indexer -> Toznab`
+  - **URL:** `http://localhost:9117/torznab/all`
+  - **API Key:** Get from Jackett interface
 
 #### Doanload Client
 
@@ -70,9 +70,9 @@ Open the settings and check to show advanced settings.
 
 #### Add Series
 
- - **Configuration**
-   - **Root Folder:** `/tv`
-   - **Quality Profile:** Select one
+- **Configuration**
+  - **Root Folder:** `/tv`
+  - **Quality Profile:** Select one
 
 Now select seasons and/or episods to monitor. Click on "Search" icon to download monitored.
 
@@ -86,13 +86,13 @@ Add **Telegram**.
 
 ### Jellyfin
 
- - **Media Library**
-   - **Content type:** `TV Shows`
-   - **Folders:** `/media/tv-shows`
+- **Media Library**
+  - **Content type:** `TV Shows`
+  - **Folders:** `/media/tv-shows`
 
 ### Bazarr
 
- - **Sonarr**
-   - **Hostname or IP Address:** `localhost`
-   - **API Key:** Get from `Sonarr -> Settings -> General`
- - **Notifications:** Telegram
+- **Sonarr**
+  - **Hostname or IP Address:** `localhost`
+  - **API Key:** Get from `Sonarr -> Settings -> General`
+- **Notifications:** Telegram
