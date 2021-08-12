@@ -144,6 +144,10 @@ services:
     env_file:
       - shared.env
     network_mode: host
+    entrypoint: >
+      sh -c "
+      npm ci --prefix /data --unsafe-perm --no-update-notifier --no-fund --only=production
+      && npm --no-update-notifier --no-fund start --cache /data/.npm -- --userDir /data"
     environment:
       NODE_RED_CREDENTIAL_SECRET: ${NODE_RED_CREDENTIAL_SECRET}
     volumes:
