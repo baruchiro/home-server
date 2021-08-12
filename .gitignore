@@ -10,6 +10,8 @@ seed/Dockerfile
 id_ed25519
 
 node_modules
+
+# https://nodered.org/docs/getting-started/docker#dockerfile-which-copies-in-local-resources
 node-red/*
 !node-red/package.json
 !node-red/package-lock.json
