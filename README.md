@@ -27,6 +27,10 @@ You need also to ask Telegram [BotFather](https://t.me/botfather) to give you th
 
 Last variable is your `TELEGRAM_TWITTER_USER_ID`. You can launch the bot without it, and then you can get it by running the command `/id` in the bot.
 
+### node-red
+
+Set the secret in the `.env` file with the key `NODE_RED_CREDENTIAL_SECRET`.
+
 ## First Running
 
 ### telegram-download-daemon

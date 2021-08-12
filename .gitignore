@@ -8,3 +8,11 @@ debug.log
 id_rsa
 seed/Dockerfile
 id_ed25519
+
+node_modules
+node-red/*
+!node-red/package.json
+!node-red/package-lock.json
+!node-red/flows.json
+!node-red/flows_cred.json
+!node-red/settings.js

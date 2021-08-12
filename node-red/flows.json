@@ -1,0 +1,111 @@
+[
+    {
+        "id": "ff23a045aaeb1a04",
+        "type": "tab",
+        "label": "Flow 1",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "3256cc19463b1083",
+        "type": "telegram bot",
+        "botname": "baruchiro_bot",
+        "usernames": "baruchiro",
+        "chatids": "",
+        "baseapiurl": "",
+        "updatemode": "polling",
+        "pollinterval": "300",
+        "usesocks": false,
+        "sockshost": "",
+        "socksport": "6667",
+        "socksusername": "anonymous",
+        "sockspassword": "",
+        "bothost": "",
+        "botpath": "",
+        "localbotport": "8443",
+        "publicbotport": "8443",
+        "privatekey": "",
+        "certificate": "",
+        "useselfsignedcertificate": false,
+        "sslterminated": false,
+        "verboselogging": false
+    },
+    {
+        "id": "827f08988f684e90",
+        "type": "inject",
+        "z": "ff23a045aaeb1a04",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 310,
+        "y": 100,
+        "wires": [
+            [
+                "7ffe5632b2afae9e"
+            ]
+        ]
+    },
+    {
+        "id": "7ffe5632b2afae9e",
+        "type": "debug",
+        "z": "ff23a045aaeb1a04",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 570,
+        "y": 120,
+        "wires": []
+    },
+    {
+        "id": "425fea3f754b7002",
+        "type": "telegram receiver",
+        "z": "ff23a045aaeb1a04",
+        "name": "",
+        "bot": "3256cc19463b1083",
+        "saveDataDir": "",
+        "filterCommands": false,
+        "x": 270,
+        "y": 220,
+        "wires": [
+            [
+                "3d1c5c1b623c8c3b"
+            ],
+            [
+                "3d1c5c1b623c8c3b"
+            ]
+        ]
+    },
+    {
+        "id": "3d1c5c1b623c8c3b",
+        "type": "telegram sender",
+        "z": "ff23a045aaeb1a04",
+        "name": "",
+        "bot": "3256cc19463b1083",
+        "haserroroutput": false,
+        "outputs": 1,
+        "x": 570,
+        "y": 240,
+        "wires": [
+            []
+        ]
+    }
+]
