@@ -140,13 +140,14 @@ services:
   
   node-red:
     # port 1880
+    # Dev: docker run -p 1880:1880 -v $(pwd)/node-red:/data --entrypoint="" --env-file .env nodered/node-red /bin/sh -c "npm install --prefix /data --unsafe-perm --no-update-notifier --no-fund --only=production && npm --no-update-notifier --no-fund start --cache /data/.npm -- --userDir /data"
     image: nodered/node-red
     env_file:
       - shared.env
     network_mode: host
     entrypoint: >
       sh -c "
-      npm ci --prefix /data --unsafe-perm --no-update-notifier --no-fund --only=production
+      npm install --prefix /data --unsafe-perm --no-update-notifier --no-fund --only=production
       && npm --no-update-notifier --no-fund start --cache /data/.npm -- --userDir /data"
     environment:
       NODE_RED_CREDENTIAL_SECRET: ${NODE_RED_CREDENTIAL_SECRET}
