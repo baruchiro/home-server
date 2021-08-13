@@ -8,8 +8,8 @@ You need to create a `.env` file alongside the `docker-compose.yml` file. The `d
 
 Set the next variables in the `.env` file. You need to get this values from [Telegram App Configuration](https://my.telegram.org/apps) page.
 
-- `TELEGRAM_API_ID`
-- `TELEGRAM_API_HASH`
+- `TELEGRAM_DAEMON_API_ID`
+- `TELEGRAM_DAEMON_API_HASH`
 - [`TELEGRAM_TV_CHANNEL_ID`](https://stackoverflow.com/a/39943226/839513)
 
 ### telegram2twitter
