@@ -31,6 +31,14 @@ Last variable is your `TELEGRAM_TWITTER_USER_ID`. You can launch the bot without
 
 Set the secret in the `.env` file with the key `NODE_RED_CREDENTIAL_SECRET`.
 
+## Register as Service
+
+```bash
+sudo cp home-server-compose.service /etc/systemd/system
+sudo systemctl enable home-server-compose.service
+./pull.sh
+```
+
 ## First Running
 
 ### telegram-download-daemon
