@@ -10,7 +10,7 @@ Set the next variables in the `.env` file. You need to get this values from [Tel
 
 - `TELEGRAM_API_ID`
 - `TELEGRAM_API_HASH`
-- `TELEGRAM_TV_CHANNEL_ID`
+- [`TELEGRAM_TV_CHANNEL_ID`](https://stackoverflow.com/a/39943226/839513)
 
 ### telegram2twitter
 
