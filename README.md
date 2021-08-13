@@ -8,9 +8,9 @@ You need to create a `.env` file alongside the `docker-compose.yml` file. The `d
 
 Set the next variables in the `.env` file. You need to get this values from [Telegram App Configuration](https://my.telegram.org/apps) page.
 
-- `TELEGRAM_API_ID`
-- `TELEGRAM_API_HASH`
-- `TELEGRAM_TV_CHANNEL_ID`
+- `TELEGRAM_DAEMON_API_ID`
+- `TELEGRAM_DAEMON_API_HASH`
+- [`TELEGRAM_TV_CHANNEL_ID`](https://stackoverflow.com/a/39943226/839513)
 
 ### telegram2twitter
 
@@ -30,6 +30,14 @@ Last variable is your `TELEGRAM_TWITTER_USER_ID`. You can launch the bot without
 ### node-red
 
 Set the secret in the `.env` file with the key `NODE_RED_CREDENTIAL_SECRET`.
+
+## Register as Service
+
+```bash
+sudo cp home-server-compose.service /etc/systemd/system
+sudo systemctl enable home-server-compose.service
+./pull.sh
+```
 
 ## First Running
 
