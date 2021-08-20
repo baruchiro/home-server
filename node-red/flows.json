@@ -52,31 +52,6 @@
         "verboselogging": false
     },
     {
-        "id": "fcc25e57.4073a",
-        "type": "telegram bot",
-        "d": true,
-        "botname": "HeinzBot",
-        "usernames": "",
-        "chatids": "",
-        "baseapiurl": "",
-        "updatemode": "polling",
-        "pollinterval": "300",
-        "usesocks": false,
-        "sockshost": "",
-        "socksport": "6667",
-        "socksusername": "anonymous",
-        "sockspassword": "",
-        "bothost": "",
-        "botpath": "",
-        "localbotport": "8443",
-        "publicbotport": "8443",
-        "privatekey": "",
-        "certificate": "",
-        "useselfsignedcertificate": false,
-        "sslterminated": false,
-        "verboselogging": false
-    },
-    {
         "id": "835f623edf3d3d87",
         "type": "telegram bot",
         "botname": "baruch_test_bot",
@@ -109,6 +84,30 @@
         "id": "65fe31c1cbed3b21",
         "type": "twitter-credentials",
         "screen_name": "baruchiro"
+    },
+    {
+        "id": "8c261cce4ce242d3",
+        "type": "telegram bot",
+        "botname": "@BcsStudentBlogBot",
+        "usernames": "baruchiro,BcsStudent",
+        "chatids": "",
+        "baseapiurl": "",
+        "updatemode": "polling",
+        "pollinterval": "300",
+        "usesocks": false,
+        "sockshost": "",
+        "socksport": "6667",
+        "socksusername": "anonymous",
+        "sockspassword": "",
+        "bothost": "",
+        "botpath": "",
+        "localbotport": "8443",
+        "publicbotport": "8443",
+        "privatekey": "",
+        "certificate": "",
+        "useselfsignedcertificate": false,
+        "sslterminated": false,
+        "verboselogging": false
     },
     {
         "id": "425fea3f754b7002",
@@ -413,8 +412,8 @@
         "bot": "835f623edf3d3d87",
         "saveDataDir": "/tmp",
         "filterCommands": false,
-        "x": 120,
-        "y": 480,
+        "x": 110,
+        "y": 420,
         "wires": [
             [
                 "a0188dcb1af69b5d"
@@ -430,8 +429,8 @@
         "bot": "835f623edf3d3d87",
         "haserroroutput": false,
         "outputs": 1,
-        "x": 350,
-        "y": 500,
+        "x": 340,
+        "y": 440,
         "wires": [
             []
         ]
@@ -596,8 +595,8 @@
         "bot": "835f623edf3d3d87",
         "haserroroutput": false,
         "outputs": 1,
-        "x": 430,
-        "y": 200,
+        "x": 530,
+        "y": 240,
         "wires": [
             []
         ]
@@ -738,7 +737,8 @@
         "y": 160,
         "wires": [
             [
-                "65d4487579214af8"
+                "65d4487579214af8",
+                "f92b6de415468444"
             ]
         ]
     },
@@ -789,25 +789,11 @@
         "wires": []
     },
     {
-        "id": "a4403248dae664d6",
-        "type": "telegram sender",
-        "z": "6f5c0c4c385d0ca8",
-        "name": "Test",
-        "bot": "835f623edf3d3d87",
-        "haserroroutput": false,
-        "outputs": 1,
-        "x": 1050,
-        "y": 100,
-        "wires": [
-            []
-        ]
-    },
-    {
         "id": "fb00412849880063",
         "type": "function",
         "z": "6f5c0c4c385d0ca8",
         "name": "message",
-        "func": "msg.payload = {\n    content: `${msg.topic.length} already handled`,\n    type: 'message',\n    chatId: 50573760\n}\n\n\nreturn msg;",
+        "func": "msg.payload = `${msg.topic.length} already handled`\n\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
@@ -817,7 +803,150 @@
         "y": 100,
         "wires": [
             [
-                "a4403248dae664d6"
+                "7d0f47b987404b7e"
+            ]
+        ]
+    },
+    {
+        "id": "a0cc6bbfa5f9fce0",
+        "type": "telegram sender",
+        "z": "6f5c0c4c385d0ca8",
+        "name": "Post to channel",
+        "bot": "8c261cce4ce242d3",
+        "haserroroutput": false,
+        "outputs": 1,
+        "x": 1080,
+        "y": 220,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "8c09cbfc358d70b3",
+        "type": "link in",
+        "z": "f4db1daabc9dfc5d",
+        "name": "payload string to test bot",
+        "links": [
+            "7d0f47b987404b7e"
+        ],
+        "x": 115,
+        "y": 300,
+        "wires": [
+            [
+                "498e1062ec1041b0"
+            ]
+        ],
+        "info": "Receive a `msg.payload` string and send it to the Test Bot"
+    },
+    {
+        "id": "498e1062ec1041b0",
+        "type": "function",
+        "z": "f4db1daabc9dfc5d",
+        "name": "Build test message",
+        "func": "msg.payload = {\n    type: \"message\",\n    content: msg.payload,\n    chatId: 50573760\n}\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 300,
+        "y": 300,
+        "wires": [
+            [
+                "b8b6d0bc65c4383a"
+            ]
+        ]
+    },
+    {
+        "id": "7d0f47b987404b7e",
+        "type": "link out",
+        "z": "6f5c0c4c385d0ca8",
+        "name": "send test message",
+        "links": [
+            "8c09cbfc358d70b3"
+        ],
+        "x": 995,
+        "y": 100,
+        "wires": []
+    },
+    {
+        "id": "ef4337cc3ca07f6a",
+        "type": "inject",
+        "z": "af30e016d4a15d8c",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 130,
+        "y": 560,
+        "wires": [
+            [
+                "093a73ad2a3cbcdb"
+            ]
+        ]
+    },
+    {
+        "id": "f27d31457127ceec",
+        "type": "telegram sender",
+        "z": "af30e016d4a15d8c",
+        "name": "",
+        "bot": "8c261cce4ce242d3",
+        "haserroroutput": false,
+        "outputs": 1,
+        "x": 500,
+        "y": 560,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "093a73ad2a3cbcdb",
+        "type": "function",
+        "z": "af30e016d4a15d8c",
+        "name": "",
+        "func": "msg.payload = {\n    type: \"message\",\n    content: msg.payload,\n    chatId: \"@BcsStudent\"\n}\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 300,
+        "y": 560,
+        "wires": [
+            [
+                "f27d31457127ceec"
+            ]
+        ]
+    },
+    {
+        "id": "f92b6de415468444",
+        "type": "function",
+        "z": "6f5c0c4c385d0ca8",
+        "name": "",
+        "func": "const postLink = msg.topic;\nconst { title, summary } = msg.article;\n\nconst tweet = `פוסט חדש בבלוג:\n\n<a href=\"${postLink}\"><b>${title}</b></a>\n\n${summary}`\n\nmsg = {\n    payload: {\n        type: \"message\",\n        content: tweet,\n        chatId: \"@BcsStudent\",\n        options: {parse_mode : \"HTML\"}\n    }\n}\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 880,
+        "y": 220,
+        "wires": [
+            [
+                "a0cc6bbfa5f9fce0"
             ]
         ]
     }
