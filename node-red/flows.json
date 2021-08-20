@@ -14,6 +14,13 @@
         "info": ""
     },
     {
+        "id": "6f5c0c4c385d0ca8",
+        "type": "tab",
+        "label": "B.Cs Student to tweet",
+        "disabled": false,
+        "info": ""
+    },
+    {
         "id": "af30e016d4a15d8c",
         "type": "tab",
         "label": "Testing",
@@ -99,6 +106,11 @@
         "name": "Upload to dropbox"
     },
     {
+        "id": "65fe31c1cbed3b21",
+        "type": "twitter-credentials",
+        "screen_name": "baruchiro"
+    },
+    {
         "id": "425fea3f754b7002",
         "type": "telegram receiver",
         "z": "ff23a045aaeb1a04",
@@ -173,47 +185,6 @@
             ],
             [
                 "3d1c5c1b623c8c3b"
-            ]
-        ]
-    },
-    {
-        "id": "b6ab085ae04fb292",
-        "type": "telegram sender",
-        "z": "ff23a045aaeb1a04",
-        "name": "",
-        "bot": "3256cc19463b1083",
-        "haserroroutput": false,
-        "outputs": 1,
-        "x": 1100,
-        "y": 220,
-        "wires": [
-            []
-        ]
-    },
-    {
-        "id": "f76094ba59ba3327",
-        "type": "change",
-        "z": "ff23a045aaeb1a04",
-        "name": "",
-        "rules": [
-            {
-                "t": "set",
-                "p": "payload.content",
-                "pt": "msg",
-                "to": "Hiiiii",
-                "tot": "str"
-            }
-        ],
-        "action": "",
-        "property": "",
-        "from": "",
-        "to": "",
-        "reg": false,
-        "x": 1010,
-        "y": 340,
-        "wires": [
-            [
-                "b6ab085ae04fb292"
             ]
         ]
     },
@@ -588,7 +559,8 @@
         "z": "f4db1daabc9dfc5d",
         "name": "catch",
         "links": [
-            "3103e475cf2ae6d6"
+            "3103e475cf2ae6d6",
+            "c702dea8ceaab124"
         ],
         "x": 125,
         "y": 120,
@@ -646,6 +618,206 @@
         "wires": [
             [
                 "b8b6d0bc65c4383a"
+            ]
+        ]
+    },
+    {
+        "id": "6a554971d75cd7e6",
+        "type": "feedparse",
+        "z": "6f5c0c4c385d0ca8",
+        "name": "ברוך אודם - B.Cs Student",
+        "url": "https://bscstudent.netlify.app/feed.xml",
+        "interval": 15,
+        "x": 270,
+        "y": 140,
+        "wires": [
+            [
+                "c47bab2ec04d7cae"
+            ]
+        ]
+    },
+    {
+        "id": "102468eb1a1eaab9",
+        "type": "twitter out",
+        "z": "6f5c0c4c385d0ca8",
+        "twitter": "65fe31c1cbed3b21",
+        "name": "Tweet",
+        "x": 1070,
+        "y": 160,
+        "wires": []
+    },
+    {
+        "id": "65d4487579214af8",
+        "type": "function",
+        "z": "6f5c0c4c385d0ca8",
+        "name": "prepare tweet",
+        "func": "const postLink = msg.topic;\nconst { title } = msg.article;\n\nconst tweet = `פוסט חדש בבלוג:\n\n${title}\n\n${postLink}\n\n#nodered2twitter @BcsStudent1`\n\nmsg = {\n    payload: tweet,\n    media: undefined,\n    params: undefined\n}\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 900,
+        "y": 160,
+        "wires": [
+            [
+                "102468eb1a1eaab9"
+            ]
+        ]
+    },
+    {
+        "id": "138ead0a7cf0a685",
+        "type": "catch",
+        "z": "6f5c0c4c385d0ca8",
+        "name": "",
+        "scope": null,
+        "uncaught": false,
+        "x": 210,
+        "y": 80,
+        "wires": [
+            [
+                "c702dea8ceaab124"
+            ]
+        ]
+    },
+    {
+        "id": "c702dea8ceaab124",
+        "type": "link out",
+        "z": "6f5c0c4c385d0ca8",
+        "name": "",
+        "links": [
+            "2086072a2e5d6b1e"
+        ],
+        "x": 335,
+        "y": 80,
+        "wires": []
+    },
+    {
+        "id": "c47bab2ec04d7cae",
+        "type": "switch",
+        "z": "6f5c0c4c385d0ca8",
+        "name": "if handled",
+        "property": "feeds",
+        "propertyType": "flow",
+        "rules": [
+            {
+                "t": "cont",
+                "v": "article.guid",
+                "vt": "msg"
+            },
+            {
+                "t": "else"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 500,
+        "y": 140,
+        "wires": [
+            [
+                "36387cfda3563c80"
+            ],
+            [
+                "a16e0f836e860784"
+            ]
+        ]
+    },
+    {
+        "id": "a16e0f836e860784",
+        "type": "function",
+        "z": "6f5c0c4c385d0ca8",
+        "name": "save as handled",
+        "func": "const feeds = flow.get(\"feeds\") || []\nflow.set(\"feeds\", [...feeds, msg.article.guid])\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 700,
+        "y": 160,
+        "wires": [
+            [
+                "65d4487579214af8"
+            ]
+        ]
+    },
+    {
+        "id": "36387cfda3563c80",
+        "type": "join",
+        "z": "6f5c0c4c385d0ca8",
+        "name": "All old messages",
+        "mode": "custom",
+        "build": "array",
+        "property": "topic",
+        "propertyType": "msg",
+        "key": "topic",
+        "joiner": "\\n",
+        "joinerType": "str",
+        "accumulate": false,
+        "timeout": "5",
+        "count": "",
+        "reduceRight": false,
+        "reduceExp": "",
+        "reduceInit": "",
+        "reduceInitType": "",
+        "reduceFixup": "",
+        "x": 690,
+        "y": 100,
+        "wires": [
+            [
+                "3fb0ac8cfb6314c7",
+                "fb00412849880063"
+            ]
+        ]
+    },
+    {
+        "id": "3fb0ac8cfb6314c7",
+        "type": "debug",
+        "z": "6f5c0c4c385d0ca8",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 870,
+        "y": 60,
+        "wires": []
+    },
+    {
+        "id": "a4403248dae664d6",
+        "type": "telegram sender",
+        "z": "6f5c0c4c385d0ca8",
+        "name": "Test",
+        "bot": "835f623edf3d3d87",
+        "haserroroutput": false,
+        "outputs": 1,
+        "x": 1050,
+        "y": 100,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "fb00412849880063",
+        "type": "function",
+        "z": "6f5c0c4c385d0ca8",
+        "name": "message",
+        "func": "msg.payload = {\n    content: `${msg.topic.length} already handled`,\n    type: 'message',\n    chatId: 50573760\n}\n\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 880,
+        "y": 100,
+        "wires": [
+            [
+                "a4403248dae664d6"
             ]
         ]
     }

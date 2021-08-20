@@ -18,3 +18,4 @@ node-red/*
 !node-red/flows.json
 !node-red/flows_cred.json
 !node-red/settings.js
+!node-red/context

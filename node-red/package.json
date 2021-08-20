@@ -5,6 +5,8 @@
     "private": true,
     "dependencies": {
         "node-red-contrib-telegrambot": "~10.0.4",
-        "node-red-node-dropbox": "~1.0.2"
+        "node-red-node-dropbox": "~1.0.2",
+        "node-red-node-feedparser": "~0.2.1",
+        "node-red-node-twitter": "~1.2.0"
     }
 }
