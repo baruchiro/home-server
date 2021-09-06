@@ -110,6 +110,11 @@
         "verboselogging": false
     },
     {
+        "id": "743ebdfa345dc8fc",
+        "type": "twitter-credentials",
+        "screen_name": "BcsStudent1"
+    },
+    {
         "id": "425fea3f754b7002",
         "type": "telegram receiver",
         "z": "ff23a045aaeb1a04",
