@@ -19,3 +19,4 @@ node-red/*
 !node-red/flows_cred.json
 !node-red/settings.js
 !node-red/context
+!node-red/node-red-node-twitter
