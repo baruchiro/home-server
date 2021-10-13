@@ -1,116 +1,116 @@
 version: '3'
 services:
-  telegram-download-daemon:
-    container_name: telegram-download-daemon
-    image: baruchiro/telegram-download-daemon
-    environment:
-      TELEGRAM_DAEMON_API_ID: ${TELEGRAM_DAEMON_API_ID}
-      TELEGRAM_DAEMON_API_HASH: ${TELEGRAM_DAEMON_API_HASH}
-      TELEGRAM_DAEMON_CHANNEL: ${TELEGRAM_TV_CHANNEL_ID}
-      TELEGRAM_DAEMON_DEST: "/downloads"
-      TELEGRAM_DAEMON_TEMP: "/telegram-temp"
-      TELEGRAM_DAEMON_SESSION_PATH: "/session"
-    volumes:
-      - tv-shows:/downloads
-      - sessions:/session
-    restart: unless-stopped
+  # telegram-download-daemon:
+  #   container_name: telegram-download-daemon
+  #   image: baruchiro/telegram-download-daemon
+  #   environment:
+  #     TELEGRAM_DAEMON_API_ID: ${TELEGRAM_DAEMON_API_ID}
+  #     TELEGRAM_DAEMON_API_HASH: ${TELEGRAM_DAEMON_API_HASH}
+  #     TELEGRAM_DAEMON_CHANNEL: ${TELEGRAM_TV_CHANNEL_ID}
+  #     TELEGRAM_DAEMON_DEST: "/downloads"
+  #     TELEGRAM_DAEMON_TEMP: "/telegram-temp"
+  #     TELEGRAM_DAEMON_SESSION_PATH: "/session"
+  #   volumes:
+  #     - tv-shows:/downloads
+  #     - sessions:/session
+  #   restart: unless-stopped
   
-  jellyfin:
-    # port 8096
-    container_name: jellyfin
-    image: jellyfin/jellyfin
-    restart: unless-stopped
-    network_mode: host
-    env_file:
-      - shared.env
-    volumes:
-      - jellyfin:/config
-      - jellyfin-cache:/cache
-      - all-media:/media
-      - tv-shows:/media/tv-shows
-      - movies:/media/movies
+  # jellyfin:
+  #   # port 8096
+  #   container_name: jellyfin
+  #   image: jellyfin/jellyfin
+  #   restart: unless-stopped
+  #   network_mode: host
+  #   env_file:
+  #     - shared.env
+  #   volumes:
+  #     - jellyfin:/config
+  #     - jellyfin-cache:/cache
+  #     - all-media:/media
+  #     - tv-shows:/media/tv-shows
+  #     - movies:/media/movies
   
-  jackett:
-    # port 9117
-    image: ghcr.io/linuxserver/jackett
-    container_name: jackett
-    network_mode: host
-    env_file:
-      - shared.env
-    environment:
-      - PUID=0
-      - PGID=0
-      - AUTO_UPDATE=true
-    volumes:
-      - jackett:/config
-      - downloads:/downloads
-    restart: unless-stopped
+  # jackett:
+  #   # port 9117
+  #   image: ghcr.io/linuxserver/jackett
+  #   container_name: jackett
+  #   network_mode: host
+  #   env_file:
+  #     - shared.env
+  #   environment:
+  #     - PUID=0
+  #     - PGID=0
+  #     - AUTO_UPDATE=true
+  #   volumes:
+  #     - jackett:/config
+  #     - downloads:/downloads
+  #   restart: unless-stopped
   
-  deluge:
-    # port 8112
-    image: ghcr.io/linuxserver/deluge
-    container_name: deluge
-    network_mode: host
-    restart: unless-stopped
-    env_file:
-      - shared.env
-    volumes:
-      - deluge:/config
-      - downloads:/downloads
+  # deluge:
+  #   # port 8112
+  #   image: ghcr.io/linuxserver/deluge
+  #   container_name: deluge
+  #   network_mode: host
+  #   restart: unless-stopped
+  #   env_file:
+  #     - shared.env
+  #   volumes:
+  #     - deluge:/config
+  #     - downloads:/downloads
 
-  sonarr:
-    # port 8989
-    image: ghcr.io/linuxserver/sonarr
-    container_name: sonarr
-    network_mode: host
-    depends_on:
-      - jackett
-      - deluge
-    env_file:
-      - shared.env
-    environment:
-      - PUID=0
-      - PGID=0
-    volumes:
-      - tv-shows:/tv
-      - sonarr:/config
-      - downloads:/downloads
-    restart: unless-stopped
+  # sonarr:
+  #   # port 8989
+  #   image: ghcr.io/linuxserver/sonarr
+  #   container_name: sonarr
+  #   network_mode: host
+  #   depends_on:
+  #     - jackett
+  #     - deluge
+  #   env_file:
+  #     - shared.env
+  #   environment:
+  #     - PUID=0
+  #     - PGID=0
+  #   volumes:
+  #     - tv-shows:/tv
+  #     - sonarr:/config
+  #     - downloads:/downloads
+  #   restart: unless-stopped
 
-  radarr:
-    # port 7878
-    image: ghcr.io/linuxserver/radarr
-    container_name: radarr
-    network_mode: host
-    depends_on:
-      - jackett
-      - deluge
-    env_file:
-      - shared.env
-    environment:
-      - PUID=0
-      - PGID=0
-    volumes:
-      - movies:/movies
-      - radarr:/config
-      - downloads:/downloads
-    restart: unless-stopped
+  # radarr:
+  #   # port 7878
+  #   image: ghcr.io/linuxserver/radarr
+  #   container_name: radarr
+  #   network_mode: host
+  #   depends_on:
+  #     - jackett
+  #     - deluge
+  #   env_file:
+  #     - shared.env
+  #   environment:
+  #     - PUID=0
+  #     - PGID=0
+  #   volumes:
+  #     - movies:/movies
+  #     - radarr:/config
+  #     - downloads:/downloads
+  #   restart: unless-stopped
   
-  bazarr:
-    # port 6767
-    image: ghcr.io/linuxserver/bazarr
-    container_name: bazarr
-    network_mode: host
-    env_file:
-      - shared.env
-    environment:
-      - PUID=0
-      - PGID=0
-    volumes:
-      - bazarr:/config
-      - tv-shows:/tv
-      - movies:/movies
-    restart: unless-stopped
+  # bazarr:
+  #   # port 6767
+  #   image: ghcr.io/linuxserver/bazarr
+  #   container_name: bazarr
+  #   network_mode: host
+  #   env_file:
+  #     - shared.env
+  #   environment:
+  #     - PUID=0
+  #     - PGID=0
+  #   volumes:
+  #     - bazarr:/config
+  #     - tv-shows:/tv
+  #     - movies:/movies
+  #   restart: unless-stopped
 
   portainer:
     image: portainer/portainer-ce
