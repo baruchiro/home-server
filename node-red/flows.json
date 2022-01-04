@@ -3,7 +3,7 @@
         "id": "ff23a045aaeb1a04",
         "type": "tab",
         "label": "paperwork",
-        "disabled": false,
+        "disabled": true,
         "info": ""
     },
     {
@@ -421,7 +421,8 @@
         "y": 420,
         "wires": [
             [
-                "a0188dcb1af69b5d"
+                "a0188dcb1af69b5d",
+                "3fd1aa15c85379f7"
             ],
             []
         ]
@@ -1061,5 +1062,22 @@
                 "7f831f300470afb0"
             ]
         ]
+    },
+    {
+        "id": "3fd1aa15c85379f7",
+        "type": "debug",
+        "z": "af30e016d4a15d8c",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 250,
+        "y": 500,
+        "wires": []
     }
 ]
