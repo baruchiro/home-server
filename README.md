@@ -49,6 +49,8 @@ You expect to see the message `Signed in successfully as {youe name}`.
 
 ### Deluge
 
+> **Port:** `8112`
+
 - `Preference -> Plugin -> Label` make sure the `Label` is checked, otherwise, Sonarr will can't contact with the downloads.
 - `Preference -> Downloads -> Download To` set to `/downloads`
 - `Preference -> Queue`
@@ -58,9 +60,13 @@ You expect to see the message `Signed in successfully as {youe name}`.
 
 ### Jackett
 
+> **Port:** `9117`
+
 Add indexers you want.
 
 ### Sonarr
+
+> **Port:** `8989`
 
 Open the settings and check to show advanced settings.
 
@@ -98,11 +104,15 @@ Add **Telegram**.
 
 ### Jellyfin
 
+> **Port:** `8096`
+
 - **Media Library**
   - **Content type:** `TV Shows`
   - **Folders:** `/media/tv-shows`
 
 ### Bazarr
+
+> **Port:** `6767`
 
 - **Sonarr**
   - **Hostname or IP Address:** `localhost`
