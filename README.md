@@ -50,6 +50,7 @@ You expect to see the message `Signed in successfully as {youe name}`.
 ### Deluge
 
 > **Port:** `8112`
+> **Default password:** `deluge`
 
 - `Preference -> Plugin -> Label` make sure the `Label` is checked, otherwise, Sonarr will can't contact with the downloads.
 - `Preference -> Downloads -> Download To` set to `/downloads`
