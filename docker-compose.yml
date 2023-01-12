@@ -125,36 +125,36 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock
       - portainer:/data
   
-  telegram2twitter:
-    image: baruchiro/telegram2twitter
-    container_name: telegram2twitter
-    network_mode: host
-    environment:
-      TELEGRAM_TWITTER_CONSUMER_KEY: ${TELEGRAM_TWITTER_CONSUMER_KEY}
-      TELEGRAM_TWITTER_CONSUMER_SECRET: ${TELEGRAM_TWITTER_CONSUMER_SECRET}
-      TELEGRAM_TWITTER_ACCESS_TOKEN: ${TELEGRAM_TWITTER_ACCESS_TOKEN}
-      TELEGRAM_TWITTER_TOKEN_SECRET: ${TELEGRAM_TWITTER_TOKEN_SECRET}
-      TELEGRAM_TWITTER_BOT_TOKEN: ${TELEGRAM_TWITTER_BOT_TOKEN}
-      TELEGRAM_TWITTER_USER_ID: ${TELEGRAM_TWITTER_USER_ID}
-      INTERFACE_NAME: wlan0
-    restart: unless-stopped
+#  telegram2twitter:
+#    image: baruchiro/telegram2twitter
+#    container_name: telegram2twitter
+#    network_mode: host
+#    environment:
+#      TELEGRAM_TWITTER_CONSUMER_KEY: ${TELEGRAM_TWITTER_CONSUMER_KEY}
+#      TELEGRAM_TWITTER_CONSUMER_SECRET: ${TELEGRAM_TWITTER_CONSUMER_SECRET}
+#      TELEGRAM_TWITTER_ACCESS_TOKEN: ${TELEGRAM_TWITTER_ACCESS_TOKEN}
+#      TELEGRAM_TWITTER_TOKEN_SECRET: ${TELEGRAM_TWITTER_TOKEN_SECRET}
+#      TELEGRAM_TWITTER_BOT_TOKEN: ${TELEGRAM_TWITTER_BOT_TOKEN}
+#      TELEGRAM_TWITTER_USER_ID: ${TELEGRAM_TWITTER_USER_ID}
+#      INTERFACE_NAME: wlan0
+#    restart: unless-stopped
   
-  node-red:
-    # port 1880
-    # Dev: docker run -p 1880:1880 -v $(pwd)/node-red:/data --entrypoint="" --env-file .env nodered/node-red /bin/sh -c "npm install --prefix /data --unsafe-perm --no-update-notifier --no-fund --only=production && npm --no-update-notifier --no-fund start --cache /data/.npm -- --userDir /data"
-    image: nodered/node-red
-    env_file:
-      - shared.env
-    network_mode: host
-    entrypoint: >
-      sh -c "
-      npm install --prefix /data --unsafe-perm --no-update-notifier --no-fund --only=production
-      && npm --no-update-notifier --no-fund start --cache /data/.npm -- --userDir /data"
-    environment:
-      NODE_RED_CREDENTIAL_SECRET: ${NODE_RED_CREDENTIAL_SECRET}
-    volumes:
-      - ./node-red:/data
-    restart: unless-stopped
+#  node-red:
+#    # port 1880
+#    # Dev: docker run -p 1880:1880 -v $(pwd)/node-red:/data --entrypoint="" --env-file .env nodered/node-red /bin/sh -c "npm install --prefix /data --unsafe-perm --no-update-notifier --no-fund --only=production && npm --no-update-notifier --no-fund start --cache /data/.npm -- --userDir /data"
+#    image: nodered/node-red
+#    env_file:
+#      - shared.env
+#    network_mode: host
+#    entrypoint: >
+#      sh -c "
+#      npm install --prefix /data --unsafe-perm --no-update-notifier --no-fund --only=production
+#      && npm --no-update-notifier --no-fund start --cache /data/.npm -- --userDir /data"
+#    environment:
+#      NODE_RED_CREDENTIAL_SECRET: ${NODE_RED_CREDENTIAL_SECRET}
+#    volumes:
+#      - ./node-red:/data
+#    restart: unless-stopped
     
 
 
