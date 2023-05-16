@@ -14,7 +14,7 @@ services:
   #     - tv-shows:/downloads
   #     - sessions:/session
   #   restart: unless-stopped
-  
+
   jellyfin:
     # port 8096
     container_name: jellyfin
@@ -29,7 +29,8 @@ services:
       - all-media:/media
       - tv-shows:/media/tv-shows
       - movies:/media/movies
-  
+      - downloads:/media/downloads
+
   jackett:
     # port 9117
     image: ghcr.io/linuxserver/jackett
@@ -45,7 +46,7 @@ services:
       - jackett:/config
       - downloads:/downloads
     restart: unless-stopped
-  
+
   deluge:
     # port 8112
     image: ghcr.io/linuxserver/deluge:2.1.1
@@ -77,25 +78,25 @@ services:
       - downloads:/downloads
     restart: unless-stopped
 
-  # radarr:
-  #   # port 7878
-  #   image: ghcr.io/linuxserver/radarr
-  #   container_name: radarr
-  #   network_mode: host
-  #   depends_on:
-  #     - jackett
-  #     - deluge
-  #   env_file:
-  #     - shared.env
-  #   environment:
-  #     - PUID=0
-  #     - PGID=0
-  #   volumes:
-  #     - movies:/movies
-  #     - radarr:/config
-  #     - downloads:/downloads
-  #   restart: unless-stopped
-  
+  radarr:
+    # port 7878
+    image: ghcr.io/linuxserver/radarr
+    container_name: radarr
+    network_mode: host
+    depends_on:
+      - jackett
+      - deluge
+    env_file:
+      - shared.env
+    environment:
+      - PUID=0
+      - PGID=0
+    volumes:
+      - movies:/movies
+      - radarr:/config
+      - downloads:/downloads
+    restart: unless-stopped
+
   bazarr:
     # port 6767
     image: ghcr.io/linuxserver/bazarr
@@ -124,47 +125,13 @@ services:
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - portainer:/data
-  
-  telegram2twitter:
-    image: baruchiro/telegram2twitter
-    container_name: telegram2twitter
-    network_mode: host
-    environment:
-      TELEGRAM_TWITTER_CONSUMER_KEY: ${TELEGRAM_TWITTER_CONSUMER_KEY}
-      TELEGRAM_TWITTER_CONSUMER_SECRET: ${TELEGRAM_TWITTER_CONSUMER_SECRET}
-      TELEGRAM_TWITTER_ACCESS_TOKEN: ${TELEGRAM_TWITTER_ACCESS_TOKEN}
-      TELEGRAM_TWITTER_TOKEN_SECRET: ${TELEGRAM_TWITTER_TOKEN_SECRET}
-      TELEGRAM_TWITTER_BOT_TOKEN: ${TELEGRAM_TWITTER_BOT_TOKEN}
-      TELEGRAM_TWITTER_USER_ID: ${TELEGRAM_TWITTER_USER_ID}
-      INTERFACE_NAME: wlan0
-    restart: unless-stopped
-  
-  node-red:
-    # port 1880
-    # Dev: docker run -p 1880:1880 -v $(pwd)/node-red:/data --entrypoint="" --env-file .env nodered/node-red /bin/sh -c "npm install --prefix /data --unsafe-perm --no-update-notifier --no-fund --only=production && npm --no-update-notifier --no-fund start --cache /data/.npm -- --userDir /data"
-    image: nodered/node-red
-    env_file:
-      - shared.env
-    network_mode: host
-    entrypoint: >
-      sh -c "
-      npm install --prefix /data --unsafe-perm --no-update-notifier --no-fund --only=production
-      && npm --no-update-notifier --no-fund start --cache /data/.npm -- --userDir /data"
-    environment:
-      NODE_RED_CREDENTIAL_SECRET: ${NODE_RED_CREDENTIAL_SECRET}
-    volumes:
-      - ./node-red:/data
-    restart: unless-stopped
-    
-
-
 volumes:
   sessions:
   all-media:
   tv-shows:
   movies:
   downloads:
-  
+
   # Configs
   jellyfin:
   jellyfin-cache:
@@ -174,3 +141,34 @@ volumes:
   radarr:
   bazarr:
   portainer:
+
+    # telegram2twitter:
+    #   image: baruchiro/telegram2twitter
+    #   container_name: telegram2twitter
+    #   network_mode: host
+    #   environment:
+    #     TELEGRAM_TWITTER_CONSUMER_KEY: ${TELEGRAM_TWITTER_CONSUMER_KEY}
+    #     TELEGRAM_TWITTER_CONSUMER_SECRET: ${TELEGRAM_TWITTER_CONSUMER_SECRET}
+    #     TELEGRAM_TWITTER_ACCESS_TOKEN: ${TELEGRAM_TWITTER_ACCESS_TOKEN}
+    #     TELEGRAM_TWITTER_TOKEN_SECRET: ${TELEGRAM_TWITTER_TOKEN_SECRET}
+    #     TELEGRAM_TWITTER_BOT_TOKEN: ${TELEGRAM_TWITTER_BOT_TOKEN}
+    #     TELEGRAM_TWITTER_USER_ID: ${TELEGRAM_TWITTER_USER_ID}
+    #     INTERFACE_NAME: wlan0
+    #   restart: unless-stopped
+
+    # node-red:
+    #   # port 1880
+    #   # Dev: docker run -p 1880:1880 -v $(pwd)/node-red:/data --entrypoint="" --env-file .env nodered/node-red /bin/sh -c "npm install --prefix /data --unsafe-perm --no-update-notifier --no-fund --only=production && npm --no-update-notifier --no-fund start --cache /data/.npm -- --userDir /data"
+    #   image: nodered/node-red
+    #   env_file:
+    #     - shared.env
+    #   network_mode: host
+    #   entrypoint: >
+    #     sh -c " npm install --prefix /data --unsafe-perm --no-update-notifier --no-fund --only=production && npm --no-update-notifier --no-fund start --cache /data/.npm -- --userDir /data"
+    #   environment:
+    #     NODE_RED_CREDENTIAL_SECRET: ${NODE_RED_CREDENTIAL_SECRET}
+    #   volumes:
+    #     - ./node-red:/data
+    #   restart: unless-stopped
+
+
