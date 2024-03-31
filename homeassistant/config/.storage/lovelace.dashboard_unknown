@@ -1,0 +1,40 @@
+{
+  "version": 1,
+  "minor_version": 1,
+  "key": "lovelace.dashboard_unknown",
+  "data": {
+    "config": {
+      "views": [
+        {
+          "title": "Home",
+          "cards": [
+            {
+              "type": "entities",
+              "entities": [
+                {
+                  "entity": "sensor.jewish_calendar_parshat_hashavua",
+                  "name": "פרשת השבוע"
+                },
+                {
+                  "entity": "sensor.jewish_calendar_upcoming_candle_lighting",
+                  "name": "הדלקת נרות",
+                  "format": "time"
+                },
+                {
+                  "entity": "sensor.jewish_calendar_upcoming_havdalah",
+                  "name": "הבדלה",
+                  "format": "time"
+                },
+                {
+                  "entity": "sensor.jewish_calendar_daf_yomi",
+                  "name": "דף יומי"
+                }
+              ],
+              "show_header_toggle": false
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

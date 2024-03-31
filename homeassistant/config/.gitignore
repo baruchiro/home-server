@@ -5,9 +5,9 @@
 !*.yaml
 !.gitignore
 !*.md
+!.storage
 
 # Ignore folders.
-.storage
 .cloud
 .google.token
 
