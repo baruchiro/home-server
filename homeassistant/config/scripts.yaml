@@ -1,0 +1,44 @@
+radio_galei_zahal:
+  alias: radio galei zahal
+  sequence:
+  - service: media_player.play_media
+    target:
+      entity_id: media_player.living_room_speaker
+    data:
+      media_content_id: media-source://radio_browser/962326cb-0601-11e8-ae97-52543be04c81
+      media_content_type: audio/mpeg
+    metadata:
+      title: Galei Zahal
+      thumbnail: ''
+      media_class: music
+      children_media_class:
+      navigateIds:
+      - {}
+      - media_content_type: app
+        media_content_id: media-source://radio_browser
+      - media_content_type: music
+        media_content_id: media-source://radio_browser/country/IL
+  mode: single
+  icon: mdi:radio
+radio_kan_g:
+  alias: radio kan g
+  sequence:
+  - service: media_player.play_media
+    target:
+      entity_id: media_player.living_room_speaker
+    data:
+      media_content_id: media-source://radio_browser/0fcffb77-b99e-11e9-acb2-52543be04c81
+      media_content_type: audio/mpeg
+    metadata:
+      title: KAN gimel (real)
+      thumbnail: https://kanweb.blob.core.windows.net/download/pictures/Logo_Color9_img_.png
+      media_class: music
+      children_media_class:
+      navigateIds:
+      - {}
+      - media_content_type: app
+        media_content_id: media-source://radio_browser
+      - media_content_type: music
+        media_content_id: media-source://radio_browser/country/IL
+  mode: single
+  icon: mdi:radio

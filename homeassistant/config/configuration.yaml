@@ -9,3 +9,10 @@ frontend:
 automation: !include automations.yaml
 script: !include scripts.yaml
 scene: !include scenes.yaml
+
+jewish_calendar:
+  language: hebrew
+  # Tel Aviv
+  latitude: 32.0853
+  longitude: 34.7818
+  candle_lighting_minutes_before_sunset: 20
