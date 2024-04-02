@@ -9,6 +9,10 @@
           "title": "Home",
           "cards": [
             {
+              "type": "media-control",
+              "entity": "media_player.living_room_speaker"
+            },
+            {
               "type": "entities",
               "entities": [
                 {
@@ -28,6 +32,20 @@
                 {
                   "entity": "sensor.jewish_calendar_daf_yomi",
                   "name": "דף יומי"
+                }
+              ],
+              "show_header_toggle": false
+            },
+            {
+              "type": "entities",
+              "entities": [
+                {
+                  "entity": "script.radio_kan_g",
+                  "name": "כאן ג"
+                },
+                {
+                  "entity": "script.radio_galei_zahal",
+                  "name": "גלי צה\"ל"
                 }
               ],
               "show_header_toggle": false

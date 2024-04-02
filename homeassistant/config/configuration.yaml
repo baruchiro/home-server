@@ -13,3 +13,32 @@ scene: !include scenes.yaml
 jewish_calendar:
   language: hebrew
   candle_lighting_minutes_before_sunset: 20
+
+rest:
+  - resource: https://api.npmjs.org/downloads/point/last-week/use-route-as-state
+    scan_interval: 43200 # 12 hours
+    sensor:
+      - name: npm_downloads.use_route_as_state
+        value_template: "{{ value_json.downloads }}"
+        unit_of_measurement: 'downloads'
+  - resource: https://api.npmjs.org/downloads/point/last-week/pursuit-rotor-task
+    scan_interval: 43200 # 12 hours
+    sensor:
+      - name: npm_downloads.pursuit_rotor_task
+        value_template: "{{ value_json.downloads }}"
+        unit_of_measurement: 'downloads'
+  - resource: https://api.npmjs.org/downloads/point/last-week/electron-google-oauth2
+    scan_interval: 43200 # 12 hours
+    sensor:
+      - name: npm_downloads.electron_google_oauth2
+        value_template: "{{ value_json.downloads }}"
+        unit_of_measurement: 'downloads'
+
+scrape:
+  - resource: https://marketplace.visualstudio.com/items?itemName=baruchiro.url-title-preview
+    scan_interval: 43200 # 12 hours
+    sensor:
+      - name: "URL Title Preview Downloads"
+        select: ".installs-text"
+        value_template: "{{ value.split(' ')[1] | int(-1) }}"
+        icon: mdi:microsoft-visual-studio-code

@@ -12,6 +12,15 @@
         "require_admin": false,
         "mode": "storage",
         "url_path": "dashboard-unknown"
+      },
+      {
+        "id": "dashboard_analytics",
+        "show_in_sidebar": true,
+        "icon": "mdi:poll",
+        "title": "Analytics",
+        "require_admin": true,
+        "mode": "storage",
+        "url_path": "dashboard-analytics"
       }
     ]
   }
