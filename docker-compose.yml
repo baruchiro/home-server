@@ -136,6 +136,8 @@ services:
     restart: unless-stopped
     env_file:
       - shared.env
+    devices:
+      - /dev/ttyACM0:/dev/ttyACM0
     privileged: true
     network_mode: host
   
