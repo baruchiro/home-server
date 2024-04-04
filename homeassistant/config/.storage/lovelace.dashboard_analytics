@@ -36,7 +36,8 @@
               "graph": "line",
               "type": "sensor",
               "entity": "sensor.url_title_preview_downloads",
-              "detail": 1
+              "detail": 1,
+              "unit": "downloads"
             }
           ]
         }

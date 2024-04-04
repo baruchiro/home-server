@@ -49,6 +49,30 @@
                 }
               ],
               "show_header_toggle": false
+            },
+            {
+              "initial_view": "listWeek",
+              "type": "calendar",
+              "entities": [
+                "calendar.baruchiro_gmail_com"
+              ]
+            },
+            {
+              "type": "thermostat",
+              "entity": "climate.mzgn",
+              "features": [
+                {
+                  "type": "climate-hvac-modes",
+                  "hvac_modes": [
+                    "off",
+                    "heat",
+                    "cool",
+                    "dry",
+                    "fan_only",
+                    "auto"
+                  ]
+                }
+              ]
             }
           ]
         }
