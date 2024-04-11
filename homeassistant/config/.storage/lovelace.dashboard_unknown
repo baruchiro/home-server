@@ -73,6 +73,13 @@
                   ]
                 }
               ]
+            },
+            {
+              "type": "light",
+              "entity": "light.unknown_light",
+              "hold_action": {
+                "action": "toggle"
+              }
             }
           ]
         }

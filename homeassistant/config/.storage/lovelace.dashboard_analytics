@@ -12,32 +12,36 @@
               "graph": "line",
               "type": "sensor",
               "entity": "sensor.npm_downloads_use_route_as_state",
-              "detail": 1,
+              "detail": 2,
               "icon": "mdi:npm",
-              "name": "use-route-as-state"
+              "name": "use-route-as-state (week)",
+              "hours_to_show": 168
             },
             {
               "graph": "line",
               "type": "sensor",
               "entity": "sensor.npm_downloads_electron_google_oauth2",
-              "detail": 1,
+              "detail": 2,
               "icon": "mdi:npm",
-              "name": "electron-google-oauth2"
+              "name": "electron-google-oauth2 (week)",
+              "hours_to_show": 168
             },
             {
               "graph": "line",
               "type": "sensor",
               "entity": "sensor.npm_downloads_pursuit_rotor_task",
-              "detail": 1,
+              "detail": 2,
               "icon": "mdi:npm",
-              "name": "pursuit-rotor-task"
+              "name": "pursuit-rotor-task (week)",
+              "hours_to_show": 168
             },
             {
               "graph": "line",
               "type": "sensor",
               "entity": "sensor.url_title_preview_downloads",
-              "detail": 1,
-              "unit": "downloads"
+              "detail": 2,
+              "unit": "downloads",
+              "hours_to_show": 168
             }
           ]
         }

@@ -140,7 +140,18 @@ services:
       - /dev/ttyACM0:/dev/ttyACM0
     privileged: true
     network_mode: host
-  
+
+  tunnel:
+    container_name: cloudflared-tunnel
+    image: cloudflare/cloudflared
+    restart: unless-stopped
+    env_file:
+      - shared.env
+    command: tunnel run
+    environment:
+      - TUNNEL_TOKEN=${TUNNEL_TOKEN}
+    network_mode: host
+
 volumes:
   sessions:
   all-media:

@@ -42,3 +42,18 @@ radio_kan_g:
         media_content_id: media-source://radio_browser/country/IL
   mode: single
   icon: mdi:radio
+ask_for_4_after_noon_radio:
+  alias: Ask for 4 after noon Radio
+  use_blueprint:
+    path: homeassistant/confirmable_notification.yaml
+    input:
+      notify_device: b85fff6170a535d2566d4ea2ce88674f
+      title: 4 אחרי הצהריים
+      message: האם את רוצה להפעיל?
+      confirm_text: כן
+      dismiss_text: לא עכשיו
+      confirm_action:
+      - service: script.radio_galei_zahal
+        metadata: {}
+        data: {}
+  icon: mdi:radio

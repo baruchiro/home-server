@@ -1,0 +1,145 @@
+{
+  "version": 1,
+  "minor_version": 1,
+  "key": "lovelace",
+  "data": {
+    "config": {
+      "title": "Home",
+      "views": [
+        {
+          "path": "default_view",
+          "title": "Home",
+          "cards": [
+            {
+              "type": "grid",
+              "square": true,
+              "columns": 3,
+              "cards": [
+                {
+                  "type": "picture-entity",
+                  "entity": "person.baruch_odem",
+                  "aspect_ratio": "1",
+                  "show_name": false,
+                  "image": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 50 50' width='50' height='50' style='background-color:%23b3e5fc'%3E%3Cg%3E%3Ctext font-family='roboto' x='50%25' y='50%25' text-anchor='middle' stroke='%23212121' font-size='1.3em' dy='.3em'%3EBO%3C/text%3E%3C/g%3E%3C/svg%3E"
+                },
+                {
+                  "type": "picture-entity",
+                  "entity": "person.zhr",
+                  "aspect_ratio": "1",
+                  "show_name": false,
+                  "image": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 50 50' width='50' height='50' style='background-color:%23b3e5fc'%3E%3Cg%3E%3Ctext font-family='roboto' x='50%25' y='50%25' text-anchor='middle' stroke='%23212121' font-size='1.3em' dy='.3em'%3Eז%3C/text%3E%3C/g%3E%3C/svg%3E"
+                }
+              ]
+            },
+            {
+              "type": "entities",
+              "entities": [
+                "binary_sensor.jewish_calendar_erev_shabbat_hag",
+                "binary_sensor.jewish_calendar_issur_melacha_in_effect",
+                "binary_sensor.jewish_calendar_motzei_shabbat_hag"
+              ],
+              "title": "Binary sensor"
+            },
+            {
+              "type": "entities",
+              "entities": [
+                "calendar.appointments_on_facebook_for_kspyvn_m_qb_hvtsvt_vtvmty",
+                "calendar.baruchiro_gmail_com",
+                "calendar.family",
+                "calendar.from_checkmarx",
+                "calendar.scar_open_calendar",
+                "calendar.zo_ac94_gmail_com",
+                "calendar.byt_hknst_hqhylty",
+                "calendar.khgym_yhvdyym",
+                "calendar.m_d_yshl_ts"
+              ],
+              "title": "Calendar"
+            },
+            {
+              "type": "thermostat",
+              "entity": "climate.mzgn",
+              "features": [
+                {
+                  "type": "climate-hvac-modes",
+                  "hvac_modes": [
+                    "off",
+                    "heat",
+                    "cool",
+                    "dry",
+                    "fan_only",
+                    "auto"
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "entities",
+              "entities": [
+                "light.unknown_light"
+              ],
+              "title": "Light"
+            },
+            {
+              "type": "grid",
+              "square": false,
+              "columns": 1,
+              "cards": [
+                {
+                  "type": "media-control",
+                  "entity": "media_player.edge_chromium"
+                },
+                {
+                  "type": "media-control",
+                  "entity": "media_player.living_room_speaker"
+                },
+                {
+                  "type": "media-control",
+                  "entity": "media_player.m2102j20sg"
+                }
+              ]
+            },
+            {
+              "type": "entities",
+              "entities": [
+                "sensor.home_server",
+                "sensor.jewish_calendar_alot_hashachar",
+                "sensor.jewish_calendar_chatzot_hayom",
+                "sensor.jewish_calendar_daf_yomi",
+                "sensor.jewish_calendar_date",
+                "sensor.jewish_calendar_day_of_the_omer",
+                "sensor.jewish_calendar_hanetz_hachama",
+                "sensor.jewish_calendar_holiday",
+                "sensor.jewish_calendar_latest_time_for_shma_gr_a",
+                "sensor.jewish_calendar_latest_time_for_shma_mg_a",
+                "sensor.jewish_calendar_latest_time_for_tefilla_gr_a",
+                "sensor.jewish_calendar_latest_time_for_tefilla_mg_a",
+                "sensor.jewish_calendar_mincha_gedola",
+                "sensor.jewish_calendar_mincha_ketana",
+                "sensor.jewish_calendar_parshat_hashavua",
+                "sensor.jewish_calendar_plag_hamincha",
+                "sensor.jewish_calendar_shkia",
+                "sensor.jewish_calendar_t_set_hakochavim",
+                "sensor.jewish_calendar_talit_and_tefillin",
+                "sensor.jewish_calendar_upcoming_candle_lighting",
+                "sensor.jewish_calendar_upcoming_havdalah",
+                "sensor.jewish_calendar_upcoming_shabbat_candle_lighting",
+                "sensor.jewish_calendar_upcoming_shabbat_havdalah",
+                "sensor.npm_downloads_electron_google_oauth2",
+                "sensor.npm_downloads_pursuit_rotor_task",
+                "sensor.npm_downloads_use_route_as_state",
+                "sensor.sonarr_upcoming",
+                "sensor.url_title_preview_downloads"
+              ],
+              "title": "Sensor"
+            },
+            {
+              "type": "weather-forecast",
+              "entity": "weather.forecast_home",
+              "show_forecast": false
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

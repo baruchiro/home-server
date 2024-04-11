@@ -1,6 +1,16 @@
-
 # Loads default set of integrations. Do not remove.
 default_config:
+
+# Allow Cloudflare Tunnel from Docker
+http:
+  use_x_forwarded_for: true
+  trusted_proxies:
+    - 192.168.1.105
+    - 172.30.33.3
+    - 127.0.0.1
+    - ::1
+    - 172.20.0.6
+    - 192.168.0.0/24
 
 # Load frontend themes from the themes folder
 frontend:
@@ -20,19 +30,19 @@ rest:
     sensor:
       - name: npm_downloads.use_route_as_state
         value_template: "{{ value_json.downloads }}"
-        unit_of_measurement: 'downloads'
+        unit_of_measurement: "downloads"
   - resource: https://api.npmjs.org/downloads/point/last-week/pursuit-rotor-task
     scan_interval: 43200 # 12 hours
     sensor:
       - name: npm_downloads.pursuit_rotor_task
         value_template: "{{ value_json.downloads }}"
-        unit_of_measurement: 'downloads'
+        unit_of_measurement: "downloads"
   - resource: https://api.npmjs.org/downloads/point/last-week/electron-google-oauth2
     scan_interval: 43200 # 12 hours
     sensor:
       - name: npm_downloads.electron_google_oauth2
         value_template: "{{ value_json.downloads }}"
-        unit_of_measurement: 'downloads'
+        unit_of_measurement: "downloads"
 
 scrape:
   - resource: https://marketplace.visualstudio.com/items?itemName=baruchiro.url-title-preview
