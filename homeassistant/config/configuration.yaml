@@ -24,6 +24,17 @@ jewish_calendar:
   language: hebrew
   candle_lighting_minutes_before_sunset: 20
 
+switch:
+  - platform: flux
+    lights:
+      - light.unknown_light
+    start_time: "7:00"
+    stop_time: "23:00"
+    start_colortemp: 4000
+    sunset_colortemp: 3000
+    stop_colortemp: 1900
+    mode: xy
+
 rest:
   - resource: https://api.npmjs.org/downloads/point/last-week/use-route-as-state
     scan_interval: 43200 # 12 hours

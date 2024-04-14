@@ -21,6 +21,15 @@
         "require_admin": true,
         "mode": "storage",
         "url_path": "dashboard-analytics"
+      },
+      {
+        "id": "dashboard_hardware",
+        "show_in_sidebar": true,
+        "icon": "mdi:pliers",
+        "title": "Hardware",
+        "require_admin": true,
+        "mode": "storage",
+        "url_path": "dashboard-hardware"
       }
     ]
   }

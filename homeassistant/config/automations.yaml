@@ -75,6 +75,9 @@
       domain: media_player
       entity_id: 9c758cedfcec0f2a98fcc20f75d02648
       type: is_idle
+  - condition: zone
+    entity_id: person.zhr
+    zone: zone.home
   action:
   - service: script.radio_galei_zahal
     metadata: {}
@@ -144,11 +147,13 @@
   condition: []
   action:
   - service: media_player.media_stop
+    continue_on_error: true
     metadata: {}
     data: {}
     target:
       device_id: 7896a9269282b5af07489f4edd966b28
   - service: light.turn_off
+    continue_on_error: true
     metadata: {}
     data: {}
     target:
@@ -187,38 +192,18 @@
   - condition: state
     entity_id: binary_sensor.jewish_calendar_issur_melacha_in_effect
     state: 'off'
+  - condition: zone
+    entity_id: person.zhr
+    zone: zone.home
+  - condition: time
+    weekday:
+    - sun
+    - mon
+    - tue
+    - wed
+    - thu
   action:
   - service: script.ask_for_4_after_noon_radio
     metadata: {}
     data: {}
-  mode: single
-- id: '1712773601935'
-  alias: Dimm the light manual test
-  description: ''
-  trigger:
-  - platform: event
-    event_type: ''
-  - platform: time
-    at: '21:00:00'
-  condition: []
-  action:
-  - repeat:
-      sequence:
-      - service: light.turn_on
-        metadata: {}
-        data:
-          transition: 300
-          brightness_step_pct: -10
-        target:
-          device_id: 3e1275de086f4d16cf7a9c1462791943
-      - delay:
-          hours: 0
-          minutes: 5
-          seconds: 0
-          milliseconds: 0
-      until:
-      - condition: numeric_state
-        entity_id: light.unknown_light
-        attribute: brightness
-        below: 20
   mode: single

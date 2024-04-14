@@ -80,6 +80,12 @@
               "hold_action": {
                 "action": "toggle"
               }
+            },
+            {
+              "type": "entities",
+              "entities": [
+                "switch.flux"
+              ]
             }
           ]
         }

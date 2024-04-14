@@ -1,0 +1,41 @@
+{
+  "version": 1,
+  "minor_version": 1,
+  "key": "lovelace.dashboard_hardware",
+  "data": {
+    "config": {
+      "views": [
+        {
+          "title": "Home",
+          "cards": [
+            {
+              "type": "gauge",
+              "entity": "sensor.system_monitor_processor_use"
+            },
+            {
+              "type": "gauge",
+              "entity": "sensor.system_monitor_memory_usage"
+            },
+            {
+              "graph": "line",
+              "type": "sensor",
+              "entity": "sensor.system_monitor_processor_temperature",
+              "detail": 1,
+              "name": "Processor Temperature"
+            },
+            {
+              "type": "sensor",
+              "entity": "sensor.system_monitor_processor_use",
+              "graph": "line"
+            },
+            {
+              "type": "sensor",
+              "entity": "sensor.system_monitor_memory_usage",
+              "graph": "line"
+            }
+          ]
+        }
+      ]
+    }
+  }
+}
