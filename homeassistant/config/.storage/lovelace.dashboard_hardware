@@ -17,6 +17,17 @@
               "entity": "sensor.system_monitor_memory_usage"
             },
             {
+              "type": "gauge",
+              "entity": "sensor.system_monitor_disk_usage",
+              "name": "Disk usage",
+              "needle": false,
+              "severity": {
+                "green": 0,
+                "yellow": 80,
+                "red": 90
+              }
+            },
+            {
               "graph": "line",
               "type": "sensor",
               "entity": "sensor.system_monitor_processor_temperature",
@@ -32,17 +43,6 @@
               "type": "sensor",
               "entity": "sensor.system_monitor_memory_usage",
               "graph": "line"
-            },
-            {
-              "type": "gauge",
-              "entity": "sensor.system_monitor_disk_usage",
-              "name": "Disk usage",
-              "needle": false,
-              "severity": {
-                "green": 0,
-                "yellow": 80,
-                "red": 90
-              }
             }
           ]
         }

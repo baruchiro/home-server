@@ -29,7 +29,6 @@ services:
       - all-media:/media
       - tv-shows:/media/tv-shows
       - movies:/media/movies
-      - downloads:/media/downloads
 
   jackett:
     # port 9117
@@ -114,6 +113,7 @@ services:
     restart: unless-stopped
 
   portainer:
+    # port 9000
     image: portainer/portainer-ce
     command: -H unix:///var/run/docker.sock
     restart: always
@@ -127,6 +127,7 @@ services:
       - portainer:/data
 
   homeassistant:
+    # port 8123
     container_name: homeassistant
     image: "ghcr.io/home-assistant/home-assistant:stable"
     volumes:
