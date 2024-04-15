@@ -32,6 +32,17 @@
               "type": "sensor",
               "entity": "sensor.system_monitor_memory_usage",
               "graph": "line"
+            },
+            {
+              "type": "gauge",
+              "entity": "sensor.system_monitor_disk_usage",
+              "name": "Disk usage",
+              "needle": false,
+              "severity": {
+                "green": 0,
+                "yellow": 80,
+                "red": 90
+              }
             }
           ]
         }
