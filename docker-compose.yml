@@ -181,7 +181,44 @@ services:
     environment:
       - N8N_SECURE_COOKIE=false
     volumes:
-        - ./n8n:/home/node/.n8n
+        - n8n:/home/node/.n8n
+  
+  code-server:
+    # port 8443
+    image: lscr.io/linuxserver/code-server:latest
+    container_name: code-server
+    privileged: true
+    env_file:
+      - shared.env
+    environment:
+      - PUID=1000
+      - PGID=1000
+      # - PASSWORD=password #optional
+      # - HASHED_PASSWORD= #optional
+      # - SUDO_PASSWORD=password #optional
+      # - SUDO_PASSWORD_HASH= #optional
+      - PROXY_DOMAIN=code.${DOMAIN} #optional
+      - DEFAULT_WORKSPACE=/sources/home-server #optional
+    volumes:
+      - code-server:/config
+      - ./:/sources/home-server
+      - /var/run/docker.sock:/var/run/docker.sock
+    ports:
+      - 8443:8443
+    restart: unless-stopped
+
+  baserow:
+    # port 8765
+    container_name: baserow
+    image: baserow/baserow:1.24.2
+    environment:
+      BASEROW_PUBLIC_URL: baserow.${DOMAIN}
+    ports:
+      - "8765:80"
+      - "8764:443"
+    volumes:
+      - baserow_data:/baserow/data
+    
 
 volumes:
   sessions:
@@ -199,6 +236,9 @@ volumes:
   radarr:
   bazarr:
   portainer:
+  baserow_data:
+  code-server:
+  n8n:
 
     # telegram2twitter:
     #   image: baruchiro/telegram2twitter
