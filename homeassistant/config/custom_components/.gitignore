@@ -1,0 +1,9 @@
+# Ignore everything in this directory
+*
+
+# But not these files...
+!.gitignore
+
+# And not the manifests of custom components
+!*/
+!*/manifest.json
