@@ -1,0 +1,30 @@
+services:
+  tunnel:
+    container_name: cloudflared-tunnel
+    image: cloudflare/cloudflared
+    restart: unless-stopped
+    env_file:
+      - shared.env
+    command: tunnel run
+    environment:
+      - TUNNEL_TOKEN=${TUNNEL_TOKEN}
+    network_mode: host
+  
+  tailscale:
+    container_name: tailscale
+    image: tailscale/tailscale
+    hostname: tailscale-home-server
+    restart: unless-stopped
+    env_file:
+      - shared.env
+    volumes:
+      - /var/lib:/var/lib
+      - /dev/net/tun:/dev/net/tun
+    environment:
+      - TS_AUTHKEY=${TS_AUTHKEY}
+      - TS_STATE_DIR=/var/lib/tailscale
+    network_mode: host
+    cap_add:
+      - net_admin
+      - sys_module
+  

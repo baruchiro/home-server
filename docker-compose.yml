@@ -1,4 +1,3 @@
-version: '3'
 services:
   # telegram-download-daemon:
   #   container_name: telegram-download-daemon
@@ -142,35 +141,6 @@ services:
     privileged: true
     network_mode: host
 
-  tunnel:
-    container_name: cloudflared-tunnel
-    image: cloudflare/cloudflared
-    restart: unless-stopped
-    env_file:
-      - shared.env
-    command: tunnel run
-    environment:
-      - TUNNEL_TOKEN=${TUNNEL_TOKEN}
-    network_mode: host
-  
-  tailscale:
-    container_name: tailscale
-    image: tailscale/tailscale
-    hostname: tailscale-home-server
-    restart: unless-stopped
-    env_file:
-      - shared.env
-    volumes:
-      - /var/lib:/var/lib
-      - /dev/net/tun:/dev/net/tun
-    environment:
-      - TS_AUTHKEY=${TS_AUTHKEY}
-      - TS_STATE_DIR=/var/lib/tailscale
-    network_mode: host
-    cap_add:
-      - net_admin
-      - sys_module
-  
   n8n:
     # port 5678
     container_name: n8n
@@ -211,8 +181,10 @@ services:
     # port 8765
     container_name: baserow
     image: baserow/baserow:1.24.2
+    env_file:
+      - shared.env
     environment:
-      BASEROW_PUBLIC_URL: baserow.${DOMAIN}
+      - BASEROW_PUBLIC_URL=baserow.${DOMAIN}
     ports:
       - "8765:80"
       - "8764:443"

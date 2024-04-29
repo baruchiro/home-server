@@ -1,10 +1,10 @@
 [Unit]
-Description=home-server Docker Compose Application Service
+Description=Networking services for Home Server
 Requires=docker.service
 After=docker.service
 
 [Service]
-WorkingDirectory=/home-server
+WorkingDirectory=/home-server/network
 ExecStart=/usr/bin/docker compose up
 ExecStop=/usr/bin/docker compose down
 TimeoutStartSec=0
