@@ -1,0 +1,71 @@
+services:
+
+  actual_server:
+    image: docker.io/actualbudget/actual-server:latest
+    ports:
+      # This line makes Actual available at port 5006 of the device you run the server on,
+      # i.e. http://localhost:5006. You can change the first number to change the port, if you want.
+      - '5006:5006'
+    # environment:
+      # Uncomment any of the lines below to set configuration options.
+      # - ACTUAL_HTTPS_KEY=/data/selfhost.key
+      # - ACTUAL_HTTPS_CERT=/data/selfhost.crt
+      # - ACTUAL_PORT=5006
+      # - ACTUAL_UPLOAD_FILE_SYNC_SIZE_LIMIT_MB=20
+      # - ACTUAL_UPLOAD_SYNC_ENCRYPTED_FILE_SYNC_SIZE_LIMIT_MB=50
+      # - ACTUAL_UPLOAD_FILE_SIZE_LIMIT_MB=20
+      # See all options and more details at https://actualbudget.github.io/docs/Installing/Configuration
+      # !! If you are not using any of these options, remove the 'environment:' tag entirely.
+    volumes:
+      # Change './actual-data' below to the path to the folder you want Actual to store its data in on your server.
+      # '/data' is the path Actual will look for its files in by default, so leave that as-is.
+      - actual-data:/data
+    restart: unless-stopped
+
+  # env files and instructions: https://docs.firefly-iii.org/how-to/firefly-iii/installation/docker/
+  firefly:
+    image: fireflyiii/core:latest
+    hostname: firefly
+    container_name: firefly_iii_core
+    restart: always
+    volumes:
+      - firefly_iii_upload:/var/www/html/storage/upload
+    env_file: firefly.env
+    networks:
+      - firefly_iii
+    ports:
+      - 8888:8080
+    depends_on:
+      - firefly_db
+  
+  firefly_db:
+    image: postgres
+    hostname: db
+    container_name: firefly_iii_db
+    restart: always
+    env_file: firefly.db.env
+    networks:
+      - firefly_iii
+    volumes:
+      - firefly_iii_db:/var/lib/mysql
+  
+  firefly_cron:
+    #
+    # To make this work, set STATIC_CRON_TOKEN in your .env file or as an environment variable and replace REPLACEME below
+    # The STATIC_CRON_TOKEN must be *exactly* 32 characters long
+    #
+    image: alpine
+    restart: always
+    container_name: firefly_iii_cron
+    command: sh -c "echo \"0 3 * * * wget -qO- http://firefly:8080/api/v1/cron/REPLACEME\" | crontab - && crond -f -L /dev/stdout"
+    networks:
+      - firefly_iii
+
+volumes:
+   firefly_iii_upload:
+   firefly_iii_db:
+   actual-data:
+
+networks:
+  firefly_iii:
+    driver: bridge
