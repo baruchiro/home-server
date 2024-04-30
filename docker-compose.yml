@@ -184,7 +184,7 @@ services:
     env_file:
       - shared.env
     environment:
-      - BASEROW_PUBLIC_URL=baserow.${DOMAIN}
+      - BASEROW_PUBLIC_URL=https://baserow.${DOMAIN}
     ports:
       - "8765:80"
       - "8764:443"
