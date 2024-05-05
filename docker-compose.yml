@@ -305,6 +305,12 @@ volumes:
   paperless-data:
   paperless-media:
   paperless-export:
+    driver: rclone
+    driver_opts:
+      remote: 'remote-gdrive:paperless'
+      allow_other: 'true'
+      vfs_cache_mode: full
+      poll_interval: 0
   paperless-consume:
 
     # telegram2twitter:
