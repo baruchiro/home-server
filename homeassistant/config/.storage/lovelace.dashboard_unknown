@@ -75,6 +75,12 @@
               ]
             },
             {
+              "type": "entities",
+              "entities": [
+                "switch.flux"
+              ]
+            },
+            {
               "type": "light",
               "entity": "light.unknown_light",
               "hold_action": {
@@ -82,10 +88,15 @@
               }
             },
             {
-              "type": "entities",
-              "entities": [
-                "switch.flux"
-              ]
+              "show_name": true,
+              "show_icon": true,
+              "type": "button",
+              "tap_action": {
+                "action": "toggle"
+              },
+              "entity": "switch.unknown_switch",
+              "name": "מאוורר סלון",
+              "icon": "mdi:fan"
             }
           ]
         }
