@@ -162,6 +162,14 @@
     metadata: {}
     data:
       message: 'Leaving the house '
+  - type: turn_off
+    device_id: ddda0c7e7b0177094ca218497c439fdb
+    entity_id: 514fd8e508cdcb7dbb6d55e7c0870d8d
+    domain: fan
+  - type: turn_off
+    device_id: 676073374993afc6187c393432dda2ef
+    entity_id: 0c79028992a817dfbe8623fc115e32dd
+    domain: switch
   mode: single
 - id: '1712765888531'
   alias: Enter home
