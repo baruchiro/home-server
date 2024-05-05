@@ -190,7 +190,18 @@ services:
       - "8764:443"
     volumes:
       - baserow_data:/baserow/data
-    
+
+  ofelia:
+    image: mcuadros/ofelia:latest
+    depends_on:
+      - paperless-web
+    command: daemon --docker
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    labels:
+      ofelia.job-local.my-test-job.schedule: "@every 5s"
+      ofelia.job-local.my-test-job.command: "date"
+
   # Docker Compose file for running paperless from the docker container registry.
   # This file contains everything paperless needs to run.
   # Paperless supports amd64, arm and arm64 hardware.
@@ -249,6 +260,10 @@ services:
       PAPERLESS_TIKA_GOTENBERG_ENDPOINT: http://gotenberg:3000
       PAPERLESS_TIKA_ENDPOINT: http://tika:9998
       PAPERLESS_URL: https://paperless.${DOMAIN}
+    labels:
+      ofelia.enabled: "true"
+      ofelia.job-exec.datecron.schedule: "@every 12h"
+      ofelia.job-exec.datecron.command: "document_exporter ../export --delete --no-archive --no-thumbnail --use-folder-prefix --split-manifest"
 
   gotenberg:
     image: docker.io/gotenberg/gotenberg:7.10
