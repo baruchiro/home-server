@@ -253,6 +253,7 @@ services:
       - paperless-media:/usr/src/paperless/media
       - paperless-export:/usr/src/paperless/export
       - paperless-consume:/usr/src/paperless/consume
+      - ./paperless/scripts:/usr/src/paperless/scripts
     env_file: paperless.env
     environment:
       PAPERLESS_REDIS: redis://paperless-broker:6379
