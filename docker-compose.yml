@@ -244,8 +244,8 @@ services:
     restart: unless-stopped
     depends_on:
       - paperless-broker
-      - gotenberg
-      - tika
+      - paperless-gotenberg
+      - paperless-tika
     ports:
       - "3355:8000"
     volumes:
@@ -258,15 +258,15 @@ services:
     environment:
       PAPERLESS_REDIS: redis://paperless-broker:6379
       PAPERLESS_TIKA_ENABLED: 1
-      PAPERLESS_TIKA_GOTENBERG_ENDPOINT: http://gotenberg:3000
-      PAPERLESS_TIKA_ENDPOINT: http://tika:9998
+      PAPERLESS_TIKA_GOTENBERG_ENDPOINT: http://paperless-gotenberg:3000
+      PAPERLESS_TIKA_ENDPOINT: http://paperless-tika:9998
       PAPERLESS_URL: https://paperless.${DOMAIN}
     labels:
       ofelia.enabled: "true"
       ofelia.job-exec.datecron.schedule: "@every 12h"
       ofelia.job-exec.datecron.command: "document_exporter ../export --delete --no-archive --no-thumbnail --use-folder-prefix --split-manifest"
 
-  gotenberg:
+  paperless-gotenberg:
     image: docker.io/gotenberg/gotenberg:7.10
     restart: unless-stopped
 
@@ -277,7 +277,7 @@ services:
       - "--chromium-disable-javascript=true"
       - "--chromium-allow-list=file:///tmp/.*"
 
-  tika:
+  paperless-tika:
     image: ghcr.io/paperless-ngx/tika:latest
     restart: unless-stopped
 
