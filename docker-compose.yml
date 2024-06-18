@@ -177,19 +177,41 @@ services:
       - 8443:8443
     restart: unless-stopped
 
-  baserow:
-    # port 8765
-    container_name: baserow
-    image: baserow/baserow:1.24.2
-    env_file:
-      - shared.env
-    environment:
-      - BASEROW_PUBLIC_URL=https://baserow.${DOMAIN}
+  nocodb: 
+    depends_on: 
+      nocodb_mysql: 
+        condition: service_healthy
+    environment: 
+      NC_DB: "mysql2://nocodb_mysql:3306?u=noco&p=password&d=root_db"
+    image: "nocodb/nocodb:latest"
     ports:
-      - "8765:80"
-      - "8764:443"
-    volumes:
-      - baserow_data:/baserow/data
+      - "8765:8080"
+    restart: always
+    volumes: 
+      - "nocodb_data:/usr/app/data"
+  
+  nocodb_mysql: 
+    environment: 
+      MYSQL_DATABASE: root_db
+      MYSQL_PASSWORD: password
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_USER: noco
+    healthcheck: 
+      retries: 10
+      test: 
+        - CMD
+        - mysqladmin
+        - ping
+        - "-h"
+        - localhost
+      timeout: 20s
+    image: "mysql:8.3.0"
+    restart: always
+    volumes: 
+      - "nocodb_mysql_data:/var/lib/mysql"
+#    below line shows how to change charset and collation
+#    uncomment it if necessary
+#    command: --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
 
   ofelia:
     image: mcuadros/ofelia:latest
@@ -289,6 +311,9 @@ volumes:
   movies:
   downloads:
 
+  nocodb_mysql_data:
+  nocodb_data:
+
   # Configs
   jellyfin:
   jellyfin-cache:
@@ -298,7 +323,6 @@ volumes:
   radarr:
   bazarr:
   portainer:
-  baserow_data:
   code-server:
   n8n:
 
