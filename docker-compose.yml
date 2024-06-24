@@ -153,29 +153,29 @@ services:
     volumes:
         - n8n:/home/node/.n8n
   
-  code-server:
-    # port 8443
-    image: lscr.io/linuxserver/code-server:latest
-    container_name: code-server
-    privileged: true
-    env_file:
-      - shared.env
-    environment:
-      - PUID=1000
-      - PGID=1000
-      # - PASSWORD=password #optional
-      # - HASHED_PASSWORD= #optional
-      # - SUDO_PASSWORD=password #optional
-      # - SUDO_PASSWORD_HASH= #optional
-      - PROXY_DOMAIN=code.${DOMAIN} #optional
-      - DEFAULT_WORKSPACE=/sources/home-server #optional
-    volumes:
-      - code-server:/config
-      - ./:/sources/home-server
-      - /var/run/docker.sock:/var/run/docker.sock
-    ports:
-      - 8443:8443
-    restart: unless-stopped
+  # code-server:
+  #   # port 8443
+  #   image: lscr.io/linuxserver/code-server:latest
+  #   container_name: code-server
+  #   privileged: true
+  #   env_file:
+  #     - shared.env
+  #   environment:
+  #     - PUID=1000
+  #     - PGID=1000
+  #     # - PASSWORD=password #optional
+  #     # - HASHED_PASSWORD= #optional
+  #     # - SUDO_PASSWORD=password #optional
+  #     # - SUDO_PASSWORD_HASH= #optional
+  #     - PROXY_DOMAIN=code.${DOMAIN} #optional
+  #     - DEFAULT_WORKSPACE=/sources/home-server #optional
+  #   volumes:
+  #     - code-server:/config
+  #     - ./:/sources/home-server
+  #     - /var/run/docker.sock:/var/run/docker.sock
+  #   ports:
+  #     - 8443:8443
+  #   restart: unless-stopped
 
   nocodb: 
     depends_on: 
@@ -323,7 +323,6 @@ volumes:
   radarr:
   bazarr:
   portainer:
-  code-server:
   n8n:
 
   paperless-redisdata:
