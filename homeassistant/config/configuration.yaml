@@ -20,10 +20,6 @@ automation: !include automations.yaml
 script: !include scripts.yaml
 scene: !include scenes.yaml
 
-jewish_calendar:
-  language: hebrew
-  candle_lighting_minutes_before_sunset: 20
-
 # switch:
 #   - platform: flux
 #     lights:
