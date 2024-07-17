@@ -4,3 +4,5 @@ git pull
 docker-compose pull
 sudo systemctl start home-server-compose.service
 journalctl -u home-server-compose.service -f
+
+# docker system prune --volumes
