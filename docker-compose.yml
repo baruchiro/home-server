@@ -303,6 +303,19 @@ services:
     image: ghcr.io/paperless-ngx/tika:latest
     restart: unless-stopped
 
+  obsidian-livesync:
+    image: couchdb
+    container_name: obsidian-livesync
+    user: 1000:1000
+    environment:
+      - COUCHDB_USER=${OBSIDIAN_COUCHDB_USER} # enter the desired CouchDB admin username
+      - COUCHDB_PASSWORD=${OBSIDIAN_COUCHDB_PASSWORD} # enter the desired CouchDB admin password
+    volumes:
+      - obsidian-data:/opt/couchdb/data
+      - ./obsidian/local.ini:/opt/couchdb/etc/local.ini
+    ports:
+      - 5984:5984
+    restart: unless-stopped
 
 volumes:
   sessions:
@@ -313,6 +326,8 @@ volumes:
 
   nocodb_mysql_data:
   nocodb_data:
+
+  obsidian-data:
 
   # Configs
   jellyfin:
