@@ -57,3 +57,17 @@ ask_for_4_after_noon_radio:
         metadata: {}
         data: {}
   icon: mdi:radio
+ask_baruch_for_kan_g:
+  alias: Ask Baruch for Kan G
+  use_blueprint:
+    path: homeassistant/confirmable_notification.yaml
+    input:
+      notify_device: 8ef6a86daebbb51a8c7766df58661c4b
+      title: Ask for Kan g Baruch
+      message: האם להפעיל "ארון השירים היהודי"?
+      confirm_action:
+      - service: script.radio_kan_g
+        metadata: {}
+        data: {}
+  description: ''
+  icon: mdi:bell
