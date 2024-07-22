@@ -1,0 +1,5 @@
+{
+    "files.associations": {
+        "homeassistant/config/*.yaml": "home-assistant"
+    }
+}
