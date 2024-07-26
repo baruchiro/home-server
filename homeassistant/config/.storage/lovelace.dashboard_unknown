@@ -20,6 +20,18 @@
                   "name": "פרשת השבוע"
                 },
                 {
+                  "entity": "sensor.jewish_calendar_daf_yomi",
+                  "name": "דף יומי"
+                },
+                {
+                  "entity": "sensor.tfilot_chol_minha",
+                  "name": "מנחה"
+                },
+                {
+                  "entity": "sensor.tfilot_chol_arvit_1",
+                  "name": "ערבית"
+                },
+                {
                   "entity": "sensor.jewish_calendar_upcoming_candle_lighting",
                   "name": "הדלקת נרות",
                   "format": "time"
@@ -28,10 +40,6 @@
                   "entity": "sensor.jewish_calendar_upcoming_havdalah",
                   "name": "הבדלה",
                   "format": "time"
-                },
-                {
-                  "entity": "sensor.jewish_calendar_daf_yomi",
-                  "name": "דף יומי"
                 }
               ],
               "show_header_toggle": false
