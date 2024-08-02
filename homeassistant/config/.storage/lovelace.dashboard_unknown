@@ -84,7 +84,7 @@
             },
             {
               "type": "light",
-              "entity": "light.unknown_light",
+              "entity": "light.carpet",
               "hold_action": {
                 "action": "toggle"
               }
@@ -99,6 +99,11 @@
               "entity": "switch.unknown_switch",
               "name": "מאוורר סלון",
               "icon": "mdi:fan"
+            },
+            {
+              "type": "light",
+              "entity": "light.kitchen",
+              "name": "מנורה מטבח"
             }
           ]
         }
