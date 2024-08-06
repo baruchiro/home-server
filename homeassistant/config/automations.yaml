@@ -1,55 +1,3 @@
-- id: '1712232583706'
-  alias: Mazgan
-  description: להדליק מזגן מעל 27 מעלות
-  trigger:
-  - platform: device
-    device_id: 3daeb7afe3a86c54a308f1f0efd58f89
-    domain: climate
-    entity_id: 946a669e8b6968b40a237f5126631b0c
-    type: current_temperature_changed
-    above: 27
-  condition:
-  - condition: state
-    entity_id: binary_sensor.jewish_calendar_issur_melacha_in_effect
-    state: 'off'
-    enabled: false
-  action:
-  - device_id: 3daeb7afe3a86c54a308f1f0efd58f89
-    domain: climate
-    entity_id: 946a669e8b6968b40a237f5126631b0c
-    type: set_hvac_mode
-    hvac_mode: fan_only
-  mode: single
-- id: '1712247462364'
-  alias: כיבוי מזגן
-  description: לכבות מזגן מתחת 25 מעלות
-  trigger:
-  - platform: device
-    device_id: 3daeb7afe3a86c54a308f1f0efd58f89
-    domain: climate
-    entity_id: 946a669e8b6968b40a237f5126631b0c
-    type: current_temperature_changed
-    below: 26
-  condition:
-  - condition: state
-    entity_id: binary_sensor.jewish_calendar_issur_melacha_in_effect
-    state: 'off'
-    enabled: false
-  - condition: not
-    conditions:
-    - condition: device
-      device_id: 3daeb7afe3a86c54a308f1f0efd58f89
-      domain: climate
-      entity_id: 946a669e8b6968b40a237f5126631b0c
-      type: is_hvac_mode
-      hvac_mode: 'off'
-  action:
-  - device_id: 3daeb7afe3a86c54a308f1f0efd58f89
-    domain: climate
-    entity_id: 946a669e8b6968b40a237f5126631b0c
-    type: set_hvac_mode
-    hvac_mode: 'off'
-  mode: single
 - id: '1712296895921'
   alias: Play glz Friday 11:58
   description: ''
@@ -112,49 +60,6 @@
   - service: script.radio_kan_g
     data: {}
   mode: single
-- id: '1712331287593'
-  alias: שבת שלום
-  description: ''
-  trigger:
-  - platform: state
-    entity_id:
-    - binary_sensor.jewish_calendar_issur_melacha_in_effect
-    from: 'off'
-    to: 'on'
-  condition: []
-  action:
-  - service: tts.speak
-    metadata: {}
-    data:
-      cache: true
-      media_player_entity_id: media_player.living_room_speaker
-      message: שבת שלום
-      language: Hebrew
-  - service: media_player.media_stop
-    metadata: {}
-    data: {}
-    target:
-      device_id: 7896a9269282b5af07489f4edd966b28
-  mode: single
-- id: '1712765888531'
-  alias: Enter home
-  description: ''
-  trigger:
-  - platform: state
-    entity_id:
-    - zone.home
-    from: '0'
-    to: '1'
-  condition: []
-  action:
-  - service: light.turn_on
-    metadata: {}
-    data:
-      color_temp: 153
-      brightness: 255
-    target:
-      device_id: 3e1275de086f4d16cf7a9c1462791943
-  mode: single
 - id: '1712769427085'
   alias: Trigger 4 after noon radio
   description: ''
@@ -192,7 +97,7 @@
     - fri
   - condition: state
     state: 'off'
-    entity_id: binary_sensor.jewish_calendar_issur_melacha_in_effect_2
+    entity_id: binary_sensor.jewish_calendar_issur_melacha_in_effect
   - condition: device
     device_id: 8ef6a86daebbb51a8c7766df58661c4b
     domain: device_tracker
@@ -202,4 +107,141 @@
   - service: script.ask_baruch_for_kan_g
     metadata: {}
     data: {}
+  mode: single
+- id: '1722881168850'
+  alias: If Mazgan should be on
+  description: ''
+  trigger:
+  - platform: state
+    entity_id:
+    - input_boolean.is_mazgan_should_be_enabled
+    from: 'off'
+    to: 'on'
+  condition: []
+  action:
+  - service: script.mazgan_cool_baruch_confirm
+    metadata: {}
+    data: {}
+  mode: single
+- id: '1722886260971'
+  alias: Mazgan from cool to dry
+  description: ''
+  trigger:
+  - platform: device
+    device_id: 3daeb7afe3a86c54a308f1f0efd58f89
+    domain: climate
+    entity_id: 946a669e8b6968b40a237f5126631b0c
+    type: hvac_mode_changed
+    to: cool
+    for:
+      hours: 4
+      minutes: 0
+      seconds: 0
+  condition: []
+  action:
+  - sequence:
+    - parallel:
+      - service: notify.mobile_app_baruch_phone
+        metadata: {}
+        data:
+          message: רוצה לעבור למצב טיפה?
+          title: מזגן
+          data:
+            actions:
+            - action: 'YES'
+              title: כן
+            - action: 'NO'
+              title: לא
+      - service: notify.mobile_app_galaxy_watch6_classic_6zxw
+        data:
+          data:
+            actions:
+            - action: 'YES'
+              title: כן
+            - action: 'NO'
+              title: ל
+          message: רוצה לעבור למצב טיפה?
+          title: מזגן
+    - wait_for_trigger:
+      - platform: event
+        event_type: mobile_app_notification_action
+        event_data:
+          action: 'YES'
+        id: confirmable_yes
+      continue_on_timeout: false
+      timeout:
+        hours: 0
+        minutes: 15
+        seconds: 0
+        milliseconds: 0
+    - if:
+      - condition: template
+        value_template: '{{ wait.trigger.event.data.action == "YES" }}'
+      then:
+      - device_id: 3daeb7afe3a86c54a308f1f0efd58f89
+        domain: climate
+        entity_id: 946a669e8b6968b40a237f5126631b0c
+        type: set_hvac_mode
+        hvac_mode: dry
+  mode: single
+- id: '1722949510202'
+  alias: Mazgan dry to cool
+  description: ''
+  trigger:
+  - platform: device
+    device_id: 3daeb7afe3a86c54a308f1f0efd58f89
+    domain: climate
+    entity_id: 946a669e8b6968b40a237f5126631b0c
+    type: hvac_mode_changed
+    to: dry
+    for:
+      hours: 0
+      minutes: 30
+      seconds: 0
+  condition: []
+  action:
+  - sequence:
+    - parallel:
+      - service: notify.mobile_app_baruch_phone
+        metadata: {}
+        data:
+          message: רוצה לעבור חזרה למצב קירור?
+          title: מזגן
+          data:
+            actions:
+            - action: 'YES'
+              title: כן
+            - action: 'NO'
+              title: לא
+      - service: notify.mobile_app_galaxy_watch6_classic_6zxw
+        data:
+          data:
+            actions:
+            - action: 'YES'
+              title: כן
+            - action: 'NO'
+              title: ל
+          message: רוצה לעבור חזרה למצב קירור?
+          title: מזגן
+    - wait_for_trigger:
+      - platform: event
+        event_type: mobile_app_notification_action
+        event_data:
+          action: 'YES'
+        id: confirmable_yes
+      continue_on_timeout: false
+      timeout:
+        hours: 0
+        minutes: 15
+        seconds: 0
+        milliseconds: 0
+    - if:
+      - condition: template
+        value_template: '{{ wait.trigger.event.data.action == "YES" }}'
+      then:
+      - device_id: 3daeb7afe3a86c54a308f1f0efd58f89
+        domain: climate
+        entity_id: 946a669e8b6968b40a237f5126631b0c
+        type: set_hvac_mode
+        hvac_mode: cool
   mode: single

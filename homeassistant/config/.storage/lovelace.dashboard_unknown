@@ -83,13 +83,6 @@
               ]
             },
             {
-              "type": "light",
-              "entity": "light.carpet",
-              "hold_action": {
-                "action": "toggle"
-              }
-            },
-            {
               "show_name": true,
               "show_icon": true,
               "type": "button",
@@ -102,8 +95,25 @@
             },
             {
               "type": "light",
+              "entity": "light.carpet",
+              "hold_action": {
+                "action": "toggle"
+              }
+            },
+            {
+              "type": "light",
               "entity": "light.kitchen",
               "name": "מנורה מטבח"
+            },
+            {
+              "title": "History",
+              "type": "history-graph",
+              "hours_to_show": 20,
+              "entities": [
+                "number.ikea_of_sweden_tradfri_bulb_e27_ws_globe_1055lm_on_level",
+                "sun.sun",
+                "number.unknown_on_level"
+              ]
             }
           ]
         }

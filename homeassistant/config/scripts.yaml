@@ -107,3 +107,22 @@ mazgan_cool:
         hvac_mode: 'off'
   description: ''
   icon: mdi:air-conditioner
+mazgan_cool_baruch_confirm:
+  alias: Mazgan Cool Baruch Confirm
+  use_blueprint:
+    path: homeassistant/confirmable_notification.yaml
+    input:
+      notify_device: 8ef6a86daebbb51a8c7766df58661c4b
+      title: מזגן
+      message: האם להדליק מזגן?
+      confirm_text: להדליק
+      confirm_action:
+      - device_id: 3daeb7afe3a86c54a308f1f0efd58f89
+        domain: climate
+        entity_id: 946a669e8b6968b40a237f5126631b0c
+        type: set_hvac_mode
+        hvac_mode: cool
+      dismiss_text: להתעלם
+      dismiss_action: []
+  description: ''
+  icon: mdi:air-conditioner

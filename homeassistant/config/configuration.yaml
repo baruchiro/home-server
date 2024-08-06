@@ -21,19 +21,19 @@ script: !include scripts.yaml
 scene: !include scenes.yaml
 # template: !include templates.yaml
 
-switch:
-  - platform: flux
-    lights:
-      - light.carpet
-      - light.kitchen
-    start_time: "7:00"
-    stop_time: "23:00"
-    start_colortemp: 40000
-    sunset_colortemp: 40000
-    stop_colortemp: 19000
-    brightness: 255
-    disable_brightness_adjust: true
-    mode: xy
+# switch:
+#   - platform: flux
+#     lights:
+#       - light.carpet
+#       - light.kitchen
+#     start_time: "7:00"
+#     stop_time: "23:00"
+#     start_colortemp: 40000
+#     sunset_colortemp: 40000
+#     stop_colortemp: 19000
+#     brightness: 255
+#     disable_brightness_adjust: true
+#     mode: xy
 
 rest:
   - resource: https://api.npmjs.org/downloads/point/last-week/use-route-as-state
