@@ -10,8 +10,914 @@
         "id": "af30e016d4a15d8c",
         "type": "tab",
         "label": "Testing",
-        "disabled": true,
+        "disabled": false,
         "info": "What is description?"
+    },
+    {
+        "id": "663a6ec097ccb70a",
+        "type": "tab",
+        "label": "HA - Mazgan",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "6dc0247c.d7210c",
+        "type": "subflow",
+        "name": "Actionable Notification",
+        "info": "[Documentation](https://zachowj.github.io/node-red-contrib-home-assistant-websocket/cookbook/actionable-notifications-subflow-for-android.html)\n",
+        "category": "",
+        "in": [
+            {
+                "x": 84,
+                "y": 80,
+                "wires": [
+                    {
+                        "id": "9d85d137.fe487"
+                    }
+                ]
+            }
+        ],
+        "out": [
+            {
+                "x": 1172,
+                "y": 128,
+                "wires": [
+                    {
+                        "id": "974bd48d.c253e8",
+                        "port": 0
+                    }
+                ]
+            },
+            {
+                "x": 1172,
+                "y": 176,
+                "wires": [
+                    {
+                        "id": "974bd48d.c253e8",
+                        "port": 1
+                    }
+                ]
+            },
+            {
+                "x": 1172,
+                "y": 224,
+                "wires": [
+                    {
+                        "id": "974bd48d.c253e8",
+                        "port": 2
+                    }
+                ]
+            },
+            {
+                "x": 964,
+                "y": 240,
+                "wires": [
+                    {
+                        "id": "5bc7345c.07b1cc",
+                        "port": 1
+                    }
+                ]
+            }
+        ],
+        "env": [
+            {
+                "name": "service",
+                "type": "str",
+                "value": "",
+                "ui": {
+                    "label": {
+                        "en-US": "Notify Service"
+                    },
+                    "type": "input",
+                    "opts": {
+                        "types": [
+                            "str",
+                            "env"
+                        ]
+                    }
+                }
+            },
+            {
+                "name": "title",
+                "type": "str",
+                "value": "",
+                "ui": {
+                    "label": {
+                        "en-US": "Title"
+                    },
+                    "type": "input",
+                    "opts": {
+                        "types": [
+                            "str"
+                        ]
+                    }
+                }
+            },
+            {
+                "name": "message",
+                "type": "str",
+                "value": "",
+                "ui": {
+                    "label": {
+                        "en-US": "Message"
+                    },
+                    "type": "input",
+                    "opts": {
+                        "types": [
+                            "str",
+                            "json",
+                            "env"
+                        ]
+                    }
+                }
+            },
+            {
+                "name": "action1Title",
+                "type": "str",
+                "value": "",
+                "ui": {
+                    "label": {
+                        "en-US": "Action 1 Title"
+                    },
+                    "type": "input",
+                    "opts": {
+                        "types": [
+                            "str"
+                        ]
+                    }
+                }
+            },
+            {
+                "name": "action1Uri",
+                "type": "str",
+                "value": "",
+                "ui": {
+                    "label": {
+                        "en-US": "Action 1 URI (optional)"
+                    },
+                    "type": "input",
+                    "opts": {
+                        "types": [
+                            "str"
+                        ]
+                    }
+                }
+            },
+            {
+                "name": "action2Title",
+                "type": "str",
+                "value": "",
+                "ui": {
+                    "label": {
+                        "en-US": "Action 2 Title"
+                    },
+                    "type": "input",
+                    "opts": {
+                        "types": [
+                            "str"
+                        ]
+                    }
+                }
+            },
+            {
+                "name": "action2Uri",
+                "type": "str",
+                "value": "",
+                "ui": {
+                    "label": {
+                        "en-US": "Action 2 URI (optional)"
+                    },
+                    "type": "input",
+                    "opts": {
+                        "types": [
+                            "str"
+                        ]
+                    }
+                }
+            },
+            {
+                "name": "action3Title",
+                "type": "str",
+                "value": "",
+                "ui": {
+                    "label": {
+                        "en-US": "Action 3 Title"
+                    },
+                    "type": "input",
+                    "opts": {
+                        "types": [
+                            "str"
+                        ]
+                    }
+                }
+            },
+            {
+                "name": "action3Uri",
+                "type": "str",
+                "value": "",
+                "ui": {
+                    "label": {
+                        "en-US": "Action 3 URI (optional)"
+                    },
+                    "type": "input",
+                    "opts": {
+                        "types": [
+                            "str"
+                        ]
+                    }
+                }
+            },
+            {
+                "name": "userInfo",
+                "type": "bool",
+                "value": "false",
+                "ui": {
+                    "label": {
+                        "en-US": "Populate User Information"
+                    },
+                    "type": "checkbox"
+                }
+            },
+            {
+                "name": "sticky",
+                "type": "bool",
+                "value": "false",
+                "ui": {
+                    "label": {
+                        "en-US": "Sticky"
+                    },
+                    "type": "checkbox"
+                }
+            },
+            {
+                "name": "group",
+                "type": "str",
+                "value": "None",
+                "ui": {
+                    "label": {
+                        "en-US": "Group"
+                    },
+                    "type": "select",
+                    "opts": {
+                        "opts": [
+                            {
+                                "l": {
+                                    "en-US": "None"
+                                },
+                                "v": ""
+                            },
+                            {
+                                "l": {
+                                    "en-US": "Cameras"
+                                },
+                                "v": "camera"
+                            },
+                            {
+                                "l": {
+                                    "en-US": "Security"
+                                },
+                                "v": "security"
+                            },
+                            {
+                                "l": {
+                                    "en-US": "Garage"
+                                },
+                                "v": "garage"
+                            },
+                            {
+                                "l": {
+                                    "en-US": "Laundry Room"
+                                },
+                                "v": "laundry_room"
+                            }
+                        ]
+                    }
+                }
+            },
+            {
+                "name": "color",
+                "type": "str",
+                "value": "",
+                "ui": {
+                    "label": {
+                        "en-US": "Color"
+                    },
+                    "type": "input",
+                    "opts": {
+                        "types": [
+                            "str"
+                        ]
+                    }
+                }
+            },
+            {
+                "name": "timeout",
+                "type": "num",
+                "value": "",
+                "ui": {
+                    "label": {
+                        "en-US": "Timeout"
+                    },
+                    "type": "input",
+                    "opts": {
+                        "types": [
+                            "num"
+                        ]
+                    }
+                }
+            },
+            {
+                "name": "icon",
+                "type": "str",
+                "value": "",
+                "ui": {
+                    "label": {
+                        "en-US": "Icon"
+                    },
+                    "type": "input",
+                    "opts": {
+                        "types": [
+                            "str"
+                        ]
+                    }
+                }
+            }
+        ],
+        "meta": {},
+        "color": "#DDAA99",
+        "outputLabels": [
+            "Action 1",
+            "Action 2",
+            "Action 3",
+            "Cleared"
+        ],
+        "status": {
+            "x": 244,
+            "y": 272,
+            "wires": [
+                {
+                    "id": "204dbcfc.144ae4",
+                    "port": 0
+                }
+            ]
+        }
+    },
+    {
+        "id": "7a49c761379bbfc4",
+        "type": "subflow",
+        "name": "Change Mazgan State",
+        "info": "",
+        "category": "",
+        "in": [
+            {
+                "x": 120,
+                "y": 100,
+                "wires": [
+                    {
+                        "id": "92f8b78b9837f6d0"
+                    },
+                    {
+                        "id": "04341d1f4bd84f1d"
+                    },
+                    {
+                        "id": "18d32cddc05fd048"
+                    }
+                ]
+            }
+        ],
+        "out": [],
+        "env": [
+            {
+                "name": "hvac_mode",
+                "type": "str",
+                "value": ""
+            },
+            {
+                "name": "message",
+                "type": "str",
+                "value": ""
+            }
+        ],
+        "meta": {},
+        "color": "#DDAA99"
+    },
+    {
+        "id": "f347e0c08d711612",
+        "type": "server",
+        "name": "Home Assistant",
+        "version": 5,
+        "addon": false,
+        "rejectUnauthorizedCerts": true,
+        "ha_boolean": "y|yes|true|on|home|open",
+        "connectionDelay": true,
+        "cacheJson": true,
+        "heartbeat": false,
+        "heartbeatInterval": "30",
+        "areaSelector": "friendlyName",
+        "deviceSelector": "friendlyName",
+        "entitySelector": "friendlyName",
+        "statusSeparator": ": ",
+        "statusYear": "hidden",
+        "statusMonth": "short",
+        "statusDay": "numeric",
+        "statusHourCycle": "default",
+        "statusTimeFormat": "h:m",
+        "enableGlobalContextStore": false
+    },
+    {
+        "id": "750b4b2d.152d34",
+        "type": "mqtt-broker",
+        "name": "Aedes",
+        "broker": "localhost",
+        "port": "1883",
+        "clientid": "",
+        "usetls": false,
+        "compatmode": false,
+        "keepalive": "60",
+        "cleansession": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthPayload": "",
+        "closeTopic": "",
+        "closeQos": "0",
+        "closePayload": "",
+        "willTopic": "",
+        "willQos": "0",
+        "willPayload": ""
+    },
+    {
+        "id": "f9e57204.71076",
+        "type": "function",
+        "z": "6dc0247c.d7210c",
+        "name": "create service call",
+        "func": "const actions = [];\n[1,2,3].forEach(i => {\n    const name = `action${i}`\n    const id = flow.get(`${name}Id`);\n    const title = env.get(`${name}Title`);\n    const uri = env.get(`${name}Uri`);\n    const action = !!uri.length ? 'URI' : title ? flow.get(`${name}Id`) : undefined;\n    \n    actions.push({\n        action,\n        title,\n        uri\n    });\n});\n\nmsg._originalPayload = msg.payload;\nflow.set('latestMessage', msg);\n\nconst services = env.get('service');\nif(!services) {\n    node.status({\n        text: 'no services defined',\n        shape: 'ring',\n        fill: 'red'\n    });\n    return;    \n}\n\nservices.trim().split(/,\\s*/).forEach(service => {\n    if(!service) return;\n    \n    msg.payload = {\n        service,\n        data: {\n            title: env.get('title'),\n            message: env.get('message'),\n            data: {\n                tag: flow.get('notificationTag'),\n                actions,\n                color: env.get(\"color\"),\n                group: env.get(\"group\"),\n                sticky: env.get(\"sticky\"),\n                timeout: env.get(\"timeout\"),\n                icon: env.get(\"icon\")\n            }\n        }\n    };\n    node.send(msg);\n});\n\nnode.done();",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "const randomId = () => Math.random().toString(36).replace(/[^a-z]+/g, '').substr(0, 5);\n\n[1,2,3].forEach(i => {\n    flow.set(`action${i}Id`, `action${i}_${randomId()}`);\n})\n\n\nflow.set('notificationTag', `${env.get('title')}_${randomId()}`);",
+        "finalize": "",
+        "libs": [],
+        "x": 298,
+        "y": 80,
+        "wires": [
+            [
+                "368c9723.5876f8"
+            ]
+        ]
+    },
+    {
+        "id": "974bd48d.c253e8",
+        "type": "switch",
+        "z": "6dc0247c.d7210c",
+        "name": "which action?",
+        "property": "eventData.event.action",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "action1Id",
+                "vt": "flow"
+            },
+            {
+                "t": "eq",
+                "v": "action2Id",
+                "vt": "flow"
+            },
+            {
+                "t": "eq",
+                "v": "action3Id",
+                "vt": "flow"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 3,
+        "x": 1024,
+        "y": 176,
+        "wires": [
+            [],
+            [],
+            []
+        ]
+    },
+    {
+        "id": "204dbcfc.144ae4",
+        "type": "status",
+        "z": "6dc0247c.d7210c",
+        "name": "",
+        "scope": [
+            "f9e57204.71076",
+            "5bc7345c.07b1cc",
+            "a622c92a.2d9898",
+            "368c9723.5876f8"
+        ],
+        "x": 124,
+        "y": 272,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "5bc7345c.07b1cc",
+        "type": "function",
+        "z": "6dc0247c.d7210c",
+        "name": "build message",
+        "func": "const latestMessage = flow.get('latestMessage');\nconst event = msg.payload.event;\n\nlatestMessage.eventData = msg.payload;\nlatestMessage.payload = latestMessage._originalPayload;\ndelete latestMessage._originalPayload;\n\nif(env.get('userInfo')) {\n    const userData = msg.userData.find(u => u.id === msg.payload.context.user_id);\n    latestMessage.userData = userData;\n}\n\nif(msg.event_type === 'mobile_app_notification_cleared') {\n    node.status({\n        text: `cleared at: ${getPrettyDate()}`,\n        shape: 'dot',\n        fill: 'blue'\n    });\n    \n    return [null, latestMessage];\n}\n\nconst index = [1,2,3].find(i => event[`action_${i}_key`] === event.action);\nnode.status({\n    text: `${event[`action_${index}_title`]} at: ${getPrettyDate()}`,\n    shape: 'dot',\n    fill: 'green'\n});\n\nreturn latestMessage;\n\n\nfunction getPrettyDate() {\n    return new Date().toLocaleDateString('en-US', {\n        month: 'short',\n        day: 'numeric',\n        hour12: false,\n        hour: 'numeric',\n        minute: 'numeric',\n    });\n}",
+        "outputs": 2,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "x": 832,
+        "y": 176,
+        "wires": [
+            [
+                "974bd48d.c253e8"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "8d3bdc0c.37493",
+        "type": "switch",
+        "z": "6dc0247c.d7210c",
+        "name": "belongs here?",
+        "property": "payload.event.tag",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "notificationTag",
+                "vt": "flow"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 432,
+        "y": 176,
+        "wires": [
+            [
+                "83ad2004.d04d"
+            ]
+        ]
+    },
+    {
+        "id": "271e4479.b9249c",
+        "type": "ha-api",
+        "z": "6dc0247c.d7210c",
+        "name": "get user info",
+        "server": "f347e0c08d711612",
+        "version": 1,
+        "debugenabled": false,
+        "protocol": "websocket",
+        "method": "get",
+        "path": "",
+        "data": "{\"type\": \"config/auth/list\"}",
+        "dataType": "json",
+        "responseType": "json",
+        "outputProperties": [
+            {
+                "property": "userData",
+                "propertyType": "msg",
+                "value": "",
+                "valueType": "results"
+            }
+        ],
+        "x": 822,
+        "y": 128,
+        "wires": [
+            [
+                "5bc7345c.07b1cc"
+            ]
+        ]
+    },
+    {
+        "id": "3618f055.6909a",
+        "type": "server-events",
+        "z": "6dc0247c.d7210c",
+        "name": "mobile_app_notification_cleared",
+        "server": "f347e0c08d711612",
+        "version": 3,
+        "exposeAsEntityConfig": "",
+        "eventType": "mobile_app_notification_cleared",
+        "eventData": "",
+        "waitForRunning": false,
+        "outputProperties": [
+            {
+                "property": "payload",
+                "propertyType": "msg",
+                "value": "",
+                "valueType": "eventData"
+            },
+            {
+                "property": "topic",
+                "propertyType": "msg",
+                "value": "$outputData(\"eventData\").event_type",
+                "valueType": "jsonata"
+            },
+            {
+                "property": "event_type",
+                "propertyType": "msg",
+                "value": "$outputData(\"eventData\").event_type",
+                "valueType": "jsonata"
+            }
+        ],
+        "x": 194,
+        "y": 224,
+        "wires": [
+            [
+                "8d3bdc0c.37493"
+            ]
+        ]
+    },
+    {
+        "id": "83ad2004.d04d",
+        "type": "switch",
+        "z": "6dc0247c.d7210c",
+        "name": "fetch user info?",
+        "property": "userInfo",
+        "propertyType": "env",
+        "rules": [
+            {
+                "t": "true"
+            },
+            {
+                "t": "else"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 624,
+        "y": 176,
+        "wires": [
+            [
+                "271e4479.b9249c"
+            ],
+            [
+                "5bc7345c.07b1cc"
+            ]
+        ]
+    },
+    {
+        "id": "9d85d137.fe487",
+        "type": "switch",
+        "z": "6dc0247c.d7210c",
+        "name": "",
+        "property": "clear_notification",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "null"
+            },
+            {
+                "t": "nnull"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 143,
+        "y": 80,
+        "wires": [
+            [
+                "f9e57204.71076"
+            ],
+            [
+                "a622c92a.2d9898"
+            ]
+        ],
+        "l": false
+    },
+    {
+        "id": "a622c92a.2d9898",
+        "type": "function",
+        "z": "6dc0247c.d7210c",
+        "name": "create clear notification",
+        "func": "const services = env.get('service');\nif(!services) {\n    node.status({\n        text: 'no services defined',\n        shape: 'ring',\n        fill: 'red'\n    });\n    return;    \n}\n\nservices.trim().split(/,\\s*/).forEach(service => {\n    if(!service) return;\n    \n    msg.payload = {\n        service,\n        data: {\n            message: \"clear_notification\",\n            data: {\n                tag: flow.get('notificationTag'),\n            }\n        }\n    };\n    node.send(msg);\n});\n\nnode.done();",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 318,
+        "y": 128,
+        "wires": [
+            [
+                "368c9723.5876f8"
+            ]
+        ]
+    },
+    {
+        "id": "9bfe567c.3d10c8",
+        "type": "server-events",
+        "z": "6dc0247c.d7210c",
+        "name": "mobile_app_notification_action",
+        "server": "f347e0c08d711612",
+        "version": 3,
+        "exposeAsEntityConfig": "",
+        "eventType": "mobile_app_notification_action",
+        "eventData": "",
+        "waitForRunning": false,
+        "outputProperties": [
+            {
+                "property": "payload",
+                "propertyType": "msg",
+                "value": "",
+                "valueType": "eventData"
+            },
+            {
+                "property": "topic",
+                "propertyType": "msg",
+                "value": "$outputData(\"eventData\").event_type",
+                "valueType": "jsonata"
+            },
+            {
+                "property": "event_type",
+                "propertyType": "msg",
+                "value": "$outputData(\"eventData\").event_type",
+                "valueType": "jsonata"
+            }
+        ],
+        "x": 194,
+        "y": 176,
+        "wires": [
+            [
+                "8d3bdc0c.37493"
+            ]
+        ]
+    },
+    {
+        "id": "368c9723.5876f8",
+        "type": "api-call-service",
+        "z": "6dc0247c.d7210c",
+        "name": "",
+        "server": "f347e0c08d711612",
+        "version": 5,
+        "debugenabled": false,
+        "domain": "notify",
+        "service": "",
+        "areaId": [],
+        "deviceId": [],
+        "entityId": [],
+        "data": "",
+        "dataType": "json",
+        "mergeContext": "callServiceData",
+        "mustacheAltTags": false,
+        "outputProperties": [],
+        "queue": "none",
+        "output_location": "",
+        "output_location_type": "none",
+        "x": 560,
+        "y": 80,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "92f8b78b9837f6d0",
+        "type": "subflow:6dc0247c.d7210c",
+        "z": "7a49c761379bbfc4",
+        "name": "Send message to Baruch & Zohar",
+        "env": [
+            {
+                "name": "service",
+                "value": "mobile_app_baruch_phone,mobile_app_plpvn_zhr",
+                "type": "str"
+            },
+            {
+                "name": "title",
+                "value": "מזגן",
+                "type": "str"
+            },
+            {
+                "name": "message",
+                "value": "message",
+                "type": "env"
+            },
+            {
+                "name": "action1Title",
+                "value": "כן",
+                "type": "str"
+            },
+            {
+                "name": "action2Title",
+                "value": "לא",
+                "type": "str"
+            },
+            {
+                "name": "group",
+                "value": "",
+                "type": "str"
+            }
+        ],
+        "x": 380,
+        "y": 100,
+        "wires": [
+            [
+                "d38d0e072519e5eb",
+                "d961ea6c2cadc813"
+            ],
+            [],
+            [],
+            []
+        ]
+    },
+    {
+        "id": "d38d0e072519e5eb",
+        "type": "api-call-service",
+        "z": "7a49c761379bbfc4",
+        "name": "Set Mazgan State",
+        "server": "f347e0c08d711612",
+        "version": 5,
+        "debugenabled": false,
+        "domain": "climate",
+        "service": "set_hvac_mode",
+        "areaId": [],
+        "deviceId": [],
+        "entityId": [
+            "climate.mzgn"
+        ],
+        "data": "{\"hvac_mode\":$env('hvac_mode')}\t",
+        "dataType": "jsonata",
+        "mergeContext": "",
+        "mustacheAltTags": false,
+        "outputProperties": [],
+        "queue": "none",
+        "x": 670,
+        "y": 80,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "d961ea6c2cadc813",
+        "type": "debug",
+        "z": "7a49c761379bbfc4",
+        "name": "debug 1",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 670,
+        "y": 40,
+        "wires": []
+    },
+    {
+        "id": "228d6a542f7ea8bd",
+        "type": "debug",
+        "z": "7a49c761379bbfc4",
+        "name": "debug 2",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "$env('hvac_mode')",
+        "targetType": "jsonata",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 670,
+        "y": 40,
+        "wires": []
+    },
+    {
+        "id": "04341d1f4bd84f1d",
+        "type": "debug",
+        "z": "7a49c761379bbfc4",
+        "name": "debug 3",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "$env('hvac_mode')",
+        "targetType": "jsonata",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 330,
+        "y": 220,
+        "wires": []
+    },
+    {
+        "id": "18d32cddc05fd048",
+        "type": "debug",
+        "z": "7a49c761379bbfc4",
+        "name": "debug 4",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "$env('message')",
+        "targetType": "jsonata",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 310,
+        "y": 300,
+        "wires": []
     },
     {
         "id": "2086072a2e5d6b1e",
@@ -45,6 +951,473 @@
         "statusType": "auto",
         "x": 410,
         "y": 120,
+        "wires": []
+    },
+    {
+        "id": "381e0db81a5b7a11",
+        "type": "inject",
+        "z": "af30e016d4a15d8c",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "footopic",
+        "payload": "",
+        "payloadType": "date",
+        "x": 310,
+        "y": 260,
+        "wires": [
+            [
+                "94a8e4bc7a9e7caa"
+            ]
+        ]
+    },
+    {
+        "id": "b74ada49.d7e408",
+        "type": "server-state-changed",
+        "z": "af30e016d4a15d8c",
+        "d": true,
+        "name": "",
+        "server": "f347e0c08d711612",
+        "version": 5,
+        "outputs": 2,
+        "exposeAsEntityConfig": "",
+        "entityId": "sun.sun",
+        "entityIdType": "exact",
+        "outputInitially": false,
+        "stateType": "str",
+        "ifState": "above_horizon",
+        "ifStateType": "str",
+        "ifStateOperator": "is",
+        "outputOnlyOnStateChange": true,
+        "for": "0",
+        "forType": "num",
+        "forUnits": "minutes",
+        "ignorePrevStateNull": false,
+        "ignorePrevStateUnknown": false,
+        "ignorePrevStateUnavailable": false,
+        "ignoreCurrentStateUnknown": false,
+        "ignoreCurrentStateUnavailable": false,
+        "outputProperties": [
+            {
+                "property": "payload",
+                "propertyType": "msg",
+                "value": "",
+                "valueType": "entityState"
+            },
+            {
+                "property": "data",
+                "propertyType": "msg",
+                "value": "",
+                "valueType": "eventData"
+            },
+            {
+                "property": "topic",
+                "propertyType": "msg",
+                "value": "",
+                "valueType": "triggerId"
+            }
+        ],
+        "x": 400,
+        "y": 400,
+        "wires": [
+            [
+                "1f467cbb.0c3983"
+            ],
+            [
+                "da5ff3e0.cbb2a"
+            ]
+        ]
+    },
+    {
+        "id": "1f467cbb.0c3983",
+        "type": "api-call-service",
+        "z": "af30e016d4a15d8c",
+        "name": "",
+        "server": "f347e0c08d711612",
+        "version": 5,
+        "debugenabled": false,
+        "domain": "light",
+        "service": "turn_off",
+        "areaId": [],
+        "deviceId": [],
+        "entityId": [
+            "light.front_porch"
+        ],
+        "data": "",
+        "dataType": "json",
+        "mergeContext": "",
+        "mustacheAltTags": false,
+        "outputProperties": [],
+        "queue": "none",
+        "output_location": "",
+        "output_location_type": "none",
+        "x": 620,
+        "y": 400,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "da5ff3e0.cbb2a",
+        "type": "api-call-service",
+        "z": "af30e016d4a15d8c",
+        "name": "",
+        "version": 5,
+        "debugenabled": false,
+        "domain": "light",
+        "service": "turn_on",
+        "areaId": [],
+        "deviceId": [],
+        "entityId": [
+            "light.front_porch"
+        ],
+        "data": "",
+        "dataType": "json",
+        "mergeContext": "",
+        "mustacheAltTags": false,
+        "outputProperties": [],
+        "queue": "none",
+        "output_location": "",
+        "output_location_type": "none",
+        "x": 620,
+        "y": 448,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "94a8e4bc7a9e7caa",
+        "type": "subflow:7a49c761379bbfc4",
+        "z": "af30e016d4a15d8c",
+        "name": "",
+        "env": [
+            {
+                "name": "hvac_mode",
+                "value": "cool",
+                "type": "str"
+            },
+            {
+                "name": "message",
+                "value": "להפעיל מזגן על קירור?",
+                "type": "str"
+            },
+            {
+                "name": "state",
+                "value": "cool",
+                "type": "str"
+            }
+        ],
+        "x": 540,
+        "y": 260,
+        "wires": []
+    },
+    {
+        "id": "ee5b8cdb1f447d58",
+        "type": "inject",
+        "z": "af30e016d4a15d8c",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 280,
+        "y": 140,
+        "wires": [
+            [
+                "e84a90711c0d693a"
+            ]
+        ]
+    },
+    {
+        "id": "e84a90711c0d693a",
+        "type": "api-call-service",
+        "z": "af30e016d4a15d8c",
+        "name": "",
+        "server": "f347e0c08d711612",
+        "version": 5,
+        "debugenabled": false,
+        "domain": "climate",
+        "service": "set_hvac_mode",
+        "areaId": [],
+        "deviceId": [],
+        "entityId": [
+            "climate.mzgn"
+        ],
+        "data": "{\"hvac_mode\":\"off\"}",
+        "dataType": "jsonata",
+        "mergeContext": "",
+        "mustacheAltTags": false,
+        "outputProperties": [],
+        "queue": "none",
+        "x": 550,
+        "y": 140,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "aee4550283659876",
+        "type": "server-state-changed",
+        "z": "663a6ec097ccb70a",
+        "name": "Mazgan state changed",
+        "server": "f347e0c08d711612",
+        "version": 5,
+        "outputs": 1,
+        "exposeAsEntityConfig": "",
+        "entityId": "climate.mzgn",
+        "entityIdType": "exact",
+        "outputInitially": false,
+        "stateType": "str",
+        "ifState": "",
+        "ifStateType": "str",
+        "ifStateOperator": "is",
+        "outputOnlyOnStateChange": true,
+        "for": "0",
+        "forType": "num",
+        "forUnits": "minutes",
+        "ignorePrevStateNull": false,
+        "ignorePrevStateUnknown": false,
+        "ignorePrevStateUnavailable": false,
+        "ignoreCurrentStateUnknown": false,
+        "ignoreCurrentStateUnavailable": false,
+        "outputProperties": [
+            {
+                "property": "payload",
+                "propertyType": "msg",
+                "value": "",
+                "valueType": "entityState"
+            },
+            {
+                "property": "data",
+                "propertyType": "msg",
+                "value": "",
+                "valueType": "eventData"
+            },
+            {
+                "property": "topic",
+                "propertyType": "msg",
+                "value": "",
+                "valueType": "triggerId"
+            }
+        ],
+        "x": 198,
+        "y": 194,
+        "wires": [
+            [
+                "e02aea2be147c0f2",
+                "93fb88c047a7fbc4"
+            ]
+        ]
+    },
+    {
+        "id": "e02aea2be147c0f2",
+        "type": "switch",
+        "z": "663a6ec097ccb70a",
+        "name": "Switch State",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "cool",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "dry",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "off",
+                "vt": "str"
+            }
+        ],
+        "checkall": "false",
+        "repair": false,
+        "outputs": 3,
+        "x": 410,
+        "y": 180,
+        "wires": [
+            [
+                "92c36713b79ecd4b"
+            ],
+            [
+                "84853d3bd35eb516"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "92c36713b79ecd4b",
+        "type": "api-current-state",
+        "z": "663a6ec097ccb70a",
+        "name": "cool for 3 hours",
+        "server": "f347e0c08d711612",
+        "version": 3,
+        "outputs": 2,
+        "halt_if": "cool",
+        "halt_if_type": "str",
+        "halt_if_compare": "is",
+        "entity_id": "climate.mzgn",
+        "state_type": "str",
+        "blockInputOverrides": false,
+        "outputProperties": [
+            {
+                "property": "payload",
+                "propertyType": "msg",
+                "value": "",
+                "valueType": "entityState"
+            },
+            {
+                "property": "data",
+                "propertyType": "msg",
+                "value": "",
+                "valueType": "entity"
+            }
+        ],
+        "for": "3",
+        "forType": "num",
+        "forUnits": "hours",
+        "override_topic": false,
+        "state_location": "payload",
+        "override_payload": "msg",
+        "entity_location": "data",
+        "override_data": "msg",
+        "x": 600,
+        "y": 160,
+        "wires": [
+            [
+                "f4b44f759895773a"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "f4b44f759895773a",
+        "type": "subflow:7a49c761379bbfc4",
+        "z": "663a6ec097ccb70a",
+        "name": "Set Mazgan to Dry",
+        "env": [
+            {
+                "name": "state",
+                "value": "dry",
+                "type": "str"
+            },
+            {
+                "name": "message",
+                "value": "3 שעות של קירור. להעביר למצב טיפה?",
+                "type": "str"
+            }
+        ],
+        "x": 830,
+        "y": 140,
+        "wires": []
+    },
+    {
+        "id": "84853d3bd35eb516",
+        "type": "api-current-state",
+        "z": "663a6ec097ccb70a",
+        "name": "dry for half-hour",
+        "server": "f347e0c08d711612",
+        "version": 3,
+        "outputs": 2,
+        "halt_if": "dry",
+        "halt_if_type": "str",
+        "halt_if_compare": "is",
+        "entity_id": "climate.mzgn",
+        "state_type": "str",
+        "blockInputOverrides": false,
+        "outputProperties": [
+            {
+                "property": "payload",
+                "propertyType": "msg",
+                "value": "",
+                "valueType": "entityState"
+            },
+            {
+                "property": "data",
+                "propertyType": "msg",
+                "value": "",
+                "valueType": "entity"
+            }
+        ],
+        "for": "30",
+        "forType": "num",
+        "forUnits": "minutes",
+        "override_topic": false,
+        "state_location": "payload",
+        "override_payload": "msg",
+        "entity_location": "data",
+        "override_data": "msg",
+        "x": 600,
+        "y": 200,
+        "wires": [
+            [
+                "cabd99f4b7cb7398"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "93fb88c047a7fbc4",
+        "type": "debug",
+        "z": "663a6ec097ccb70a",
+        "name": "Mazgan State",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 390,
+        "y": 80,
+        "wires": []
+    },
+    {
+        "id": "cabd99f4b7cb7398",
+        "type": "subflow:7a49c761379bbfc4",
+        "z": "663a6ec097ccb70a",
+        "name": "Set Mazgan to Dry",
+        "env": [
+            {
+                "name": "hvac_mode",
+                "value": "dry",
+                "type": "str"
+            },
+            {
+                "name": "message",
+                "value": "מצב טיפה כבר חצי שעה. לעבור לקירור?",
+                "type": "str"
+            }
+        ],
+        "x": 830,
+        "y": 200,
         "wires": []
     }
 ]
