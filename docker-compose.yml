@@ -111,6 +111,17 @@ services:
       - movies:/movies
     restart: unless-stopped
 
+  jellyseerr:
+    # port 5055
+    image: fallenbagel/jellyseerr:latest
+    container_name: jellyseerr
+    network_mode: host
+    env_file:
+      - shared.env
+    volumes:
+      - jellyseerr:/app/config
+    restart: unless-stopped
+
   portainer:
     # port 9000
     image: portainer/portainer-ce
@@ -352,6 +363,7 @@ volumes:
   sonarr:
   radarr:
   bazarr:
+  jellyseerr:
   portainer:
   n8n:
 
