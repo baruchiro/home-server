@@ -9,25 +9,20 @@
           "title": "Home",
           "cards": [
             {
-              "type": "grid",
-              "square": true,
-              "columns": 3,
+              "type": "horizontal-stack",
               "cards": [
                 {
-                  "show_state": true,
-                  "show_name": false,
-                  "camera_view": "auto",
-                  "type": "picture-entity",
+                  "type": "custom:mushroom-person-card",
                   "entity": "person.baruch_odem",
-                  "aspect_ratio": "1",
-                  "image": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 50 50' width='50' height='50' style='background-color:%23b3e5fc'%3E%3Cg%3E%3Ctext font-family='roboto' x='50%25' y='50%25' text-anchor='middle' stroke='%23212121' font-size='1.3em' dy='.3em'%3EBO%3C/text%3E%3C/g%3E%3C/svg%3E"
+                  "name": "ברוך",
+                  "icon_type": "entity-picture"
                 },
                 {
-                  "type": "picture-entity",
+                  "type": "custom:mushroom-person-card",
                   "entity": "person.zhr",
-                  "aspect_ratio": "1",
-                  "show_name": false,
-                  "image": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 50 50' width='50' height='50' style='background-color:%23b3e5fc'%3E%3Cg%3E%3Ctext font-family='roboto' x='50%25' y='50%25' text-anchor='middle' stroke='%23212121' font-size='1.3em' dy='.3em'%3Eז%3C/text%3E%3C/g%3E%3C/svg%3E"
+                  "fill_container": false,
+                  "icon_type": "entity-picture",
+                  "icon": "mdi:face-woman"
                 }
               ]
             },
@@ -139,7 +134,19 @@
               ]
             }
           ],
-          "badges": []
+          "badges": [
+            {
+              "type": "entity",
+              "entity": "switch.unknown_switch",
+              "name": "מאוורר",
+              "icon": "mdi:fan",
+              "show_entity_picture": false,
+              "state_content": "name",
+              "tap_action": {
+                "action": "toggle"
+              }
+            }
+          ]
         }
       ]
     }
