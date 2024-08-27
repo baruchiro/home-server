@@ -22,6 +22,22 @@
         "env": []
     },
     {
+        "id": "efe2406464df235c",
+        "type": "tab",
+        "label": "Zones",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "7e5465b76654cc6f",
+        "type": "tab",
+        "label": "notifications",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
         "id": "6dc0247c.d7210c",
         "type": "subflow",
         "name": "Actionable Notification",
@@ -755,19 +771,22 @@
         "z": "6dc0247c.d7210c",
         "name": "",
         "server": "f347e0c08d711612",
-        "version": 5,
+        "version": 6,
         "debugenabled": false,
-        "domain": "notify",
-        "service": "",
+        "action": "notify.",
+        "floorId": [],
         "areaId": [],
         "deviceId": [],
         "entityId": [],
+        "labelId": [],
         "data": "",
         "dataType": "json",
         "mergeContext": "callServiceData",
         "mustacheAltTags": false,
         "outputProperties": [],
         "queue": "none",
+        "domain": "notify",
+        "service": "",
         "output_location": "",
         "output_location_type": "none",
         "x": 560,
@@ -831,21 +850,24 @@
         "z": "7a49c761379bbfc4",
         "name": "Set Mazgan State",
         "server": "f347e0c08d711612",
-        "version": 5,
+        "version": 6,
         "debugenabled": false,
-        "domain": "climate",
-        "service": "set_hvac_mode",
+        "action": "climate.set_hvac_mode",
+        "floorId": [],
         "areaId": [],
         "deviceId": [],
         "entityId": [
             "climate.mzgn"
         ],
+        "labelId": [],
         "data": "{\"hvac_mode\":$env('hvac_mode')}\t",
         "dataType": "jsonata",
         "mergeContext": "",
         "mustacheAltTags": false,
         "outputProperties": [],
         "queue": "none",
+        "domain": "climate",
+        "service": "set_hvac_mode",
         "x": 670,
         "y": 80,
         "wires": [
@@ -989,11 +1011,16 @@
         "d": true,
         "name": "",
         "server": "f347e0c08d711612",
-        "version": 5,
+        "version": 6,
         "outputs": 2,
         "exposeAsEntityConfig": "",
-        "entityId": "sun.sun",
-        "entityIdType": "exact",
+        "entities": {
+            "entity": [
+                "sun.sun"
+            ],
+            "substring": [],
+            "regex": []
+        },
         "outputInitially": false,
         "stateType": "str",
         "ifState": "above_horizon",
@@ -1034,9 +1061,7 @@
             [
                 "1f467cbb.0c3983"
             ],
-            [
-                "da5ff3e0.cbb2a"
-            ]
+            []
         ]
     },
     {
@@ -1045,53 +1070,28 @@
         "z": "af30e016d4a15d8c",
         "name": "",
         "server": "f347e0c08d711612",
-        "version": 5,
+        "version": 6,
         "debugenabled": false,
-        "domain": "light",
-        "service": "turn_off",
+        "action": "light.turn_off",
+        "floorId": [],
         "areaId": [],
         "deviceId": [],
         "entityId": [
             "light.front_porch"
         ],
+        "labelId": [],
         "data": "",
         "dataType": "json",
         "mergeContext": "",
         "mustacheAltTags": false,
         "outputProperties": [],
         "queue": "none",
+        "domain": "light",
+        "service": "turn_off",
         "output_location": "",
         "output_location_type": "none",
         "x": 620,
         "y": 400,
-        "wires": [
-            []
-        ]
-    },
-    {
-        "id": "da5ff3e0.cbb2a",
-        "type": "api-call-service",
-        "z": "af30e016d4a15d8c",
-        "name": "",
-        "version": 5,
-        "debugenabled": false,
-        "domain": "light",
-        "service": "turn_on",
-        "areaId": [],
-        "deviceId": [],
-        "entityId": [
-            "light.front_porch"
-        ],
-        "data": "",
-        "dataType": "json",
-        "mergeContext": "",
-        "mustacheAltTags": false,
-        "outputProperties": [],
-        "queue": "none",
-        "output_location": "",
-        "output_location_type": "none",
-        "x": 620,
-        "y": 448,
         "wires": [
             []
         ]
@@ -1157,21 +1157,24 @@
         "z": "af30e016d4a15d8c",
         "name": "",
         "server": "f347e0c08d711612",
-        "version": 5,
+        "version": 6,
         "debugenabled": false,
-        "domain": "climate",
-        "service": "set_hvac_mode",
+        "action": "climate.set_hvac_mode",
+        "floorId": [],
         "areaId": [],
         "deviceId": [],
         "entityId": [
             "climate.mzgn"
         ],
+        "labelId": [],
         "data": "{\"hvac_mode\":\"off\"}",
         "dataType": "jsonata",
         "mergeContext": "",
         "mustacheAltTags": false,
         "outputProperties": [],
         "queue": "none",
+        "domain": "climate",
+        "service": "set_hvac_mode",
         "x": 550,
         "y": 140,
         "wires": [
@@ -1184,11 +1187,16 @@
         "z": "663a6ec097ccb70a",
         "name": "Mazgan state changed",
         "server": "f347e0c08d711612",
-        "version": 5,
+        "version": 6,
         "outputs": 1,
         "exposeAsEntityConfig": "",
-        "entityId": "climate.mzgn",
-        "entityIdType": "exact",
+        "entities": {
+            "entity": [
+                "climate.mzgn"
+            ],
+            "substring": [],
+            "regex": []
+        },
         "outputInitially": false,
         "stateType": "str",
         "ifState": "",
@@ -1323,13 +1331,13 @@
         "name": "Set Mazgan to Dry",
         "env": [
             {
-                "name": "state",
-                "value": "dry",
+                "name": "message",
+                "value": "3 שעות של קירור. להעביר למצב טיפה?",
                 "type": "str"
             },
             {
-                "name": "message",
-                "value": "3 שעות של קירור. להעביר למצב טיפה?",
+                "name": "state",
+                "value": "dry",
                 "type": "str"
             }
         ],
@@ -1418,6 +1426,364 @@
         ],
         "x": 830,
         "y": 200,
+        "wires": []
+    },
+    {
+        "id": "b36e7ed7b39ed3e7",
+        "type": "ha-zone",
+        "z": "efe2406464df235c",
+        "name": "Enter to פינת הבילויים",
+        "server": "f347e0c08d711612",
+        "version": 1,
+        "exposeAsEntityConfig": "",
+        "entities": [
+            "person.baruch_odem"
+        ],
+        "event": "enter",
+        "zones": [
+            "zone.pynt_hbylvyym"
+        ],
+        "x": 150,
+        "y": 300,
+        "wires": [
+            [
+                "612ee082819042e8"
+            ]
+        ]
+    },
+    {
+        "id": "faefe018c6ed53a6",
+        "type": "subflow:6dc0247c.d7210c",
+        "z": "efe2406464df235c",
+        "name": "Notify to start Pango",
+        "env": [
+            {
+                "name": "service",
+                "value": "mobile_app_baruch_phone",
+                "type": "str"
+            },
+            {
+                "name": "title",
+                "value": "פנגו",
+                "type": "str"
+            },
+            {
+                "name": "message",
+                "value": "לא לשכוח להפעיל פנגו",
+                "type": "str"
+            },
+            {
+                "name": "action1Title",
+                "value": "הפעלתי",
+                "type": "str"
+            },
+            {
+                "name": "group",
+                "value": "",
+                "type": "str"
+            }
+        ],
+        "x": 740,
+        "y": 300,
+        "wires": [
+            [
+                "cfc31dc9ac4e4d7d"
+            ],
+            [],
+            [],
+            []
+        ]
+    },
+    {
+        "id": "cfc31dc9ac4e4d7d",
+        "type": "ha-wait-until",
+        "z": "efe2406464df235c",
+        "name": "wait 3 hours in place",
+        "server": "f347e0c08d711612",
+        "version": 3,
+        "outputs": 2,
+        "entities": {
+            "entity": [
+                "zone.pynt_hbylvyym"
+            ],
+            "substring": [],
+            "regex": []
+        },
+        "property": "state",
+        "comparator": "lt",
+        "value": "1",
+        "valueType": "num",
+        "timeout": "175",
+        "timeoutType": "num",
+        "timeoutUnits": "minutes",
+        "checkCurrentState": true,
+        "blockInputOverrides": true,
+        "outputProperties": [],
+        "x": 920,
+        "y": 140,
+        "wires": [
+            [
+                "39461260c8254dd3"
+            ],
+            [
+                "612ee082819042e8"
+            ]
+        ]
+    },
+    {
+        "id": "612ee082819042e8",
+        "type": "ha-wait-until",
+        "z": "efe2406464df235c",
+        "name": "Wait 5 min on this place",
+        "server": "f347e0c08d711612",
+        "version": 3,
+        "outputs": 2,
+        "entities": {
+            "entity": [
+                "zone.pynt_hbylvyym"
+            ],
+            "substring": [],
+            "regex": []
+        },
+        "property": "state",
+        "comparator": "lt",
+        "value": "0",
+        "valueType": "num",
+        "timeout": "5",
+        "timeoutType": "num",
+        "timeoutUnits": "minutes",
+        "checkCurrentState": true,
+        "blockInputOverrides": true,
+        "outputProperties": [],
+        "x": 430,
+        "y": 300,
+        "wires": [
+            [],
+            [
+                "faefe018c6ed53a6"
+            ]
+        ]
+    },
+    {
+        "id": "39461260c8254dd3",
+        "type": "subflow:6dc0247c.d7210c",
+        "z": "efe2406464df235c",
+        "name": "Notify to stop pango",
+        "env": [
+            {
+                "name": "service",
+                "value": "mobile_app_baruch_phone",
+                "type": "str"
+            },
+            {
+                "name": "title",
+                "value": "פנגו",
+                "type": "str"
+            },
+            {
+                "name": "message",
+                "value": "אל תשכח לכבות את הפנגו",
+                "type": "str"
+            },
+            {
+                "name": "action1Title",
+                "value": "כיביתי",
+                "type": "str"
+            },
+            {
+                "name": "action2Title",
+                "value": "הפעלתי שוב",
+                "type": "str"
+            },
+            {
+                "name": "group",
+                "value": null,
+                "type": "str"
+            }
+        ],
+        "x": 1060,
+        "y": 300,
+        "wires": [
+            [],
+            [
+                "cfc31dc9ac4e4d7d"
+            ],
+            [],
+            []
+        ]
+    },
+    {
+        "id": "f50eff4ff8c403ac",
+        "type": "server-state-changed",
+        "z": "7e5465b76654cc6f",
+        "name": "Bettery Level under 20",
+        "server": "f347e0c08d711612",
+        "version": 6,
+        "outputs": 2,
+        "exposeAsEntityConfig": "",
+        "entities": {
+            "entity": [
+                "sensor.baruch_phone_battery_level",
+                "sensor.plpvn_zhr_battery_level"
+            ],
+            "substring": [],
+            "regex": []
+        },
+        "outputInitially": false,
+        "stateType": "num",
+        "ifState": "20",
+        "ifStateType": "num",
+        "ifStateOperator": "lt",
+        "outputOnlyOnStateChange": true,
+        "for": "0",
+        "forType": "num",
+        "forUnits": "minutes",
+        "ignorePrevStateNull": false,
+        "ignorePrevStateUnknown": false,
+        "ignorePrevStateUnavailable": false,
+        "ignoreCurrentStateUnknown": false,
+        "ignoreCurrentStateUnavailable": false,
+        "outputProperties": [
+            {
+                "property": "payload",
+                "propertyType": "msg",
+                "value": "",
+                "valueType": "entityState"
+            },
+            {
+                "property": "data",
+                "propertyType": "msg",
+                "value": "",
+                "valueType": "eventData"
+            },
+            {
+                "property": "topic",
+                "propertyType": "msg",
+                "value": "",
+                "valueType": "triggerId"
+            }
+        ],
+        "x": 340,
+        "y": 325,
+        "wires": [
+            [
+                "0689b14bbf21f844"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "0689b14bbf21f844",
+        "type": "switch",
+        "z": "7e5465b76654cc6f",
+        "name": "",
+        "property": "topic",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "mobile_app_baruch_phone",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "mobile_app_plpvn_zhr",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 530,
+        "y": 325,
+        "wires": [
+            [
+                "b349cfee2e78cbeb"
+            ],
+            [
+                "54f3355d82ef0f99"
+            ]
+        ]
+    },
+    {
+        "id": "b349cfee2e78cbeb",
+        "type": "change",
+        "z": "7e5465b76654cc6f",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "name",
+                "pt": "msg",
+                "to": "ברוך",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 700,
+        "y": 305,
+        "wires": [
+            [
+                "8894ce5b0fa3c7fe"
+            ]
+        ]
+    },
+    {
+        "id": "54f3355d82ef0f99",
+        "type": "change",
+        "z": "7e5465b76654cc6f",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "name",
+                "pt": "msg",
+                "to": "זהר",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 700,
+        "y": 365,
+        "wires": [
+            [
+                "8894ce5b0fa3c7fe"
+            ]
+        ]
+    },
+    {
+        "id": "8894ce5b0fa3c7fe",
+        "type": "template",
+        "z": "7e5465b76654cc6f",
+        "name": "",
+        "field": "payload",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "סוללה חלשה אצל {{name}}!",
+        "output": "str",
+        "x": 880,
+        "y": 325,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "60fc3bdfbac4c96a",
+        "type": "comment",
+        "z": "7e5465b76654cc6f",
+        "name": "This is trying to notify when one of us lower battery",
+        "info": "",
+        "x": 590,
+        "y": 220,
         "wires": []
     }
 ]
