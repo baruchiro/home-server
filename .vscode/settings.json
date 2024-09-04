@@ -1,5 +1,8 @@
 {
     "files.associations": {
         "homeassistant/config/*.yaml": "home-assistant"
-    }
+    },
+    "cSpell.words": [
+        "hass"
+    ]
 }
