@@ -12,23 +12,54 @@
               "type": "horizontal-stack",
               "cards": [
                 {
-                  "type": "custom:mushroom-person-card",
-                  "entity": "person.baruch_odem",
-                  "name": "ברוך",
-                  "icon_type": "entity-picture"
+                  "type": "custom:mushroom-media-player-card",
+                  "entity": "media_player.living_room_speaker",
+                  "name": "רמקול גוגל",
+                  "use_media_info": true,
+                  "show_volume_level": true,
+                  "media_controls": [
+                    "on_off"
+                  ],
+                  "collapsible_controls": true,
+                  "visibility": [
+                    {
+                      "condition": "state",
+                      "entity": "media_player.living_room_speaker",
+                      "state_not": "off"
+                    }
+                  ],
+                  "fill_container": true,
+                  "volume_controls": [
+                    "volume_buttons"
+                  ]
                 },
                 {
-                  "type": "custom:mushroom-person-card",
-                  "entity": "person.zhr",
-                  "fill_container": false,
-                  "icon_type": "entity-picture",
-                  "icon": "mdi:face-woman"
+                  "type": "vertical-stack",
+                  "cards": [
+                    {
+                      "type": "custom:mushroom-entity-card",
+                      "entity": "script.radio_kan_g",
+                      "name": "כאן ג'"
+                    },
+                    {
+                      "type": "custom:mushroom-entity-card",
+                      "entity": "script.radio_galei_zahal",
+                      "name": "גלי צה\"ל"
+                    }
+                  ]
                 }
               ]
             },
             {
-              "type": "media-control",
-              "entity": "media_player.living_room_speaker"
+              "type": "custom:mushroom-climate-card",
+              "entity": "climate.mzgn",
+              "icon": "mdi:air-conditioner",
+              "hvac_modes": [
+                "cool",
+                "dry",
+                "off"
+              ],
+              "collapsible_controls": false
             },
             {
               "type": "entities",
@@ -61,80 +92,29 @@
                 }
               ],
               "show_header_toggle": false
-            },
-            {
-              "type": "entities",
-              "entities": [
-                {
-                  "entity": "script.radio_kan_g",
-                  "name": "כאן ג"
-                },
-                {
-                  "entity": "script.radio_galei_zahal",
-                  "name": "גלי צה\"ל"
-                }
-              ],
-              "show_header_toggle": false
-            },
-            {
-              "initial_view": "listWeek",
-              "type": "calendar",
-              "entities": [
-                "calendar.baruchiro_gmail_com"
-              ]
-            },
-            {
-              "type": "thermostat",
-              "entity": "climate.mzgn",
-              "features": [
-                {
-                  "type": "climate-hvac-modes",
-                  "hvac_modes": [
-                    "off",
-                    "heat",
-                    "cool",
-                    "dry",
-                    "fan_only",
-                    "auto"
-                  ]
-                }
-              ]
-            },
-            {
-              "show_name": true,
-              "show_icon": true,
-              "type": "button",
-              "tap_action": {
-                "action": "toggle"
-              },
-              "entity": "switch.unknown_switch",
-              "name": "מאוורר סלון",
-              "icon": "mdi:fan"
-            },
-            {
-              "type": "light",
-              "entity": "light.carpet",
-              "hold_action": {
-                "action": "toggle"
-              }
-            },
-            {
-              "type": "light",
-              "entity": "light.kitchen",
-              "name": "מנורה מטבח"
-            },
-            {
-              "title": "History",
-              "type": "history-graph",
-              "hours_to_show": 20,
-              "entities": [
-                "number.ikea_of_sweden_tradfri_bulb_e27_ws_globe_1055lm_on_level",
-                "sun.sun",
-                "number.unknown_on_level"
-              ]
             }
           ],
           "badges": [
+            {
+              "type": "entity",
+              "entity": "person.baruch_odem",
+              "show_entity_picture": true,
+              "state_content": [
+                "state",
+                "last_changed"
+              ]
+            },
+            {
+              "type": "entity",
+              "entity": "person.zhr",
+              "show_entity_picture": false,
+              "display_type": "complete",
+              "name": "זהר",
+              "state_content": [
+                "state",
+                "last_changed"
+              ]
+            },
             {
               "type": "entity",
               "entity": "switch.unknown_switch",
@@ -142,6 +122,23 @@
               "icon": "mdi:fan",
               "show_entity_picture": false,
               "state_content": "name",
+              "tap_action": {
+                "action": "toggle"
+              }
+            },
+            {
+              "type": "entity",
+              "entity": "light.kitchen",
+              "display_type": "complete",
+              "show_entity_picture": false,
+              "tap_action": {
+                "action": "toggle"
+              }
+            },
+            {
+              "type": "entity",
+              "entity": "light.carpet",
+              "display_type": "complete",
               "tap_action": {
                 "action": "toggle"
               }
