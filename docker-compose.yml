@@ -152,17 +152,17 @@ services:
     privileged: true
     network_mode: host
 
-  n8n:
-    # port 5678
-    container_name: n8n
-    image: docker.n8n.io/n8nio/n8n:latest
-    network_mode: host
-    env_file:
-      - shared.env
-    environment:
-      - N8N_SECURE_COOKIE=false
-    volumes:
-        - n8n:/home/node/.n8n
+  # n8n:
+  #   # port 5678
+  #   container_name: n8n
+  #   image: docker.n8n.io/n8nio/n8n:latest
+  #   network_mode: host
+  #   env_file:
+  #     - shared.env
+  #   environment:
+  #     - N8N_SECURE_COOKIE=false
+  #   volumes:
+  #       - n8n:/home/node/.n8n
   
   # code-server:
   #   # port 8443
