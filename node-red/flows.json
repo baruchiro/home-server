@@ -419,6 +419,28 @@
         "color": "#DDAA99"
     },
     {
+        "id": "7e9dbc3e6354d1a2",
+        "type": "subflow",
+        "name": "Reset Leave the Work",
+        "info": "",
+        "category": "",
+        "in": [
+            {
+                "x": 380,
+                "y": 160,
+                "wires": [
+                    {
+                        "id": "8e8cbc291db48965"
+                    }
+                ]
+            }
+        ],
+        "out": [],
+        "env": [],
+        "meta": {},
+        "color": "#DDAA99"
+    },
+    {
         "id": "f347e0c08d711612",
         "type": "server",
         "name": "Home Assistant",
@@ -940,6 +962,36 @@
         "x": 310,
         "y": 300,
         "wires": []
+    },
+    {
+        "id": "8e8cbc291db48965",
+        "type": "api-call-service",
+        "z": "7e9dbc3e6354d1a2",
+        "name": "",
+        "server": "f347e0c08d711612",
+        "version": 6,
+        "debugenabled": false,
+        "action": "input_datetime.set_datetime",
+        "floorId": [],
+        "areaId": [],
+        "deviceId": [],
+        "entityId": [
+            "input_datetime.leaving_the_work"
+        ],
+        "labelId": [],
+        "data": "{\"time\":\"16:50:00\"}",
+        "dataType": "json",
+        "mergeContext": "",
+        "mustacheAltTags": false,
+        "outputProperties": [],
+        "queue": "none",
+        "domain": "input_datetime",
+        "service": "set_datetime",
+        "x": 600,
+        "y": 160,
+        "wires": [
+            []
+        ]
     },
     {
         "id": "2086072a2e5d6b1e",
@@ -1611,6 +1663,206 @@
             [],
             []
         ]
+    },
+    {
+        "id": "df23ef3b60c292fc",
+        "type": "ha-time",
+        "z": "efe2406464df235c",
+        "name": "Leaving the Work time",
+        "server": "f347e0c08d711612",
+        "version": 3,
+        "exposeAsEntityConfig": "",
+        "entityId": "input_datetime.leaving_the_work",
+        "property": "",
+        "offset": "0",
+        "offsetType": "num",
+        "offsetUnits": "minutes",
+        "randomOffset": false,
+        "repeatDaily": true,
+        "outputProperties": [
+            {
+                "property": "payload",
+                "propertyType": "msg",
+                "value": "",
+                "valueType": "entityState"
+            },
+            {
+                "property": "data",
+                "propertyType": "msg",
+                "value": "",
+                "valueType": "entity"
+            },
+            {
+                "property": "topic",
+                "propertyType": "msg",
+                "value": "",
+                "valueType": "triggerId"
+            }
+        ],
+        "sunday": true,
+        "monday": true,
+        "tuesday": true,
+        "wednesday": true,
+        "thursday": true,
+        "friday": true,
+        "saturday": true,
+        "x": 160,
+        "y": 700,
+        "wires": [
+            [
+                "1129d9423b3804f1"
+            ]
+        ]
+    },
+    {
+        "id": "1129d9423b3804f1",
+        "type": "api-current-state",
+        "z": "efe2406464df235c",
+        "name": "",
+        "server": "f347e0c08d711612",
+        "version": 3,
+        "outputs": 2,
+        "halt_if": "With",
+        "halt_if_type": "str",
+        "halt_if_compare": "is",
+        "entity_id": "person.baruch_odem",
+        "state_type": "str",
+        "blockInputOverrides": false,
+        "outputProperties": [
+            {
+                "property": "payload",
+                "propertyType": "msg",
+                "value": "",
+                "valueType": "entityState"
+            },
+            {
+                "property": "data",
+                "propertyType": "msg",
+                "value": "",
+                "valueType": "entity"
+            }
+        ],
+        "for": "0",
+        "forType": "num",
+        "forUnits": "minutes",
+        "override_topic": false,
+        "state_location": "payload",
+        "override_payload": "msg",
+        "entity_location": "data",
+        "override_data": "msg",
+        "x": 460,
+        "y": 700,
+        "wires": [
+            [
+                "a3cbf3c8cffdc86a",
+                "de5355eb752f338e"
+            ],
+            [
+                "f08420f13a48df1e"
+            ]
+        ]
+    },
+    {
+        "id": "a3cbf3c8cffdc86a",
+        "type": "debug",
+        "z": "efe2406464df235c",
+        "name": "debug 5",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 700,
+        "y": 600,
+        "wires": []
+    },
+    {
+        "id": "f08420f13a48df1e",
+        "type": "debug",
+        "z": "efe2406464df235c",
+        "name": "debug 6",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 720,
+        "y": 820,
+        "wires": []
+    },
+    {
+        "id": "06efd09704d0ae69",
+        "type": "inject",
+        "z": "efe2406464df235c",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 140,
+        "y": 760,
+        "wires": [
+            [
+                "1129d9423b3804f1"
+            ]
+        ]
+    },
+    {
+        "id": "de5355eb752f338e",
+        "type": "api-call-service",
+        "z": "efe2406464df235c",
+        "name": "",
+        "server": "f347e0c08d711612",
+        "version": 6,
+        "debugenabled": false,
+        "action": "notify.mobile_app_baruch_phone",
+        "floorId": [],
+        "areaId": [],
+        "deviceId": [],
+        "entityId": [],
+        "labelId": [],
+        "data": "{\"title\":\"תזכורת\",\"message\":\"צריך ללכת הביתה\"}",
+        "dataType": "json",
+        "mergeContext": "callServiceData",
+        "mustacheAltTags": false,
+        "outputProperties": [],
+        "queue": "none",
+        "domain": "notify",
+        "service": "mobile_app_baruch_phone",
+        "output_location": "",
+        "output_location_type": "none",
+        "x": 820,
+        "y": 700,
+        "wires": [
+            [
+                "9acb762197811c12"
+            ]
+        ]
+    },
+    {
+        "id": "9acb762197811c12",
+        "type": "subflow:7e9dbc3e6354d1a2",
+        "z": "efe2406464df235c",
+        "name": "Reset Leave the Work",
+        "x": 1120,
+        "y": 700,
+        "wires": []
     },
     {
         "id": "f50eff4ff8c403ac",

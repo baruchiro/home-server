@@ -9,89 +9,113 @@
           "title": "Home",
           "cards": [
             {
-              "type": "horizontal-stack",
+              "type": "vertical-stack",
               "cards": [
                 {
-                  "type": "custom:mushroom-media-player-card",
-                  "entity": "media_player.living_room_speaker",
-                  "name": "רמקול גוגל",
-                  "use_media_info": true,
-                  "show_volume_level": true,
-                  "media_controls": [
-                    "on_off"
-                  ],
-                  "collapsible_controls": true,
-                  "visibility": [
+                  "type": "horizontal-stack",
+                  "cards": [
                     {
-                      "condition": "state",
+                      "type": "custom:mushroom-media-player-card",
                       "entity": "media_player.living_room_speaker",
-                      "state_not": "off"
+                      "name": "רמקול גוגל",
+                      "use_media_info": true,
+                      "show_volume_level": true,
+                      "media_controls": [
+                        "on_off"
+                      ],
+                      "collapsible_controls": true,
+                      "visibility": [
+                        {
+                          "condition": "state",
+                          "entity": "media_player.living_room_speaker",
+                          "state_not": "off"
+                        }
+                      ],
+                      "fill_container": true,
+                      "volume_controls": [
+                        "volume_buttons"
+                      ]
+                    },
+                    {
+                      "type": "vertical-stack",
+                      "cards": [
+                        {
+                          "type": "custom:mushroom-entity-card",
+                          "entity": "script.radio_kan_g",
+                          "name": "כאן ג'"
+                        },
+                        {
+                          "type": "custom:mushroom-entity-card",
+                          "entity": "script.radio_galei_zahal",
+                          "name": "גלי צה\"ל"
+                        }
+                      ]
                     }
-                  ],
-                  "fill_container": true,
-                  "volume_controls": [
-                    "volume_buttons"
                   ]
                 },
                 {
-                  "type": "vertical-stack",
-                  "cards": [
+                  "type": "custom:mushroom-climate-card",
+                  "entity": "climate.mzgn",
+                  "icon": "mdi:air-conditioner",
+                  "hvac_modes": [
+                    "cool",
+                    "dry",
+                    "off"
+                  ],
+                  "collapsible_controls": false
+                },
+                {
+                  "type": "entities",
+                  "entities": [
                     {
-                      "type": "custom:mushroom-entity-card",
-                      "entity": "script.radio_kan_g",
-                      "name": "כאן ג'"
+                      "entity": "sensor.jewish_calendar_parshat_hashavua",
+                      "name": "פרשת השבוע"
                     },
                     {
-                      "type": "custom:mushroom-entity-card",
-                      "entity": "script.radio_galei_zahal",
-                      "name": "גלי צה\"ל"
+                      "entity": "sensor.jewish_calendar_daf_yomi",
+                      "name": "דף יומי"
+                    },
+                    {
+                      "entity": "sensor.tfilot_chol_minha",
+                      "name": "מנחה"
+                    },
+                    {
+                      "entity": "sensor.tfilot_chol_arvit_1",
+                      "name": "ערבית"
+                    },
+                    {
+                      "entity": "sensor.jewish_calendar_upcoming_candle_lighting",
+                      "name": "הדלקת נרות",
+                      "format": "time"
+                    },
+                    {
+                      "entity": "sensor.jewish_calendar_upcoming_havdalah",
+                      "name": "הבדלה",
+                      "format": "time"
+                    }
+                  ],
+                  "show_header_toggle": false
+                },
+                {
+                  "type": "entities",
+                  "entities": [
+                    {
+                      "entity": "input_datetime.leaving_the_work",
+                      "name": "תזכורת לצאת"
+                    }
+                  ],
+                  "state_color": false,
+                  "show_header_toggle": false,
+                  "visibility": [
+                    {
+                      "condition": "user",
+                      "users": [
+                        "185d26a8b9d848ecbc5c183aa6de3d6c"
+                      ]
                     }
                   ]
                 }
               ]
-            },
-            {
-              "type": "custom:mushroom-climate-card",
-              "entity": "climate.mzgn",
-              "icon": "mdi:air-conditioner",
-              "hvac_modes": [
-                "cool",
-                "dry",
-                "off"
-              ],
-              "collapsible_controls": false
-            },
-            {
-              "type": "entities",
-              "entities": [
-                {
-                  "entity": "sensor.jewish_calendar_parshat_hashavua",
-                  "name": "פרשת השבוע"
-                },
-                {
-                  "entity": "sensor.jewish_calendar_daf_yomi",
-                  "name": "דף יומי"
-                },
-                {
-                  "entity": "sensor.tfilot_chol_minha",
-                  "name": "מנחה"
-                },
-                {
-                  "entity": "sensor.tfilot_chol_arvit_1",
-                  "name": "ערבית"
-                },
-                {
-                  "entity": "sensor.jewish_calendar_upcoming_candle_lighting",
-                  "name": "הדלקת נרות",
-                  "format": "time"
-                },
-                {
-                  "entity": "sensor.jewish_calendar_upcoming_havdalah",
-                  "name": "הבדלה",
-                  "format": "time"
-                }
-              ],
-              "show_header_toggle": false
             }
           ],
           "badges": [
@@ -142,6 +166,125 @@
               "tap_action": {
                 "action": "toggle"
               }
+            },
+            {
+              "type": "entity",
+              "entity": "light.light_food_light",
+              "display_type": "complete",
+              "tap_action": {
+                "action": "toggle"
+              },
+              "name": "פינת אוכל"
+            },
+            {
+              "type": "entity",
+              "entity": "light.light_kitchen_light_2",
+              "display_type": "complete",
+              "tap_action": {
+                "action": "toggle"
+              },
+              "name": "מטבח"
+            },
+            {
+              "type": "entity",
+              "display_type": "complete",
+              "tap_action": {
+                "action": "toggle"
+              },
+              "entity": "light.bedroom",
+              "visibility": [
+                {
+                  "condition": "state",
+                  "entity": "light.bedroom",
+                  "state_not": "unavailable"
+                }
+              ]
+            },
+            {
+              "type": "entity",
+              "display_type": "complete",
+              "tap_action": {
+                "action": "toggle"
+              },
+              "entity": "light.bathroom"
+            },
+            {
+              "type": "entity",
+              "display_type": "complete",
+              "show_entity_picture": false,
+              "tap_action": {
+                "action": "toggle"
+              },
+              "entity": "light.food"
+            }
+          ]
+        },
+        {
+          "title": "נורות",
+          "path": "lights",
+          "icon": "mdi:globe-light",
+          "cards": [
+            {
+              "type": "custom:mushroom-light-card",
+              "entity": "light.bedroom",
+              "use_light_color": true,
+              "show_brightness_control": true,
+              "show_color_temp_control": true,
+              "show_color_control": true,
+              "collapsible_controls": true,
+              "hold_action": {
+                "action": "more-info"
+              }
+            },
+            {
+              "type": "custom:mushroom-light-card",
+              "use_light_color": true,
+              "show_brightness_control": true,
+              "show_color_temp_control": true,
+              "show_color_control": true,
+              "collapsible_controls": true,
+              "entity": "light.bathroom",
+              "hold_action": {
+                "action": "more-info"
+              }
+            },
+            {
+              "type": "custom:mushroom-light-card",
+              "use_light_color": true,
+              "show_brightness_control": true,
+              "show_color_temp_control": true,
+              "show_color_control": true,
+              "collapsible_controls": true,
+              "entity": "light.food",
+              "hold_action": {
+                "action": "more-info"
+              }
+            },
+            {
+              "type": "custom:mushroom-light-card",
+              "use_light_color": true,
+              "show_brightness_control": true,
+              "show_color_temp_control": true,
+              "show_color_control": true,
+              "collapsible_controls": true,
+              "entity": "light.kitchen",
+              "hold_action": {
+                "action": "more-info"
+              }
+            }
+          ],
+          "subview": false,
+          "badges": [
+            {
+              "type": "entity",
+              "entity": "script.toggle_light",
+              "name": "אור בסלון",
+              "tap_action": {
+                "action": "perform-action",
+                "perform_action": "script.toggle_light",
+                "target": {}
+              },
+              "state_content": "name"
             }
           ]
         }

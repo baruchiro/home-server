@@ -126,3 +126,13 @@ mazgan_cool_baruch_confirm:
       dismiss_action: []
   description: ''
   icon: mdi:air-conditioner
+toggle_light:
+  alias: Toggle light סלון
+  sequence:
+  - action: light.toggle
+    metadata: {}
+    data: {}
+    target:
+      area_id: slvn
+  description: ''
+  icon: mdi:ceiling-light-multiple
