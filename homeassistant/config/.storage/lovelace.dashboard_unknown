@@ -161,32 +161,6 @@
             },
             {
               "type": "entity",
-              "entity": "light.carpet",
-              "display_type": "complete",
-              "tap_action": {
-                "action": "toggle"
-              }
-            },
-            {
-              "type": "entity",
-              "entity": "light.light_food_light",
-              "display_type": "complete",
-              "tap_action": {
-                "action": "toggle"
-              },
-              "name": "פינת אוכל"
-            },
-            {
-              "type": "entity",
-              "entity": "light.light_kitchen_light_2",
-              "display_type": "complete",
-              "tap_action": {
-                "action": "toggle"
-              },
-              "name": "מטבח"
-            },
-            {
-              "type": "entity",
               "display_type": "complete",
               "tap_action": {
                 "action": "toggle"
