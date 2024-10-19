@@ -136,3 +136,31 @@ toggle_light:
       area_id: slvn
   description: ''
   icon: mdi:ceiling-light-multiple
+unknown:
+  alias: מאוורר חדר מצב שינה
+  sequence:
+  - action: fan.toggle
+    metadata: {}
+    data: {}
+    target:
+      device_id: ddda0c7e7b0177094ca218497c439fdb
+  - action: fan.oscillate
+    metadata: {}
+    data:
+      oscillating: true
+    target:
+      device_id: ddda0c7e7b0177094ca218497c439fdb
+  - action: fan.set_preset_mode
+    metadata: {}
+    data:
+      preset_mode: sleep
+    target:
+      device_id: ddda0c7e7b0177094ca218497c439fdb
+  - action: fan.set_percentage
+    metadata: {}
+    data:
+      percentage: 1
+    target:
+      device_id: ddda0c7e7b0177094ca218497c439fdb
+  description: ''
+  icon: mdi:fan

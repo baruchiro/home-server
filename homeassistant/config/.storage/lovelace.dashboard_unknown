@@ -60,9 +60,19 @@
                   "hvac_modes": [
                     "cool",
                     "dry",
-                    "off"
+                    "off",
+                    "fan_only"
                   ],
-                  "collapsible_controls": false
+                  "collapsible_controls": false,
+                  "tap_action": {
+                    "action": "more-info"
+                  },
+                  "hold_action": {
+                    "action": "none"
+                  },
+                  "double_tap_action": {
+                    "action": "none"
+                  }
                 },
                 {
                   "type": "entities",
@@ -190,6 +200,20 @@
                 "action": "toggle"
               },
               "entity": "light.food"
+            },
+            {
+              "type": "entity",
+              "show_name": true,
+              "show_state": false,
+              "show_icon": true,
+              "entity": "fan.mvvrr_khdr",
+              "tap_action": {
+                "action": "perform-action",
+                "perform_action": "script.unknown",
+                "target": {}
+              },
+              "name": "מגדל",
+              "show_entity_picture": false
             }
           ]
         },
