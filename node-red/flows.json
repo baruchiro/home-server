@@ -38,6 +38,13 @@
         "env": []
     },
     {
+        "id": "eea98ea73f48dbd0",
+        "type": "tab",
+        "label": "Climate Temperature Change",
+        "disabled": false,
+        "info": ""
+    },
+    {
         "id": "6dc0247c.d7210c",
         "type": "subflow",
         "name": "Actionable Notification",
@@ -998,10 +1005,7 @@
         "type": "link in",
         "z": "f4db1daabc9dfc5d",
         "name": "catch",
-        "links": [
-            "3103e475cf2ae6d6",
-            "c702dea8ceaab124"
-        ],
+        "links": [],
         "x": 145,
         "y": 120,
         "wires": [
@@ -1481,6 +1485,342 @@
         "wires": []
     },
     {
+        "id": "69fbd4dd8b027384",
+        "type": "server-state-changed",
+        "z": "663a6ec097ccb70a",
+        "name": "Mazgan Temperature",
+        "server": "f347e0c08d711612",
+        "version": 6,
+        "outputs": 1,
+        "exposeAsEntityConfig": "",
+        "entities": {
+            "entity": [
+                "climate.mzgn"
+            ],
+            "substring": [],
+            "regex": []
+        },
+        "outputInitially": false,
+        "stateType": "str",
+        "ifState": "",
+        "ifStateType": "str",
+        "ifStateOperator": "is",
+        "outputOnlyOnStateChange": true,
+        "for": "0",
+        "forType": "num",
+        "forUnits": "minutes",
+        "ignorePrevStateNull": false,
+        "ignorePrevStateUnknown": false,
+        "ignorePrevStateUnavailable": false,
+        "ignoreCurrentStateUnknown": false,
+        "ignoreCurrentStateUnavailable": false,
+        "outputProperties": [
+            {
+                "property": "payload",
+                "propertyType": "msg",
+                "value": "",
+                "valueType": "entityState"
+            },
+            {
+                "property": "data",
+                "propertyType": "msg",
+                "value": "",
+                "valueType": "eventData"
+            },
+            {
+                "property": "topic",
+                "propertyType": "msg",
+                "value": "",
+                "valueType": "triggerId"
+            }
+        ],
+        "x": 200,
+        "y": 460,
+        "wires": [
+            [
+                "11d2f516449abc81",
+                "cf8b1bd5317ab2c5"
+            ]
+        ]
+    },
+    {
+        "id": "11d2f516449abc81",
+        "type": "debug",
+        "z": "663a6ec097ccb70a",
+        "name": "debug 7",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 760,
+        "y": 440,
+        "wires": []
+    },
+    {
+        "id": "c062b0f505e882e2",
+        "type": "api-current-state",
+        "z": "663a6ec097ccb70a",
+        "name": "",
+        "server": "f347e0c08d711612",
+        "version": 3,
+        "outputs": 1,
+        "halt_if": "",
+        "halt_if_type": "str",
+        "halt_if_compare": "is",
+        "entity_id": "climate.mzgn",
+        "state_type": "str",
+        "blockInputOverrides": false,
+        "outputProperties": [
+            {
+                "property": "payload",
+                "propertyType": "msg",
+                "value": "",
+                "valueType": "entityState"
+            },
+            {
+                "property": "data",
+                "propertyType": "msg",
+                "value": "",
+                "valueType": "entity"
+            }
+        ],
+        "for": "0",
+        "forType": "num",
+        "forUnits": "minutes",
+        "override_topic": false,
+        "state_location": "payload",
+        "override_payload": "msg",
+        "entity_location": "data",
+        "override_data": "msg",
+        "x": 400,
+        "y": 560,
+        "wires": [
+            [
+                "11d2f516449abc81",
+                "cf8b1bd5317ab2c5",
+                "89d3356177589370"
+            ]
+        ]
+    },
+    {
+        "id": "1e5f1acd2d7824de",
+        "type": "inject",
+        "z": "663a6ec097ccb70a",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 140,
+        "y": 560,
+        "wires": [
+            [
+                "c062b0f505e882e2"
+            ]
+        ]
+    },
+    {
+        "id": "75840a840d37f893",
+        "type": "ha-device",
+        "z": "663a6ec097ccb70a",
+        "name": "",
+        "server": "f347e0c08d711612",
+        "version": 1,
+        "exposeAsEntityConfig": "",
+        "inputs": 0,
+        "deviceType": "trigger",
+        "device": "3daeb7afe3a86c54a308f1f0efd58f89",
+        "event": {
+            "platform": "device",
+            "device_id": "3daeb7afe3a86c54a308f1f0efd58f89",
+            "domain": "climate",
+            "entity_id": "946a669e8b6968b40a237f5126631b0c",
+            "type": "current_temperature_changed",
+            "metadata": {
+                "secondary": false
+            }
+        },
+        "capabilities": [
+            {
+                "name": "above",
+                "type": "float",
+                "value": 10
+            },
+            {
+                "name": "below",
+                "type": "float",
+                "value": 50
+            },
+            {
+                "name": "for",
+                "type": "positive_time_period_dict",
+                "value": 10,
+                "unit": "seconds"
+            }
+        ],
+        "outputProperties": [
+            {
+                "property": "payload",
+                "propertyType": "msg",
+                "value": "",
+                "valueType": "eventData"
+            },
+            {
+                "property": "topic",
+                "propertyType": "msg",
+                "value": "",
+                "valueType": "triggerId"
+            }
+        ],
+        "x": 130,
+        "y": 680,
+        "wires": [
+            [
+                "d2bea1d1c545eecd",
+                "ba38025c992eecb8",
+                "313a71e0a67d915d"
+            ]
+        ]
+    },
+    {
+        "id": "d2bea1d1c545eecd",
+        "type": "debug",
+        "z": "663a6ec097ccb70a",
+        "name": "debug 8",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 510,
+        "y": 640,
+        "wires": []
+    },
+    {
+        "id": "ba38025c992eecb8",
+        "type": "subflow:6dc0247c.d7210c",
+        "z": "663a6ec097ccb70a",
+        "name": "",
+        "env": [
+            {
+                "name": "service",
+                "value": "mobile_app_baruch_phone",
+                "type": "str"
+            },
+            {
+                "name": "title",
+                "value": "מזגן",
+                "type": "str"
+            },
+            {
+                "name": "message",
+                "value": "msg.payload",
+                "type": "env"
+            },
+            {
+                "name": "group",
+                "value": "",
+                "type": "str"
+            }
+        ],
+        "x": 510,
+        "y": 740,
+        "wires": [
+            [],
+            [],
+            [],
+            []
+        ]
+    },
+    {
+        "id": "313a71e0a67d915d",
+        "type": "subflow:6dc0247c.d7210c",
+        "z": "663a6ec097ccb70a",
+        "name": "",
+        "env": [
+            {
+                "name": "service",
+                "value": "mobile_app_baruch_phone",
+                "type": "str"
+            },
+            {
+                "name": "title",
+                "value": "מזגן",
+                "type": "str"
+            },
+            {
+                "name": "message",
+                "value": "תבדוק במחשב",
+                "type": "str"
+            },
+            {
+                "name": "group",
+                "value": "",
+                "type": "str"
+            }
+        ],
+        "x": 470,
+        "y": 860,
+        "wires": [
+            [],
+            [],
+            [],
+            []
+        ]
+    },
+    {
+        "id": "cf8b1bd5317ab2c5",
+        "type": "debug",
+        "z": "663a6ec097ccb70a",
+        "name": "debug 9",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "data",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 810,
+        "y": 540,
+        "wires": []
+    },
+    {
+        "id": "89d3356177589370",
+        "type": "debug",
+        "z": "663a6ec097ccb70a",
+        "name": "debug 10",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "data.attributes.current_temperature",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 850,
+        "y": 600,
+        "wires": []
+    },
+    {
         "id": "b36e7ed7b39ed3e7",
         "type": "ha-zone",
         "z": "efe2406464df235c",
@@ -1649,7 +1989,7 @@
             },
             {
                 "name": "group",
-                "value": null,
+                "value": "",
                 "type": "str"
             }
         ],
@@ -2037,5 +2377,123 @@
         "x": 590,
         "y": 220,
         "wires": []
+    },
+    {
+        "id": "3b100d7cc7ee2616",
+        "type": "server-state-changed",
+        "z": "eea98ea73f48dbd0",
+        "name": "Climate Temperature Change",
+        "server": "f347e0c08d711612",
+        "version": 6,
+        "outputs": 1,
+        "exposeAsEntityConfig": "",
+        "entities": {
+            "entity": [
+                "climate.mzgn"
+            ],
+            "substring": [],
+            "regex": []
+        },
+        "outputInitially": false,
+        "stateType": "str",
+        "ifState": "",
+        "ifStateType": "str",
+        "ifStateOperator": "is",
+        "outputOnlyOnStateChange": true,
+        "for": 0,
+        "forType": "num",
+        "forUnits": "minutes",
+        "ignorePrevStateNull": false,
+        "ignorePrevStateUnknown": false,
+        "ignorePrevStateUnavailable": false,
+        "ignoreCurrentStateUnknown": false,
+        "ignoreCurrentStateUnavailable": false,
+        "outputProperties": [],
+        "x": 200,
+        "y": 100,
+        "wires": [
+            [
+                "8186356aadd159b1"
+            ]
+        ]
+    },
+    {
+        "id": "8186356aadd159b1",
+        "type": "switch",
+        "z": "eea98ea73f48dbd0",
+        "name": "Check Temperature Change",
+        "property": "data.new_state.attributes.current_temperature",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "neq",
+                "v": "data.old_state.attributes.current_temperature",
+                "vt": "msg"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 520,
+        "y": 100,
+        "wires": [
+            [
+                "66752e26de8dec82",
+                "f99876602f074797"
+            ]
+        ]
+    },
+    {
+        "id": "66752e26de8dec82",
+        "type": "debug",
+        "z": "eea98ea73f48dbd0",
+        "name": "Debug Output",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 800,
+        "y": 100,
+        "wires": []
+    },
+    {
+        "id": "f99876602f074797",
+        "type": "subflow:6dc0247c.d7210c",
+        "z": "eea98ea73f48dbd0",
+        "name": "",
+        "env": [
+            {
+                "name": "service",
+                "value": "mobile_app_baruch_phone",
+                "type": "str"
+            },
+            {
+                "name": "title",
+                "value": "מזגן",
+                "type": "str"
+            },
+            {
+                "name": "message",
+                "value": "From GPT",
+                "type": "str"
+            },
+            {
+                "name": "group",
+                "value": null,
+                "type": "str"
+            }
+        ],
+        "x": 810,
+        "y": 260,
+        "wires": [
+            [],
+            [],
+            [],
+            []
+        ]
     }
 ]
