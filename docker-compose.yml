@@ -192,6 +192,8 @@ services:
     depends_on: 
       nocodb_mysql: 
         condition: service_healthy
+      mysql: 
+        condition: service_healthy
     environment: 
       NC_DB: "mysql2://nocodb_mysql:3306?u=noco&p=password&d=root_db"
     image: "nocodb/nocodb:latest"
@@ -220,6 +222,8 @@ services:
     restart: always
     volumes: 
       - "nocodb_mysql_data:/var/lib/mysql"
+    ports:
+      - "3306:3306"
 #    below line shows how to change charset and collation
 #    uncomment it if necessary
 #    command: --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
@@ -227,7 +231,8 @@ services:
   nocobase:
     image: nocobase/nocobase:latest
     depends_on:
-      - mysql
+      mysql: 
+        condition: service_healthy
     env_file:
       - shared.env
     environment:
@@ -261,6 +266,15 @@ services:
       MYSQL_USER: ${MYSQL_USER}
       MYSQL_PASSWORD: ${MYSQL_PASSWORD}
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+    healthcheck: 
+      retries: 10
+      test: 
+        - CMD
+        - mysqladmin
+        - ping
+        - "-h"
+        - localhost
+      timeout: 20s
     restart: always
     entrypoint:
       sh -c "
@@ -271,8 +285,8 @@ services:
         echo 'FLUSH PRIVILEGES;' >> /docker-entrypoint-initdb.d/init.sql;
         /usr/local/bin/docker-entrypoint.sh --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
       "
-    # volumes:
-    #   - mysql:/var/lib/mysql
+    volumes:
+      - mysql:/var/lib/mysql
     ports:
       - "3307:3306"
 
