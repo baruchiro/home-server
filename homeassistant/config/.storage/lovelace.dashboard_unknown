@@ -162,12 +162,21 @@
             },
             {
               "type": "entity",
+              "show_name": true,
+              "show_state": true,
+              "show_icon": true,
               "entity": "light.kitchen",
-              "display_type": "complete",
               "show_entity_picture": false,
               "tap_action": {
                 "action": "toggle"
-              }
+              },
+              "visibility": [
+                {
+                  "condition": "state",
+                  "entity": "light.kitchen",
+                  "state_not": "unavailable"
+                }
+              ]
             },
             {
               "type": "entity",
@@ -186,20 +195,38 @@
             },
             {
               "type": "entity",
-              "display_type": "complete",
+              "show_name": true,
+              "show_state": true,
+              "show_icon": true,
               "tap_action": {
                 "action": "toggle"
               },
-              "entity": "light.bathroom"
+              "entity": "light.bathroom",
+              "visibility": [
+                {
+                  "condition": "state",
+                  "entity": "light.bathroom",
+                  "state_not": "unavailable"
+                }
+              ]
             },
             {
               "type": "entity",
-              "display_type": "complete",
+              "show_name": true,
+              "show_state": true,
+              "show_icon": true,
               "show_entity_picture": false,
               "tap_action": {
                 "action": "toggle"
               },
-              "entity": "light.food"
+              "entity": "light.food",
+              "visibility": [
+                {
+                  "condition": "state",
+                  "entity": "light.food",
+                  "state_not": "unavailable"
+                }
+              ]
             },
             {
               "type": "entity",
