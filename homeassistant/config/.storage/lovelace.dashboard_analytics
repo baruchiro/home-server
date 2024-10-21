@@ -41,7 +41,28 @@
               "entity": "sensor.url_title_preview_downloads",
               "detail": 2,
               "unit": "downloads",
-              "hours_to_show": 168
+              "hours_to_show": 168,
+              "name": "URL Title Preview Downloads (week)"
+            },
+            {
+              "graph": "line",
+              "type": "sensor",
+              "entity": "sensor.stack_overflow_reputation",
+              "detail": 2,
+              "unit": "reputations",
+              "hours_to_show": 672,
+              "icon": "mdi:stack-overflow",
+              "name": "Stack Overflow Reputation (month)"
+            },
+            {
+              "graph": "line",
+              "type": "sensor",
+              "entity": "sensor.twitter_followers",
+              "detail": 2,
+              "hours_to_show": 672,
+              "icon": "mdi:twitter",
+              "unit": "Followers",
+              "name": "Twitter Followers (month)"
             }
           ]
         }

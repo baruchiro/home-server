@@ -77,3 +77,19 @@ scrape:
         select: ".installs-text"
         value_template: "{{ value.split(' ')[1] | int(-1) }}"
         icon: mdi:microsoft-visual-studio-code
+  
+  - resource: https://stackoverflow.com/users/839513/baruchiro
+    scan_interval: 86400 # 24 hours
+    sensor:
+      - name: "Stack Overflow Reputation"
+        select: "#stats .fs-body3"
+        value_template: "{{ value.replace(',', '') | int }}"
+        icon: mdi:stack-overflow
+  
+  - resource: https://nitter.privacydev.net/baruchiro
+    scan_interval: 86400 # 24 hours
+    sensor:
+      - name: "Twitter Followers"
+        select: ".followers .profile-stat-num"
+        value_template: "{{ value.replace(',', '') | int }}"
+        icon: mdi:twitter
