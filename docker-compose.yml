@@ -287,8 +287,14 @@ services:
       "
     volumes:
       - mysql:/var/lib/mysql
+      - mysql-backup:/var/lib/backup
+      - ./mysql:/var/lib/scripts
     ports:
       - "3307:3306"
+    labels:
+      ofelia.enabled: "true"
+      ofelia.job-exec.export-people.schedule: "@daily"
+      ofelia.job-exec.export-people.command: "sh -c '/var/lib/scripts/backup.sh /var/lib/backup'"
 
   ofelia:
     image: mcuadros/ofelia:latest
@@ -447,6 +453,14 @@ volumes:
       vfs_cache_mode: full
       poll_interval: 0
   paperless-consume:
+
+  mysql-backup:
+    driver: rclone
+    driver_opts:
+      remote: 'remote-gdrive:nocobase-backup'
+      allow_other: 'true'
+      vfs_cache_mode: full
+      poll_interval: 0
 
     # telegram2twitter:
     #   image: baruchiro/telegram2twitter
