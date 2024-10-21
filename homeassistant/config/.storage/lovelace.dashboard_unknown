@@ -241,6 +241,31 @@
               },
               "name": "מגדל",
               "show_entity_picture": false
+            },
+            {
+              "type": "custom:mushroom-template-badge",
+              "content": "{{ states('sensor.system_monitor_disk_usage') }}%",
+              "icon": "mdi:alert-circle-outline",
+              "color": "red",
+              "entity": "sensor.system_monitor_disk_usage",
+              "tap_action": {
+                "action": "navigate",
+                "navigation_path": "/dashboard-hardware"
+              },
+              "hold_action": {
+                "action": "none"
+              },
+              "double_tap_action": {
+                "action": "none"
+              },
+              "label": "Disk",
+              "visibility": [
+                {
+                  "condition": "numeric_state",
+                  "entity": "sensor.system_monitor_disk_usage",
+                  "above": 80
+                }
+              ]
             }
           ]
         },
