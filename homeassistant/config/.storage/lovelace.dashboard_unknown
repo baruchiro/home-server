@@ -151,14 +151,18 @@
             },
             {
               "type": "entity",
-              "entity": "switch.unknown_switch",
+              "show_name": false,
+              "show_state": true,
+              "show_icon": true,
+              "entity": "switch.living_room_fan",
               "name": "מאוורר",
               "icon": "mdi:fan",
               "show_entity_picture": false,
               "state_content": "name",
               "tap_action": {
                 "action": "toggle"
-              }
+              },
+              "color": ""
             },
             {
               "type": "entity",
@@ -180,18 +184,21 @@
             },
             {
               "type": "entity",
-              "display_type": "complete",
+              "show_name": true,
+              "show_state": true,
+              "show_icon": true,
               "tap_action": {
                 "action": "toggle"
               },
-              "entity": "light.bedroom",
               "visibility": [
                 {
                   "condition": "state",
                   "entity": "light.bedroom",
                   "state_not": "unavailable"
                 }
-              ]
+              ],
+              "color": "",
+              "entity": "light.bathroom"
             },
             {
               "type": "entity",
@@ -201,14 +208,15 @@
               "tap_action": {
                 "action": "toggle"
               },
-              "entity": "light.bathroom",
               "visibility": [
                 {
                   "condition": "state",
                   "entity": "light.bathroom",
                   "state_not": "unavailable"
                 }
-              ]
+              ],
+              "color": "",
+              "entity": "light.bedroom"
             },
             {
               "type": "entity",
@@ -264,6 +272,31 @@
                   "condition": "numeric_state",
                   "entity": "sensor.system_monitor_disk_usage",
                   "above": 80
+                }
+              ]
+            },
+            {
+              "type": "custom:mushroom-template-badge",
+              "content": "{{ states('sensor.remote_ir_battery') }}%",
+              "icon": "mdi:alert-circle-outline",
+              "color": "red",
+              "entity": "sensor.remote_ir_battery",
+              "tap_action": {
+                "action": "navigate",
+                "navigation_path": "/dashboard-hardware"
+              },
+              "hold_action": {
+                "action": "none"
+              },
+              "double_tap_action": {
+                "action": "none"
+              },
+              "label": "IR Bettery",
+              "visibility": [
+                {
+                  "condition": "numeric_state",
+                  "entity": "sensor.remote_ir_battery",
+                  "below": 20
                 }
               ]
             }

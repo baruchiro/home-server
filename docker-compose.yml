@@ -152,6 +152,29 @@ services:
     privileged: true
     network_mode: host
 
+  mqtt:
+    image: eclipse-mosquitto:2.0
+    restart: unless-stopped
+    volumes:
+      - mosquitto-data:/mosquitto
+    ports:
+      - 1883:1883
+      - 9001:9001
+    command: 'mosquitto -c /mosquitto-no-auth.conf'
+
+  zigbee2mqtt:
+    container_name: zigbee2mqtt
+    restart: unless-stopped
+    image: koenkk/zigbee2mqtt
+    volumes:
+      - ./zigbee2mqtt:/app/data
+      - /run/udev:/run/udev:ro
+    env_file:
+      - shared.env
+    ports:
+      - 8080:8080
+    devices:
+      - /dev/ttyACM0:/dev/ttyACM0
   # n8n:
   #   # port 5678
   #   container_name: n8n
@@ -163,7 +186,7 @@ services:
   #     - N8N_SECURE_COOKIE=false
   #   volumes:
   #       - n8n:/home/node/.n8n
-  
+
   # code-server:
   #   # port 8443
   #   image: lscr.io/linuxserver/code-server:latest
@@ -188,30 +211,30 @@ services:
   #     - 8443:8443
   #   restart: unless-stopped
 
-  nocodb: 
-    depends_on: 
-      nocodb_mysql: 
+  nocodb:
+    depends_on:
+      nocodb_mysql:
         condition: service_healthy
-      mysql: 
+      mysql:
         condition: service_healthy
-    environment: 
+    environment:
       NC_DB: "mysql2://nocodb_mysql:3306?u=noco&p=password&d=root_db"
     image: "nocodb/nocodb:latest"
     ports:
       - "8765:8080"
     restart: always
-    volumes: 
+    volumes:
       - "nocodb_data:/usr/app/data"
-  
-  nocodb_mysql: 
-    environment: 
+
+  nocodb_mysql:
+    environment:
       MYSQL_DATABASE: root_db
       MYSQL_PASSWORD: password
       MYSQL_ROOT_PASSWORD: password
       MYSQL_USER: noco
-    healthcheck: 
+    healthcheck:
       retries: 10
-      test: 
+      test:
         - CMD
         - mysqladmin
         - ping
@@ -220,18 +243,18 @@ services:
       timeout: 20s
     image: "mysql:8.3.0"
     restart: always
-    volumes: 
+    volumes:
       - "nocodb_mysql_data:/var/lib/mysql"
     ports:
       - "3306:3306"
-#    below line shows how to change charset and collation
-#    uncomment it if necessary
-#    command: --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+  #    below line shows how to change charset and collation
+  #    uncomment it if necessary
+  #    command: --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
 
   nocobase:
     image: nocobase/nocobase:latest
     depends_on:
-      mysql: 
+      mysql:
         condition: service_healthy
     env_file:
       - shared.env
@@ -266,9 +289,9 @@ services:
       MYSQL_USER: ${MYSQL_USER}
       MYSQL_PASSWORD: ${MYSQL_PASSWORD}
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
-    healthcheck: 
+    healthcheck:
       retries: 10
-      test: 
+      test:
         - CMD
         - mysqladmin
         - ping
@@ -276,15 +299,7 @@ services:
         - localhost
       timeout: 20s
     restart: always
-    entrypoint:
-      sh -c "
-        echo 'CREATE DATABASE IF NOT EXISTS nocodb;' > /docker-entrypoint-initdb.d/0-init.sql;
-        echo 'CREATE DATABASE IF NOT EXISTS nocobase;' >> /docker-entrypoint-initdb.d/0-init.sql;
-        echo 'GRANT ALL PRIVILEGES ON nocodb.* TO \"${MYSQL_USER}\"@\"%\";' >> /docker-entrypoint-initdb.d/0-init.sql;
-        echo 'GRANT ALL PRIVILEGES ON nocobase.* TO \"${MYSQL_USER}\"@\"%\";' >> /docker-entrypoint-initdb.d/0-init.sql;
-        echo 'FLUSH PRIVILEGES;' >> /docker-entrypoint-initdb.d/0-init.sql;
-        /usr/local/bin/docker-entrypoint.sh --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
-      "
+    entrypoint: sh -c " echo 'CREATE DATABASE IF NOT EXISTS nocodb;' > /docker-entrypoint-initdb.d/0-init.sql; echo 'CREATE DATABASE IF NOT EXISTS nocobase;' >> /docker-entrypoint-initdb.d/0-init.sql; echo 'GRANT ALL PRIVILEGES ON nocodb.* TO \"${MYSQL_USER}\"@\"%\";' >> /docker-entrypoint-initdb.d/0-init.sql; echo 'GRANT ALL PRIVILEGES ON nocobase.* TO \"${MYSQL_USER}\"@\"%\";' >> /docker-entrypoint-initdb.d/0-init.sql; echo 'FLUSH PRIVILEGES;' >> /docker-entrypoint-initdb.d/0-init.sql; /usr/local/bin/docker-entrypoint.sh --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci "
     volumes:
       - mysql:/var/lib/mysql
       - mysql-backup:/var/lib/backup
@@ -400,7 +415,7 @@ services:
     ports:
       - 5984:5984
     restart: unless-stopped
-  
+
   node-red:
     # port 1880
     # Dev: docker run -p 1880:1880 -v $(pwd)/node-red:/data --entrypoint="" --env-file .env nodered/node-red /bin/sh -c "npm install --prefix /data --unsafe-perm --no-update-notifier --no-fund --only=production && npm --no-update-notifier --no-fund start --cache /data/.npm -- --userDir /data"
@@ -430,6 +445,8 @@ volumes:
   nocobase:
 
   obsidian-data:
+
+  mosquitto-data:
 
   # Configs
   jellyfin:
@@ -462,7 +479,6 @@ volumes:
       allow_other: 'true'
       vfs_cache_mode: full
       poll_interval: 0
-
     # telegram2twitter:
     #   image: baruchiro/telegram2twitter
     #   container_name: telegram2twitter
