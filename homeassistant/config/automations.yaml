@@ -178,32 +178,6 @@
       person_entity: person.zhr
       zone_entity: zone.home
       notify_device: 8ef6a86daebbb51a8c7766df58661c4b
-- id: '1725150957123'
-  alias: 'נורות - סטטוס '
-  description: ''
-  trigger:
-  - platform: device
-    type: changed_states
-    device_id: c6beff2f34d8b7b5468d29f116da0d61
-    entity_id: 089bd4f2880f1f82c89f24622321e944
-    domain: light
-  - platform: device
-    type: changed_states
-    device_id: 3e1275de086f4d16cf7a9c1462791943
-    entity_id: e8f9b54b4e931c17880ea49ac00ac743
-    domain: light
-  - platform: state
-    entity_id:
-    - light.kitchen
-    - light.carpet
-  condition: []
-  action:
-  - action: notify.mobile_app_baruch_phone
-    metadata: {}
-    data:
-      title: נורה
-      message: נורה
-  mode: single
 - id: '1725161057865'
   alias: זהר - הגן השקוף
   description: ''
@@ -216,12 +190,12 @@
 - id: '1728937251378'
   alias: הפעל לילה טוב כאשר שעון בהטענה
   description: ''
-  trigger:
-  - platform: state
-    entity_id:
+  triggers:
+  - entity_id:
     - sensor.galaxy_watch6_classic_6zxw_battery_state
     to: charging
-  condition:
+    trigger: state
+  conditions:
   - condition: state
     entity_id: person.baruch_odem
     state: home
@@ -230,8 +204,13 @@
     domain: fan
     entity_id: 514fd8e508cdcb7dbb6d55e7c0870d8d
     type: is_off
-  action:
+  actions:
   - action: script.unknown
     metadata: {}
     data: {}
+  - action: light.turn_off
+    metadata: {}
+    data: {}
+    target:
+      device_id: 7a63b27e74067348ddb7eeaff985a304
   mode: single
