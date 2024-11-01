@@ -214,3 +214,21 @@
     target:
       device_id: 7a63b27e74067348ddb7eeaff985a304
   mode: single
+- id: '1730216355376'
+  alias: הפעל מזגן בעת אזעקה
+  description: ''
+  triggers:
+  - trigger: state
+    entity_id:
+    - binary_sensor.oref_alert
+    to: 'on'
+  conditions:
+  - condition: numeric_state
+    entity_id: zone.home
+    attribute: persons
+    above: 0
+  actions:
+  - action: script.unknown_3
+    metadata: {}
+    data: {}
+  mode: single
