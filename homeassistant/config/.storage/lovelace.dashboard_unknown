@@ -9,6 +9,12 @@
           "title": "Home",
           "cards": [
             {
+              "type": "custom:googletimers-card",
+              "entity": "sensor.living_room_speaker_timers",
+              "alarms_entity": "sensor.living_room_speaker_alarms",
+              "title": "Google"
+            },
+            {
               "type": "vertical-stack",
               "cards": [
                 {
@@ -126,6 +132,33 @@
                   ]
                 }
               ]
+            },
+            {
+              "type": "custom:mushroom-entity-card",
+              "entity": "script.unknown_2",
+              "tap_action": {
+                "action": "toggle"
+              },
+              "fill_container": false,
+              "secondary_info": "last-updated"
+            },
+            {
+              "type": "custom:mushroom-entity-card",
+              "entity": "script.unknown_3",
+              "tap_action": {
+                "action": "toggle"
+              },
+              "fill_container": false,
+              "secondary_info": "last-updated"
+            },
+            {
+              "type": "custom:mushroom-entity-card",
+              "entity": "script.unknown_4",
+              "tap_action": {
+                "action": "toggle"
+              },
+              "fill_container": false,
+              "secondary_info": "last-updated"
             }
           ],
           "badges": [

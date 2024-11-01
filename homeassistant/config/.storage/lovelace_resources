@@ -6,7 +6,12 @@
     "items": [
       {
         "id": "3d35bd3812674a61b70c9add99c9968b",
-        "url": "/hacsfiles/lovelace-mushroom/mushroom.js?hacstag=444350375407",
+        "url": "/hacsfiles/lovelace-mushroom/mushroom.js?hacstag=444350375408",
+        "type": "module"
+      },
+      {
+        "id": "ad95ccb3abe94837b543e20e625d570d",
+        "url": "/hacsfiles/google_home_timers_card/googletimers-card.js?hacstag=338779924020",
         "type": "module"
       }
     ]
