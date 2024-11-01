@@ -164,3 +164,36 @@ unknown:
       device_id: ddda0c7e7b0177094ca218497c439fdb
   description: ''
   icon: mdi:fan
+unknown_2:
+  alias: ממ״ד אוורור
+  sequence:
+  - action: text.set_value
+    metadata: {}
+    data:
+      value: CcMRwxEeAkEGHgJAAUAHQAPAAeATC8AbQAdAA0ABQAfgCwNAAUAX4A8BQBvAA8ABQA/gCwFAF0ADQAFAB0ADAcMRQAEBHgJAC0ABQAdAA8AB4BMLwBtAB0ADQAFAB+ALA0ABQBfgDwFAG8ADwAFAD+ALAUAXQAMLHgIeAkEGHgJBBh4C
+    target:
+      entity_id: text.remote_ir_ir_code_to_send
+  description: ''
+  icon: mdi:fan
+unknown_3:
+  alias: ממ״ד קירור
+  sequence:
+  - action: text.set_value
+    metadata: {}
+    data:
+      value: CcwRzBEeAj8GHgJAAUAHQAOAAQFYAuABCwEeAuAHC8APQAdAA0ABQAfgCwNAAUAX4A8BQBtAA+AXAUAj4AsDAcwRQAEBHgJAG0ABQAdAA8AB4BMLwBtAB0ADQAFAB+ALA0ABQBfgDwFAG0AD4BcBQCPgCAMCBh4C
+    target:
+      entity_id: text.remote_ir_ir_code_to_send
+  description: ''
+  icon: mdi:air-conditioner
+unknown_4:
+  alias: ממ״ד כיבוי
+  sequence:
+  - action: text.set_value
+    metadata: {}
+    data:
+      value: CcERwREeAkAGHgJAAQJABlkgAwEeAoAB4AMLAR4C4AEXAR4CQAtAA0AB4AMHQAvAA0ABwAtAB+AHAeADE0ALwAPgFwHAJ+ADBwHBEUABAR4CQBNAAUAHQAPAAeATC8Ab4AMHQAvAA0ABwAtAB+AHAeADE0ALwAPgFwHAJwtABh4CQAYeAkAGHgI=
+    target:
+      entity_id: text.remote_ir_ir_code_to_send
+  description: ''
+  icon: mdi:air-conditioner
