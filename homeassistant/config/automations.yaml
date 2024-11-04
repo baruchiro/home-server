@@ -208,6 +208,7 @@
   - action: script.unknown
     metadata: {}
     data: {}
+    enabled: false
   - action: light.turn_off
     metadata: {}
     data: {}

@@ -13,6 +13,16 @@
         "id": "ad95ccb3abe94837b543e20e625d570d",
         "url": "/hacsfiles/google_home_timers_card/googletimers-card.js?hacstag=338779924020",
         "type": "module"
+      },
+      {
+        "id": "e45cbc75d7c54046bde0907300c9fe48",
+        "url": "/hacsfiles/WizardClock/weasley-card.js?hacstag=8817782055",
+        "type": "module"
+      },
+      {
+        "id": "a2f8808fb0264b199e1997b76e1e58db",
+        "url": "/hacsfiles/scheduler-card/scheduler-card.js?hacstag=2862701573213",
+        "type": "module"
       }
     ]
   }

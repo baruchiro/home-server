@@ -12,7 +12,14 @@
               "type": "custom:googletimers-card",
               "entity": "sensor.living_room_speaker_timers",
               "alarms_entity": "sensor.living_room_speaker_alarms",
-              "title": "Google"
+              "title": "Google",
+              "visibility": [
+                {
+                  "condition": "state",
+                  "entity": "sensor.living_room_speaker_timers",
+                  "state_not": "unavailable"
+                }
+              ]
             },
             {
               "type": "vertical-stack",

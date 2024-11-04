@@ -1,0 +1,44 @@
+{
+  "version": 1,
+  "minor_version": 1,
+  "key": "lovelace.dashboard_schedule",
+  "data": {
+    "config": {
+      "views": [
+        {
+          "title": "Home",
+          "cards": [
+            {
+              "type": "custom:scheduler-card",
+              "include": [
+                "binary_sensor.jewish_calendar_issur_melacha_in_effect",
+                "device_tracker.baruch_mobile",
+                "device_tracker.plpvn_zhr",
+                "fan.mvvrr_khdr",
+                "script.fan_tower_sleep",
+                "script.unknown_2",
+                "script.unknown_3",
+                "script.unknown_4",
+                "switch.living_room_fan"
+              ],
+              "exclude": [],
+              "title": false,
+              "sort_by": [
+                "state",
+                "title"
+              ],
+              "show_header_toggle": true,
+              "display_options": {
+                "primary_info": "default",
+                "secondary_info": [
+                  "time"
+                ],
+                "icon": "action"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

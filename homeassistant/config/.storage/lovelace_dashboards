@@ -30,6 +30,24 @@
         "require_admin": true,
         "mode": "storage",
         "url_path": "dashboard-hardware"
+      },
+      {
+        "id": "weasley_clock",
+        "show_in_sidebar": true,
+        "icon": "mdi:magic-staff",
+        "title": "Weasley Clock",
+        "require_admin": false,
+        "mode": "storage",
+        "url_path": "weasley-clock"
+      },
+      {
+        "id": "dashboard_schedule",
+        "show_in_sidebar": true,
+        "icon": "mdi:home-clock-outline",
+        "title": "שעוני שבת",
+        "require_admin": false,
+        "mode": "storage",
+        "url_path": "dashboard-schedule"
       }
     ]
   }

@@ -1,0 +1,43 @@
+{
+  "version": 1,
+  "minor_version": 1,
+  "key": "lovelace.weasley_clock",
+  "data": {
+    "config": {
+      "views": [
+        {
+          "title": "Home",
+          "cards": [
+            {
+              "type": "custom:weasley-card",
+              "locations": [
+                "Home",
+                "Work",
+                "בית כנסת",
+                "הגן השקוף"
+              ],
+              "wizards": [
+                {
+                  "entity": "device_tracker.baruch_mobile",
+                  "name": "Baruch",
+                  "colour": "#F00",
+                  "textcolour": "#00F"
+                },
+                {
+                  "entity": "device_tracker.plpvn_zhr",
+                  "name": "Zohar",
+                  "colour": "#0F0"
+                }
+              ],
+              "fontname": "itcblkad_font",
+              "fontface": "font-family: itcblkad_font;    src: local(itcblkad_font), url('/local/custom-lovelace/ITCBLKAD.TTF') format('opentype');",
+              "width": 1000,
+              "lost": "Lost",
+              "travelling": "Moving"
+            }
+          ]
+        }
+      ]
+    }
+  }
+}
