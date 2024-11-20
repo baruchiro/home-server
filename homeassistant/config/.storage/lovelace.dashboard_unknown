@@ -288,7 +288,12 @@
                 "target": {}
               },
               "name": "מגדל",
-              "show_entity_picture": false
+              "show_entity_picture": false,
+              "color": "",
+              "state_content": [
+                "oscillating",
+                "percentage"
+              ]
             },
             {
               "type": "custom:mushroom-template-badge",
@@ -408,6 +413,67 @@
                 "target": {}
               },
               "state_content": "name"
+            }
+          ]
+        },
+        {
+          "type": "sections",
+          "max_columns": 4,
+          "icon": "mdi:air-conditioner",
+          "path": "",
+          "dense_section_placement": true,
+          "sections": [
+            {
+              "type": "grid",
+              "cards": [
+                {
+                  "type": "custom:mushroom-climate-card",
+                  "entity": "climate.mzgn",
+                  "fill_container": false,
+                  "icon": "mdi:air-conditioner",
+                  "hvac_modes": [
+                    "heat",
+                    "cool",
+                    "dry",
+                    "fan_only",
+                    "off"
+                  ],
+                  "show_temperature_control": true,
+                  "collapsible_controls": true,
+                  "grid_options": {
+                    "columns": 6,
+                    "rows": 2
+                  }
+                },
+                {
+                  "type": "custom:mushroom-fan-card",
+                  "entity": "fan.mvvrr_khdr",
+                  "icon_animation": true,
+                  "fill_container": false,
+                  "show_percentage_control": true,
+                  "show_oscillate_control": true,
+                  "collapsible_controls": true
+                },
+                {
+                  "type": "custom:mushroom-chips-card",
+                  "chips": [
+                    {
+                      "type": "entity",
+                      "entity": "switch.living_room_fan",
+                      "icon": "mdi:fan",
+                      "use_entity_picture": false,
+                      "name": "מאוורר סלון",
+                      "content_info": "name"
+                    }
+                  ],
+                  "grid_options": {
+                    "columns": 12,
+                    "rows": 1
+                  },
+                  "alignment": "center"
+                }
+              ],
+              "column_span": 1
             }
           ]
         }
