@@ -17,6 +17,9 @@ def unlock_pdf(file_path):
         except pikepdf.PasswordError:
             print("password isn't working:" + password)
             continue
+        except pikepdf.PdfError:
+            print("File is not a valid PDF.")
+            return
     if password is None:
         print("Empty password file")
 

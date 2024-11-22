@@ -14,4 +14,4 @@ sudo systemctl start home-server-compose.service
 echo -e "\033[1;34mTailing logs for home-server-compose.service...\033[0m"
 journalctl -u home-server-compose.service -f
 
-# docker system prune --volumes
+# docker system prune -a --volumes
