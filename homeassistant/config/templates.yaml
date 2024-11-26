@@ -1,45 +1,11 @@
-# - trigger:
-#     platform: time
-#     at: "13:00:00"
-#   sensor:
-#     - name: "Previous Shabbat Candle Lightning"
-#       unique_id: "previous_shabbat_candle_lightning"
-#       state: >
-#         {% if now().weekday() == 6 %}
-#           {{ states('sensor.jewish_calendar_upcoming_shabbat_candle_lighting') }}
-#         {% else %}
-#           {{ states('sensor.previous_shabbat_candle_lightning') }}
-#         {% endif %}}
-
-# - sensor:
-#     - name: "Minha Yom Chol"
-#       unique_id: "minha_yom_chol"
-#       state: >
-#         {% set timezone = now().tzinfo %}
-#         {% set time_str = states('sensor.previous_shabbat_candle_lightning') %}
-#         {% set time = strptime(time_str, '%Y-%m-%dT%H:%M:%S+00:00').replace(tzinfo=timezone) %}
-#         {% set time_added = time + timedelta(minutes=6) %}
-#         {% set minutes = time_added.minute %}
-#         {% set rounded_minutes = (minutes // 5) * 5 + (5 if minutes % 5 >= 3 else 0) %}
-#         {% set rounded_time = time_added.replace(minute=rounded_minutes, second=0) %}
-#         {% set now = now() %}
-#         {% if now <= rounded_time %}
-#           {{ rounded_time.strftime('%Y-%m-%dT%H:%M:%S%z') }}
-#         {% else %}
-#           {{ (rounded_time + timedelta(days=1)).strftime('%Y-%m-%dT%H:%M:%S%z') }}
-#         {% endif %}
-
-# - sensor:
-    # - name: "Arvit 1 Yom Chol"
-    #   unique_id: "arvit_1_yom_chol"
-    #   state: >
-    #     {% set timezone = now().tzinfo %}
-    #     {% set minha_time_str = states('sensor.minha_yom_chol') %}
-    #     {% set minha_time = strptime(minha_time_str, '%Y-%m-%dT%H:%M:%S%z') %}
-    #     {% set arvit_time = minha_time + timedelta(minutes=35) %}
-    #     {% set now = now() %}
-    #     {% if now <= arvit_time %}
-    #       {{ arvit_time.strftime('%Y-%m-%dT%H:%M:%S%z') }}
-    #     {% else %}
-    #       {{ (arvit_time + timedelta(days=1)).strftime('%Y-%m-%dT%H:%M:%S%z') }}
-    #     {% endif %}
+- sensor:
+      - name: "Shabbat Times"
+        unique_id: "shabbat_times"
+        icon: mdi:calendar
+        state: |
+            {% macro format_time(sensor_entity) %}{{ states(sensor_entity) | as_datetime | as_local | as_timestamp | timestamp_custom('%H:%M', true) }}{% endmacro %}
+            כניסת שבת:       {{format_time('sensor.jewish_calendar_upcoming_candle_lighting') }}
+            מנחה:            {{format_time('sensor.tfilot_shabat_minha_erev_shabat')}}
+            שחרית:           {{format_time('sensor.tfilot_shabat_shaarit')}}
+            מנחה:            {{format_time('sensor.tfilot_shabat_minha')}}
+            ערבית צאת שבת:   {{format_time('sensor.tfilot_shabat_arvit_zet_shabat')}}

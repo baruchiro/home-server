@@ -19,7 +19,7 @@ frontend:
 automation: !include automations.yaml
 script: !include scripts.yaml
 scene: !include scenes.yaml
-# template: !include templates.yaml
+template: !include templates.yaml
 
 # switch:
 #   - platform: flux
@@ -59,15 +59,45 @@ rest:
     scan_interval: 43200 # 12 hours
     sensor:
       - name: "Tfilot Chol - Shaarit 1"
+        unique_id: "tfilot_chol_shaarit1"
         value_template: "{{ value_json.tfilotChol.shaarit1 }}"
       - name: "Tfilot Chol - Shaarit 2"
+        unique_id: "tfilot_chol_shaarit2"
         value_template: "{{ value_json.tfilotChol.shaarit2 }}"
       - name: "Tfilot Chol - Minha"
+        unique_id: "tfilot_chol_minha"
         value_template: "{{ value_json.tfilotChol.minha }}"
       - name: "Tfilot Chol - Arvit 1"
+        unique_id: "tfilot_chol_arvit1"
         value_template: "{{ value_json.tfilotChol.arvit1 }}"
       - name: "Tfilot Chol - Arvit 2"
+        unique_id: "tfilot_chol_arvit2"
         value_template: "{{ value_json.tfilotChol.arvit2 }}"
+      - name: "Tfilot Shabat - Minha Erev Shabat"
+        unique_id: "tfilot_shabat_minha_erev_shabat"
+        value_template: "{{ value_json.tfilotShabbat.minhaErevShabbat|as_datetime|as_local }}"
+      - name: "Tfilot Shabat - Minha Erev Shabat Time"
+        unique_id: "tfilot_shabat_minha_erev_shabat_time"
+        value_template: "{{ value_json.tfilotShabbat.minhaErevShabbat|as_timestamp | timestamp_custom('%H:%M', true) }}"
+      - name: "Tfilot Shabat - Shaarit"
+        unique_id: "tfilot_shabat_shaarit"
+        value_template: "{{ value_json.tfilotShabbat.shaarit|as_datetime|as_local }}"
+      - name: "Tfilot Shabat - Shaarit Time"
+        unique_id: "tfilot_shabat_shaarit_time"
+        value_template: "{{ value_json.tfilotShabbat.shaarit|as_timestamp | timestamp_custom('%H:%M', true) }}"
+      - name: "Tfilot Shabat - Minha"
+        unique_id: "tfilot_shabat_minha"
+        value_template: "{{ value_json.tfilotShabbat.minha|as_datetime|as_local }}"
+      - name: "Tfilot Shabat - Minha Time"
+        unique_id: "tfilot_shabat_minha_time"
+        value_template: "{{ value_json.tfilotShabbat.minha|as_timestamp | timestamp_custom('%H:%M', true) }}"
+      - name: "Tfilot Shabat - Arvit Zet Shabat"
+        unique_id: "tfilot_shabat_arvit_zet_shabat"
+        value_template: "{{ value_json.tfilotShabbat.arvitZetShabbat|as_datetime|as_local }}"
+      - name: "Tfilot Shabat - Arvit Zet Shabat Time"
+        unique_id: "tfilot_shabat_arvit_zet_shabat_time"
+        value_template: "{{ value_json.tfilotShabbat.arvitZetShabbat|as_timestamp | timestamp_custom('%H:%M', true) }}"
+
 
 scrape:
   - resource: https://marketplace.visualstudio.com/items?itemName=baruchiro.url-title-preview
