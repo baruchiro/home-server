@@ -6,7 +6,7 @@
     "items": [
       {
         "id": "3d35bd3812674a61b70c9add99c9968b",
-        "url": "/hacsfiles/lovelace-mushroom/mushroom.js?hacstag=444350375411",
+        "url": "/hacsfiles/lovelace-mushroom/mushroom.js?hacstag=444350375420",
         "type": "module"
       },
       {
@@ -22,6 +22,16 @@
       {
         "id": "a2f8808fb0264b199e1997b76e1e58db",
         "url": "/hacsfiles/scheduler-card/scheduler-card.js?hacstag=2862701573213",
+        "type": "module"
+      },
+      {
+        "id": "442893454fb747adb75e7d24d9a6518e",
+        "url": "/browser_mod.js?automatically-added",
+        "type": "module"
+      },
+      {
+        "id": "6270a719010649bf887a220a5a182ee6",
+        "url": "/hacsfiles/lovelace-card-mod/card-mod.js?hacstag=190927524343",
         "type": "module"
       }
     ]

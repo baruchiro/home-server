@@ -71,10 +71,10 @@
                   "entity": "climate.mzgn",
                   "icon": "mdi:air-conditioner",
                   "hvac_modes": [
-                    "cool",
                     "dry",
                     "off",
-                    "fan_only"
+                    "fan_only",
+                    "heat"
                   ],
                   "collapsible_controls": false,
                   "tap_action": {
