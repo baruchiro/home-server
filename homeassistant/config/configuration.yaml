@@ -21,6 +21,12 @@ script: !include scripts.yaml
 scene: !include scenes.yaml
 template: !include templates.yaml
 
+recorder:
+  exclude:
+    entities:
+      - automation.infinit_screen_switch
+
+
 # switch:
 #   - platform: flux
 #     lights:

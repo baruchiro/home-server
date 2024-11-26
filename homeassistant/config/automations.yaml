@@ -233,3 +233,17 @@
     metadata: {}
     data: {}
   mode: single
+- id: '1732642378359'
+  alias: 'Infinit Screen Switch '
+  description: ''
+  triggers:
+  - trigger: time_pattern
+    seconds: /10
+  conditions: []
+  actions:
+  - action: counter.increment
+    metadata: {}
+    data: {}
+    target:
+      entity_id: counter.screen_switcher
+  mode: single
