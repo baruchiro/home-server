@@ -25,11 +25,6 @@
         "type": "module"
       },
       {
-        "id": "442893454fb747adb75e7d24d9a6518e",
-        "url": "/browser_mod.js?automatically-added",
-        "type": "module"
-      },
-      {
         "id": "6270a719010649bf887a220a5a182ee6",
         "url": "/hacsfiles/lovelace-card-mod/card-mod.js?hacstag=190927524343",
         "type": "module"
