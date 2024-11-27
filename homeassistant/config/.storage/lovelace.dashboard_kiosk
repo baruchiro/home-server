@@ -148,14 +148,11 @@
                       "name": "ערבית"
                     },
                     {
-                      "entity": "sensor.upcoming_havdala_time",
+                      "entity": "sensor.upcoming_havdalah_time",
                       "name": "הבדלה",
                       "icon": "mdi:weather-night"
                     }
                   ],
-                  "card_mod": {
-                    "style": "ha-card {\n  direction: rtl\n}\n"
-                  },
                   "visibility": [
                     {
                       "condition": "or",
@@ -173,7 +170,14 @@
                         }
                       ]
                     }
-                  ]
+                  ],
+                  "grid_options": {
+                    "columns": 12,
+                    "rows": "auto"
+                  },
+                  "card_mod": {
+                    "style": "ha-card {\n  direction: rtl\n}\n"
+                  }
                 },
                 {
                   "type": "custom:scheduler-card",
@@ -217,7 +221,7 @@
                         {
                           "condition": "state",
                           "entity": "counter.screen_switcher",
-                          "state": ""
+                          "state": "2"
                         }
                       ]
                     }
@@ -231,7 +235,9 @@
                     {
                       "condition": "user",
                       "users": [
-                        "185d26a8b9d848ecbc5c183aa6de3d6c"
+                        "185d26a8b9d848ecbc5c183aa6de3d6c",
+                        "01d4633ec99f4795871e34a9129b085e",
+                        "8c491900665142d49ce10244953bbf79"
                       ]
                     },
                     {
@@ -251,7 +257,8 @@
                     }
                   ]
                 }
-              ]
+              ],
+              "column_span": 2
             }
           ],
           "max_columns": 2
