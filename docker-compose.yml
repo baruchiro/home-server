@@ -354,6 +354,7 @@ services:
   #
   # For more extensive installation and update instructions, refer to the
   # documentation.
+  # TODO: use shared redis
   paperless-broker:
     image: docker.io/library/redis:7
     restart: unless-stopped
@@ -431,6 +432,77 @@ services:
       - ./node-red:/data
     restart: unless-stopped
 
+  postiz:
+    image: ghcr.io/gitroomhq/postiz-app:latest
+    container_name: postiz
+    restart: always
+    environment:
+      # You must change these. Replace `postiz.your-server.com` with your DNS name - what your web browser sees.
+      MAIN_URL: "https://postiz.${DOMAIN}"
+      FRONTEND_URL: "https://postiz.${DOMAIN}"
+      NEXT_PUBLIC_BACKEND_URL: "https://postiz.${DOMAIN}/api"
+      # JWT_SECRET: "postiz.env"
+
+      # These defaults are probably fine, but if you change your user/password, update it in the
+      # postiz-postgres or postiz-redis services below.
+      DATABASE_URL: "postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres:5432/postiz-db-local"
+      REDIS_URL: "redis://redis:6379"
+      BACKEND_INTERNAL_URL: "http://localhost:3000"
+      IS_GENERAL: "true" # Required for self-hosting.
+      # The container images are pre-configured to use /uploads for file storage.
+      # You probably should not change this unless you have a really good reason!
+      STORAGE_PROVIDER: "local"
+      UPLOAD_DIRECTORY: "/uploads"
+      NEXT_PUBLIC_UPLOAD_DIRECTORY: "/uploads"
+    env_file:
+      - postiz.env
+    volumes:
+      - postiz-config:/config/
+      - postiz-uploads:/uploads/
+    ports:
+      - 5000:5000
+    networks:
+      - postiz-network
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+
+  postgres:
+    image: postgres:17-alpine
+    container_name: postgres
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_DB: main_db
+    volumes:
+      - postgres:/var/lib/postgresql/data
+    networks:
+      - default
+      - postiz-network
+    healthcheck:
+      test: pg_isready -U ${POSTGRES_USER} -d main_db
+      interval: 10s
+      timeout: 3s
+      retries: 3
+
+  redis:
+    image: redis:7.2
+    container_name: redis
+    restart: always
+    healthcheck:
+      test: redis-cli ping
+      interval: 10s
+      timeout: 3s
+      retries: 3
+    volumes:
+      - redis-data:/data
+    networks:
+      - default
+      - postiz-network
+
 volumes:
   sessions:
   all-media:
@@ -441,12 +513,17 @@ volumes:
   nocodb_mysql_data:
   nocodb_data:
 
+  redis-data:
+  postgres:
   mysql:
   nocobase:
 
   obsidian-data:
 
   mosquitto-data:
+
+  postiz-config:
+  postiz-uploads:
 
   # Configs
   jellyfin:
@@ -479,16 +556,7 @@ volumes:
       allow_other: 'true'
       vfs_cache_mode: full
       poll_interval: 0
-    # telegram2twitter:
-    #   image: baruchiro/telegram2twitter
-    #   container_name: telegram2twitter
-    #   network_mode: host
-    #   environment:
-    #     TELEGRAM_TWITTER_CONSUMER_KEY: ${TELEGRAM_TWITTER_CONSUMER_KEY}
-    #     TELEGRAM_TWITTER_CONSUMER_SECRET: ${TELEGRAM_TWITTER_CONSUMER_SECRET}
-    #     TELEGRAM_TWITTER_ACCESS_TOKEN: ${TELEGRAM_TWITTER_ACCESS_TOKEN}
-    #     TELEGRAM_TWITTER_TOKEN_SECRET: ${TELEGRAM_TWITTER_TOKEN_SECRET}
-    #     TELEGRAM_TWITTER_BOT_TOKEN: ${TELEGRAM_TWITTER_BOT_TOKEN}
-    #     TELEGRAM_TWITTER_USER_ID: ${TELEGRAM_TWITTER_USER_ID}
-    #     INTERFACE_NAME: wlan0
-    #   restart: unless-stopped
+
+networks:
+  default:
+  postiz-network:
