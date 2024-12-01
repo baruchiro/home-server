@@ -27,4 +27,3 @@ node-red/*
 mysql/init/0-init.sql
 
 zigbee2mqtt/
-postiz.env
