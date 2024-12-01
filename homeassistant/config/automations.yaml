@@ -246,4 +246,29 @@
     data: {}
     target:
       entity_id: counter.screen_switcher
+  - data:
+      entity_id: input_number.screen_switcher_2
+      value: >
+        {% set current = states('input_number.screen_switcher_2') | int %}
+        {% set min = state_attr('input_number.screen_switcher_2', 'min') | int %}
+        {% set max = state_attr('input_number.screen_switcher_2', 'max') | int %}
+        {{ min if current == max else current + 1 }}
+    action: input_number.set_value
+  mode: single
+- id: '1732855919338'
+  alias: הודעה על טלפון טעינה מלאה
+  description: ''
+  triggers:
+  - type: battery_level
+    device_id: 8ef6a86daebbb51a8c7766df58661c4b
+    entity_id: f1df36b6389ffd78015bd467f65b38d9
+    domain: sensor
+    trigger: device
+    above: 99
+  conditions: []
+  actions:
+  - action: notify.mobile_app_baruch_phone
+    metadata: {}
+    data:
+      message: טעינה מלאה
   mode: single

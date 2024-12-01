@@ -26,6 +26,9 @@
                   "entity": "sensor.living_room_speaker_timers",
                   "alarms_entity": "sensor.living_room_speaker_alarms",
                   "title": "Google",
+                  "card_mod": {
+                    "style": "ha-card {\n  direction: ltr\n}\n"
+                  },
                   "visibility": [
                     {
                       "condition": "state",
@@ -33,6 +36,17 @@
                       "state_not": "unavailable"
                     }
                   ]
+                },
+                {
+                  "show_current": false,
+                  "show_forecast": true,
+                  "type": "weather-forecast",
+                  "entity": "weather.forecast_home",
+                  "forecast_type": "hourly",
+                  "grid_options": {
+                    "columns": 12,
+                    "rows": 3
+                  }
                 },
                 {
                   "type": "custom:weasley-card",
@@ -125,6 +139,13 @@
                   "type": "entities",
                   "entities": [
                     {
+                      "entity": "sensor.jewish_calendar_parshat_hashavua",
+                      "name": " ",
+                      "card_mod": {
+                        "style": ":host {\n  display: flex;\n  justify-content: center;\n  font-size: large;\n}\n"
+                      }
+                    },
+                    {
                       "entity": "sensor.upcoming_candle_lighting_time",
                       "icon": "mdi:candelabra",
                       "name": "הדלקת נרות"
@@ -164,9 +185,10 @@
                           ]
                         },
                         {
-                          "condition": "state",
-                          "entity": "counter.screen_switcher",
-                          "state": "1"
+                          "condition": "numeric_state",
+                          "entity": "input_number.screen_switcher_2",
+                          "above": 0,
+                          "below": 2
                         }
                       ]
                     }
@@ -219,9 +241,10 @@
                           ]
                         },
                         {
-                          "condition": "state",
-                          "entity": "counter.screen_switcher",
-                          "state": "2"
+                          "condition": "numeric_state",
+                          "entity": "input_number.screen_switcher_2",
+                          "above": 1,
+                          "below": 3
                         }
                       ]
                     }
@@ -235,9 +258,7 @@
                     {
                       "condition": "user",
                       "users": [
-                        "185d26a8b9d848ecbc5c183aa6de3d6c",
-                        "01d4633ec99f4795871e34a9129b085e",
-                        "8c491900665142d49ce10244953bbf79"
+                        "185d26a8b9d848ecbc5c183aa6de3d6c"
                       ]
                     },
                     {
