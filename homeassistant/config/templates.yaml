@@ -3,21 +3,35 @@
       unique_id: "shabbat_times"
       icon: mdi:calendar
       state: |
-          {% macro format_time(sensor_entity) %}{{ states(sensor_entity) | as_datetime | as_local | as_timestamp | timestamp_custom('%H:%M', true) }}{% endmacro %}
-          כניסת שבת:       {{format_time('sensor.jewish_calendar_upcoming_candle_lighting') }}
-          מנחה:            {{format_time('sensor.tfilot_shabat_minha_erev_shabat')}}
-          שחרית:           {{format_time('sensor.tfilot_shabat_shaarit')}}
-          מנחה:            {{format_time('sensor.tfilot_shabat_minha')}}
-          ערבית צאת שבת:   {{format_time('sensor.tfilot_shabat_arvit_zet_shabat')}}
+          {% macro format_time(sensor_entity) %}
+            {% if states(sensor_entity) not in ['unknown', 'unavailable', None] %}
+              {{ states(sensor_entity) | as_datetime | as_local | as_timestamp | timestamp_custom('%H:%M', true) }}
+            {% else %}
+              N/A
+            {% endif %}
+          {% endmacro %}
+          כניסת שבת:       {{ format_time('sensor.jewish_calendar_upcoming_candle_lighting') }}
+          מנחה:            {{ format_time('sensor.tfilot_shabat_minha_erev_shabat') }}
+          שחרית:           {{ format_time('sensor.tfilot_shabat_shaarit') }}
+          מנחה:            {{ format_time('sensor.tfilot_shabat_minha') }}
+          ערבית צאת שבת:   {{ format_time('sensor.tfilot_shabat_arvit_zet_shabat') }}
           
     - name: "Upcoming Candle Lighting time"
       unique_id: upcoming_candle_lighting_time
       icon: mdi:candle
       state: >
-          {{ states('sensor.jewish_calendar_upcoming_candle_lighting')|as_datetime|as_local | as_timestamp | timestamp_custom('%H:%M', true)}}
+          {% if states('sensor.jewish_calendar_upcoming_candle_lighting') not in ['unknown', 'unavailable', None] %}
+            {{ states('sensor.jewish_calendar_upcoming_candle_lighting') | as_datetime | as_local | as_timestamp | timestamp_custom('%H:%M', true)}}
+          {% else %}
+            N/A
+          {% endif %}
     
     - name: "Upcoming Havdalah time"
       unique_id: upcoming_havdala_time
       icon: mdi:weather-night
       state: >
-          {{ states('sensor.jewish_calendar_upcoming_havdalah')|as_datetime|as_local | as_timestamp | timestamp_custom('%H:%M', true)}}
+          {% if states('sensor.jewish_calendar_upcoming_havdalah') not in ['unknown', 'unavailable', None] %}
+            {{ states('sensor.jewish_calendar_upcoming_havdalah') | as_datetime | as_local | as_timestamp | timestamp_custom('%H:%M', true)}}
+          {% else %}
+            N/A
+          {% endif %}
