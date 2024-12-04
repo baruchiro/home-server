@@ -1,0 +1,40 @@
+{
+    "manufacturer": "Electra",
+    "supportedModels": [
+        "WMD09FXF"
+    ],
+    "supportedController": "MQTT",
+    "commandsEncoding": "Raw",
+    "minTemperature": 17.0,
+    "maxTemperature": 30.0,
+    "precision": 1.0,
+    "operationModes": [
+        "cool",
+        "heat",
+        "dry",
+        "fan_only"
+    ],
+    "fanModes": [
+        "auto",
+        "low",
+        "mid",
+        "high"
+    ],
+    "commands": {
+        "off": "{\"ir_code_to_send\": \"CcERwREeAkAGHgJAAQJABlkgAwEeAoAB4AMLAR4C4AEXAR4CQAtAA0AB4AMHQAvAA0ABwAtAB+AHAeADE0ALwAPgFwHAJ+ADBwHBEUABAR4CQBNAAUAHQAPAAeATC8Ab4AMHQAvAA0ABwAtAB+AHAeADE0ALwAPgFwHAJwtABh4CQAYeAkAGHgI=\"}",
+        "cool": {
+            "auto": {
+                "25":"{\"ir_code_to_send\": \"CcwRzBEeAj8GHgJAAUAHQAOAAQFYAuABCwEeAuAHC8APQAdAA0ABQAfgCwNAAUAX4A8BQBtAA+AXAUAj4AsDAcwRQAEBHgJAG0ABQAdAA8AB4BMLwBtAB0ADQAFAB+ALA0ABQBfgDwFAG0AD4BcBQCPgCAMCBh4C\"}"
+            }
+        },
+        "heat": {
+            "auto": {
+                "24": "{\"ir_code_to_send\": \"CRERERFYAj4GHgJAAUAHQAPAAYALAlgCHiAB4AcLgA8BHgJAB0ADAx4CWAJAB+ALA0ABQBfgEwHgAx9AC0ADwAHAC0AHQAPAAUALQAMCURQRIAABHgJAC0ABQAdAA8AB4BMLwBtAB0ADQAFAB+ALA0ABQBfgEwHgAx9AC0ADwAHAC0AHQAPAAQc+Bh4CPgYeAg==\"}",
+                "25": "{\"ir_code_to_send\": \"Ca8RrxFWAjwGHgJAAUAHQAMEHgJWAh4gAeATC4AbAR4CQAdAA0ABQAcCPAZWIANAB+ABA0ABQA/gDwFAG0ADwAFAC0AD4AcBQBNAA8ABQAtAAwGvEUABAR4CQAtAAUAHQAPAAeATC8AbQAdAA0ABQAfgCwNAAUAX4A8BQBtAA8ABQAtAA+AHAUATQAPAAQc8Bh4CPAYeAg==\"}"
+            }
+        },
+        "fan_only": {
+            "auto": "{\"ir_code_to_send\": \"CcMRwxEeAkEGHgJAAUAHQAPAAeATC8AbQAdAA0ABQAfgCwNAAUAX4A8BQBvAA8ABQA/gCwFAF0ADQAFAB0ADAcMRQAEBHgJAC0ABQAdAA8AB4BMLwBtAB0ADQAFAB+ALA0ABQBfgDwFAG8ADwAFAD+ALAUAXQAMLHgIeAkEGHgJBBh4C\"}"
+        }
+    }
+}

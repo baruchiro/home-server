@@ -26,6 +26,14 @@ recorder:
     entities:
       - automation.infinit_screen_switch
 
+smartir:
+
+climate:
+  - platform: smartir
+    name: "Living Room AC"
+    unique_id: "living_room_ac"
+    device_code: 51
+    controller_data: zigbee2mqtt/remote_ir/set
 
 rest:
   - resource: https://api.npmjs.org/downloads/point/last-week/use-route-as-state
