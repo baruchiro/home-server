@@ -141,31 +141,25 @@
               ]
             },
             {
-              "type": "custom:mushroom-entity-card",
-              "entity": "script.unknown_2",
+              "type": "custom:mushroom-climate-card",
+              "entity": "climate.mamad_ac",
+              "icon": "mdi:air-conditioner",
+              "hvac_modes": [
+                "dry",
+                "off",
+                "fan_only",
+                "heat"
+              ],
+              "collapsible_controls": false,
               "tap_action": {
-                "action": "toggle"
+                "action": "more-info"
               },
-              "fill_container": false,
-              "secondary_info": "last-updated"
-            },
-            {
-              "type": "custom:mushroom-entity-card",
-              "entity": "script.unknown_3",
-              "tap_action": {
-                "action": "toggle"
+              "hold_action": {
+                "action": "none"
               },
-              "fill_container": false,
-              "secondary_info": "last-updated"
-            },
-            {
-              "type": "custom:mushroom-entity-card",
-              "entity": "script.unknown_4",
-              "tap_action": {
-                "action": "toggle"
-              },
-              "fill_container": false,
-              "secondary_info": "last-updated"
+              "double_tap_action": {
+                "action": "none"
+              }
             }
           ],
           "badges": [
