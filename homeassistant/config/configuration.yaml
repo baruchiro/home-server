@@ -25,6 +25,7 @@ recorder:
   exclude:
     entities:
       - automation.infinit_screen_switch
+      - input_number.screen_switcher_2
 
 smartir:
 
