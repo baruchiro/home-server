@@ -2718,7 +2718,8 @@
         "y": 40,
         "wires": [
             [
-                "2bec01e853ccc6e9"
+                "2bec01e853ccc6e9",
+                "997f295c3472d267"
             ]
         ]
     },
@@ -2734,8 +2735,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 390,
-        "y": 320,
+        "x": 510,
+        "y": 440,
         "wires": [
             [
                 "dee99aed4b1cf432"
@@ -2751,7 +2752,7 @@
         "y": 240,
         "wires": [
             [
-                "e3dfe4cdd8055376"
+                "ce7d75a68c959ec4"
             ]
         ]
     },
@@ -2777,8 +2778,8 @@
                 "type": "env"
             }
         ],
-        "x": 630,
-        "y": 460,
+        "x": 750,
+        "y": 560,
         "wires": [
             [
                 "083d30163a51a8b2",
@@ -2804,8 +2805,8 @@
         "checkall": "true",
         "repair": false,
         "outputs": 2,
-        "x": 520,
-        "y": 400,
+        "x": 640,
+        "y": 500,
         "wires": [
             [],
             [
@@ -2829,8 +2830,8 @@
         "authType": "",
         "senderr": false,
         "headers": [],
-        "x": 860,
-        "y": 640,
+        "x": 1220,
+        "y": 700,
         "wires": [
             []
         ]
@@ -2847,8 +2848,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 780,
-        "y": 560,
+        "x": 900,
+        "y": 660,
         "wires": [
             [
                 "f5369480717fd6e2"
@@ -2859,7 +2860,7 @@
         "id": "2bec01e853ccc6e9",
         "type": "function",
         "z": "d59d458fd90c2b97",
-        "name": "tags and correspondents",
+        "name": "tag, correspondents, document_types",
         "func": "const types = [\"tags\", \"correspondents\", \"document_types\"]\n\nreturn types.map(t => ({\n    endpoint: `/api/${t}/?ordering=document_count`,\n    subject: t\n}))",
         "outputs": 3,
         "timeout": 0,
@@ -2867,7 +2868,7 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 170,
+        "x": 210,
         "y": 120,
         "wires": [
             [
@@ -2894,8 +2895,183 @@
         "targetType": "msg",
         "statusVal": "",
         "statusType": "auto",
-        "x": 860,
-        "y": 320,
+        "x": 920,
+        "y": 540,
         "wires": []
+    },
+    {
+        "id": "3f1af99d39cd84c2",
+        "type": "subflow:7715d2a1a6ed6ca1",
+        "z": "d59d458fd90c2b97",
+        "name": "",
+        "x": 700,
+        "y": 120,
+        "wires": [
+            [
+                "c3dafa49fb8b7cf7"
+            ]
+        ]
+    },
+    {
+        "id": "997f295c3472d267",
+        "type": "function",
+        "z": "d59d458fd90c2b97",
+        "name": "46 without SUM",
+        "func": "const notExists = [\"סכום\", \"exists\", false]\nconst inNull = [\"סכום\", \"isnull\", true]\n\nreturn [\n    {\n        endpoint: `/api/documents/?tags__name__iexact=46&tags__id__none=16&custom_field_query=${JSON.stringify(notExists)}`\n    },\n    {\n        endpoint: `/api/documents/?tags__name__iexact=46&tags__id__none=16&custom_field_query=${JSON.stringify(inNull)}`\n    }\n]",
+        "outputs": 2,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 520,
+        "y": 40,
+        "wires": [
+            [
+                "3f1af99d39cd84c2"
+            ],
+            [
+                "3f1af99d39cd84c2"
+            ]
+        ]
+    },
+    {
+        "id": "16118d5ff52d638a",
+        "type": "function",
+        "z": "d59d458fd90c2b97",
+        "name": "add custom_field tag",
+        "func": "const ids = msg.payload.results.map(r => r.id)\n\nmsg.report = msg.payload.results.map(r => r.title)\nmsg.payload = {\n  \"documents\": ids,\n  \"method\": 'add_tag',\n  \"parameters\": { \"tag\": 16 }\n}\n\nreturn msg",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 900,
+        "y": 240,
+        "wires": [
+            [
+                "dbafff725a300e92"
+            ]
+        ]
+    },
+    {
+        "id": "dbafff725a300e92",
+        "type": "subflow:7715d2a1a6ed6ca1",
+        "z": "d59d458fd90c2b97",
+        "name": "",
+        "env": [
+            {
+                "name": "method",
+                "value": "POST",
+                "type": "str"
+            },
+            {
+                "name": "endpoint",
+                "value": "/api/documents/bulk_edit/",
+                "type": "str"
+            }
+        ],
+        "x": 1000,
+        "y": 300,
+        "wires": [
+            [
+                "ab47e7a8d2772bde"
+            ]
+        ]
+    },
+    {
+        "id": "c3dafa49fb8b7cf7",
+        "type": "switch",
+        "z": "d59d458fd90c2b97",
+        "name": "not empty",
+        "property": "payload.results",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "nempty"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 820,
+        "y": 180,
+        "wires": [
+            [
+                "16118d5ff52d638a"
+            ]
+        ]
+    },
+    {
+        "id": "ce7d75a68c959ec4",
+        "type": "switch",
+        "z": "d59d458fd90c2b97",
+        "name": "if tags",
+        "property": "subject",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "tags",
+                "vt": "str"
+            },
+            {
+                "t": "else"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 350,
+        "y": 320,
+        "wires": [
+            [
+                "2a5c87f804b9e5d2"
+            ],
+            [
+                "e3dfe4cdd8055376"
+            ]
+        ]
+    },
+    {
+        "id": "2a5c87f804b9e5d2",
+        "type": "function",
+        "z": "d59d458fd90c2b97",
+        "name": "filter keep tags",
+        "func": "msg.payload.results = msg.payload.results.filter(res => res.id !== 16)\n\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 280,
+        "y": 400,
+        "wires": [
+            [
+                "e3dfe4cdd8055376"
+            ]
+        ]
+    },
+    {
+        "id": "ab47e7a8d2772bde",
+        "type": "function",
+        "z": "d59d458fd90c2b97",
+        "name": "build discord message",
+        "func": "if (msg.payload.result === \"OK\") {\n    msg.payload = {\n        content: `Added custom_field tag to ${msg.report.length} documents`,\n        embeds: [\n            {\n                title: \"Success\",\n                description: `Details:\\n${msg.report.join('\\n')}`,\n                color: 65280 // Green color in decimal\n            }\n        ]\n    };\n} else {\n    msg.payload = {\n        content: \"An error occurred!\",\n        embeds: [\n            {\n                title: \"Error\",\n                description: `There was an issue with adding custom_field tag.`,\n                color: 16711680 // Red color in decimal\n            }\n        ]\n    };\n}\ndelete msg.method\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1110,
+        "y": 380,
+        "wires": [
+            [
+                "f5369480717fd6e2"
+            ]
+        ]
     }
 ]
