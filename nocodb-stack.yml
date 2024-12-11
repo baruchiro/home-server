@@ -1,0 +1,67 @@
+version: '3.8'
+
+services:
+  nocodb:
+    depends_on:
+      nocodb_mysql:
+        condition: service_healthy
+      infra-stack_mysql:
+        condition: service_healthy
+    environment:
+      NC_DB: "mysql2://nocodb_mysql:3306?u=noco&p=password&d=root_db"
+    image: "nocodb/nocodb:latest"
+    ports:
+      - "8765:8080"
+    restart: always
+    volumes:
+      - "nocodb_data:/usr/app/data"
+    network_mode: host
+
+  nocodb_mysql:
+    environment:
+      MYSQL_DATABASE: root_db
+      MYSQL_PASSWORD: password
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_USER: noco
+    healthcheck:
+      retries: 10
+      test:
+        - CMD
+        - mysqladmin
+        - ping
+        - "-h"
+        - localhost
+      timeout: 20s
+    image: "mysql:8.3.0"
+    restart: always
+    volumes:
+      - "nocodb_mysql_data:/var/lib/mysql"
+    ports:
+      - "3306:3306"
+    network_mode: host
+
+  nocobase:
+    image: nocobase/nocobase:latest
+    depends_on:
+      infra-stack_mysql:
+        condition: service_healthy
+    env_file:
+      - shared.env
+    environment:
+      - APP_KEY=${NOCOBASRE_APP_KEY}
+      - DB_DIALECT=mysql
+      - DB_HOST=infra-stack_mysql
+      - DB_DATABASE=nocobase
+      - DB_USER=${MYSQL_USER}
+      - DB_PASSWORD=${MYSQL_PASSWORD}
+      - DB_UNDERSCORED=true
+    volumes:
+      - nocobase:/app/nocobase/storage
+    ports:
+      - "13000:13000"
+    network_mode: host
+
+volumes:
+  nocodb_mysql_data:
+  nocodb_data:
+  nocobase:
