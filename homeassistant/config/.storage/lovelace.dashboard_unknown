@@ -377,7 +377,7 @@
               "show_color_temp_control": true,
               "show_color_control": true,
               "collapsible_controls": true,
-              "entity": "light.food",
+              "entity": "light.kitchen",
               "hold_action": {
                 "action": "more-info"
               }
@@ -389,24 +389,95 @@
               "show_color_temp_control": true,
               "show_color_control": true,
               "collapsible_controls": true,
-              "entity": "light.kitchen",
+              "entity": "light.carpet",
               "hold_action": {
                 "action": "more-info"
-              }
+              },
+              "name": "נורה שטיח"
+            },
+            {
+              "type": "custom:mushroom-light-card",
+              "use_light_color": true,
+              "show_brightness_control": true,
+              "show_color_temp_control": true,
+              "show_color_control": true,
+              "collapsible_controls": true,
+              "entity": "light.entrance",
+              "hold_action": {
+                "action": "more-info"
+              },
+              "name": "נורה כניסה"
+            },
+            {
+              "type": "custom:mushroom-light-card",
+              "use_light_color": true,
+              "show_brightness_control": true,
+              "show_color_temp_control": true,
+              "show_color_control": true,
+              "collapsible_controls": true,
+              "entity": "light.food_1",
+              "hold_action": {
+                "action": "more-info"
+              },
+              "name": "נורה אוכל 1"
+            },
+            {
+              "type": "custom:mushroom-light-card",
+              "use_light_color": true,
+              "show_brightness_control": true,
+              "show_color_temp_control": true,
+              "show_color_control": true,
+              "collapsible_controls": true,
+              "entity": "light.food_2",
+              "hold_action": {
+                "action": "more-info"
+              },
+              "name": "נורה אוכל 2"
+            },
+            {
+              "type": "entities",
+              "entities": [
+                "switch.adaptive_lighting_adapt_brightness_adaptive",
+                "switch.adaptive_lighting_adapt_color_adaptive",
+                "switch.adaptive_lighting_sleep_mode_adaptive",
+                "switch.adaptive_lighting_adaptive"
+              ]
             }
           ],
           "subview": false,
           "badges": [
             {
               "type": "entity",
-              "entity": "script.toggle_light",
+              "show_name": false,
+              "show_state": true,
+              "show_icon": true,
               "name": "אור בסלון",
               "tap_action": {
                 "action": "perform-action",
-                "perform_action": "script.toggle_light",
-                "target": {}
+                "perform_action": "light.toggle",
+                "target": {
+                  "area_id": "slvn"
+                }
               },
-              "state_content": "name"
+              "state_content": "name",
+              "color": "",
+              "entity": "light.kitchen"
+            },
+            {
+              "type": "entity",
+              "entity": "switch.adaptive_lighting_adapt_brightness_adaptive"
+            },
+            {
+              "type": "entity",
+              "entity": "switch.adaptive_lighting_adapt_color_adaptive"
+            },
+            {
+              "type": "entity",
+              "entity": "switch.adaptive_lighting_sleep_mode_adaptive"
+            },
+            {
+              "type": "entity",
+              "entity": "switch.adaptive_lighting_adaptive"
             }
           ]
         },
@@ -422,21 +493,44 @@
               "cards": [
                 {
                   "type": "custom:mushroom-climate-card",
-                  "entity": "climate.mzgn",
-                  "fill_container": false,
+                  "entity": "climate.mamad_ac",
                   "icon": "mdi:air-conditioner",
                   "hvac_modes": [
-                    "heat",
-                    "cool",
                     "dry",
+                    "off",
                     "fan_only",
-                    "off"
+                    "heat"
                   ],
-                  "show_temperature_control": true,
-                  "collapsible_controls": true,
-                  "grid_options": {
-                    "columns": 6,
-                    "rows": 2
+                  "collapsible_controls": false,
+                  "tap_action": {
+                    "action": "more-info"
+                  },
+                  "hold_action": {
+                    "action": "none"
+                  },
+                  "double_tap_action": {
+                    "action": "none"
+                  }
+                },
+                {
+                  "type": "custom:mushroom-climate-card",
+                  "entity": "climate.mzgn",
+                  "icon": "mdi:air-conditioner",
+                  "hvac_modes": [
+                    "dry",
+                    "off",
+                    "fan_only",
+                    "heat"
+                  ],
+                  "collapsible_controls": false,
+                  "tap_action": {
+                    "action": "more-info"
+                  },
+                  "hold_action": {
+                    "action": "none"
+                  },
+                  "double_tap_action": {
+                    "action": "none"
                   }
                 },
                 {
@@ -461,13 +555,181 @@
                     }
                   ],
                   "grid_options": {
-                    "columns": 12,
+                    "columns": 6,
                     "rows": 1
                   },
                   "alignment": "center"
                 }
               ],
               "column_span": 1
+            }
+          ]
+        },
+        {
+          "title": "נורות",
+          "icon": "mdi:globe-light",
+          "cards": [],
+          "subview": false,
+          "badges": [
+            {
+              "type": "entity",
+              "show_name": false,
+              "show_state": true,
+              "show_icon": true,
+              "name": "אור בסלון",
+              "tap_action": {
+                "action": "perform-action",
+                "perform_action": "light.toggle",
+                "target": {
+                  "area_id": "slvn"
+                }
+              },
+              "state_content": "name",
+              "color": "",
+              "entity": "light.kitchen"
+            }
+          ],
+          "type": "sections",
+          "sections": [
+            {
+              "type": "grid",
+              "cards": [
+                {
+                  "type": "custom:mushroom-light-card",
+                  "entity": "light.bedroom",
+                  "use_light_color": true,
+                  "show_brightness_control": true,
+                  "show_color_temp_control": true,
+                  "show_color_control": true,
+                  "collapsible_controls": true,
+                  "hold_action": {
+                    "action": "more-info"
+                  },
+                  "grid_options": {
+                    "columns": 12,
+                    "rows": 2
+                  }
+                },
+                {
+                  "type": "custom:mushroom-light-card",
+                  "use_light_color": true,
+                  "show_brightness_control": true,
+                  "show_color_temp_control": true,
+                  "show_color_control": true,
+                  "collapsible_controls": true,
+                  "entity": "light.bathroom",
+                  "hold_action": {
+                    "action": "more-info"
+                  },
+                  "grid_options": {
+                    "columns": 12,
+                    "rows": 2
+                  }
+                },
+                {
+                  "type": "custom:mushroom-light-card",
+                  "use_light_color": true,
+                  "show_brightness_control": true,
+                  "show_color_temp_control": true,
+                  "show_color_control": true,
+                  "collapsible_controls": true,
+                  "entity": "light.kitchen",
+                  "hold_action": {
+                    "action": "more-info"
+                  },
+                  "grid_options": {
+                    "columns": 12,
+                    "rows": 2
+                  }
+                },
+                {
+                  "type": "custom:mushroom-light-card",
+                  "use_light_color": true,
+                  "show_brightness_control": true,
+                  "show_color_temp_control": true,
+                  "show_color_control": true,
+                  "collapsible_controls": true,
+                  "entity": "light.carpet",
+                  "hold_action": {
+                    "action": "more-info"
+                  },
+                  "name": "נורה שטיח",
+                  "grid_options": {
+                    "columns": 12,
+                    "rows": 2
+                  }
+                },
+                {
+                  "type": "custom:mushroom-light-card",
+                  "use_light_color": true,
+                  "show_brightness_control": true,
+                  "show_color_temp_control": true,
+                  "show_color_control": true,
+                  "collapsible_controls": true,
+                  "entity": "light.entrance",
+                  "hold_action": {
+                    "action": "more-info"
+                  },
+                  "name": "נורה כניסה",
+                  "grid_options": {
+                    "columns": 12,
+                    "rows": 2
+                  }
+                },
+                {
+                  "type": "custom:mushroom-light-card",
+                  "use_light_color": true,
+                  "show_brightness_control": true,
+                  "show_color_temp_control": true,
+                  "show_color_control": true,
+                  "collapsible_controls": true,
+                  "entity": "light.food_1",
+                  "hold_action": {
+                    "action": "more-info"
+                  },
+                  "name": "נורה אוכל 1",
+                  "grid_options": {
+                    "columns": 12,
+                    "rows": 2
+                  }
+                },
+                {
+                  "type": "custom:mushroom-light-card",
+                  "use_light_color": true,
+                  "show_brightness_control": true,
+                  "show_color_temp_control": true,
+                  "show_color_control": true,
+                  "collapsible_controls": true,
+                  "entity": "light.food_2",
+                  "hold_action": {
+                    "action": "more-info"
+                  },
+                  "name": "נורה אוכל 2",
+                  "grid_options": {
+                    "columns": 12,
+                    "rows": 2
+                  }
+                }
+              ],
+              "column_span": 4
+            },
+            {
+              "type": "grid",
+              "cards": [
+                {
+                  "type": "entities",
+                  "entities": [
+                    "switch.adaptive_lighting_adapt_brightness_adaptive",
+                    "switch.adaptive_lighting_adapt_color_adaptive",
+                    "switch.adaptive_lighting_sleep_mode_adaptive",
+                    "switch.adaptive_lighting_adaptive"
+                  ],
+                  "grid_options": {
+                    "columns": "full"
+                  }
+                }
+              ],
+              "column_span": 2
             }
           ]
         }
