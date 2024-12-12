@@ -50,7 +50,18 @@
         "label": "paperless",
         "disabled": false,
         "info": "",
-        "env": []
+        "env": [
+            {
+                "name": "inbox_tag",
+                "value": "19",
+                "type": "num"
+            },
+            {
+                "name": "add_custom_field_tag",
+                "value": "16",
+                "type": "num"
+            }
+        ]
     },
     {
         "id": "6dc0247c.d7210c",
@@ -3039,7 +3050,7 @@
         "type": "function",
         "z": "d59d458fd90c2b97",
         "name": "filter keep tags",
-        "func": "msg.payload.results = msg.payload.results.filter(res => res.id !== 16)\n\n\nreturn msg;",
+        "func": "const keepTags = [\n    env.get('inbox_tag'),\n    env.get('add_custom_field_tag')\n]\n\nmsg.payload.results = msg.payload.results\n    .filter(res => !keepTags.includes(res.id))\n\nreturn msg;",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
