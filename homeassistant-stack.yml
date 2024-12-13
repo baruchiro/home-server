@@ -1,0 +1,46 @@
+version: '3.8'
+
+services:
+  homeassistant:
+    container_name: homeassistant
+    image: "ghcr.io/home-assistant/home-assistant:stable"
+    volumes:
+      - ./homeassistant/config:/config
+      - /etc/localtime:/etc/localtime:ro
+      - /run/dbus:/run/dbus:ro
+    restart: unless-stopped
+    env_file:
+      - shared.env
+    devices:
+      - /dev/ttyACM0:/dev/ttyACM0
+    privileged: true
+    network_mode: host
+
+  mqtt:
+    image: eclipse-mosquitto:2.0
+    restart: unless-stopped
+    volumes:
+      - mosquitto-data:/mosquitto
+    ports:
+      - 1883:1883
+      - 9001:9001
+    command: 'mosquitto -c /mosquitto-no-auth.conf'
+    network_mode: host
+
+  zigbee2mqtt:
+    container_name: zigbee2mqtt
+    restart: unless-stopped
+    image: koenkk/zigbee2mqtt
+    volumes:
+      - ./zigbee2mqtt:/app/data
+      - /run/udev:/run/udev:ro
+    env_file:
+      - shared.env
+    ports:
+      - 8080:8080
+    devices:
+      - /dev/ttyACM0:/dev/ttyACM0
+    network_mode: host
+
+volumes:
+  mosquitto-data:

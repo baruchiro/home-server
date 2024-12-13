@@ -1,0 +1,117 @@
+version: '3.8'
+
+services:
+  jellyfin:
+    container_name: jellyfin
+    image: jellyfin/jellyfin
+    restart: unless-stopped
+    network_mode: host
+    env_file:
+      - shared.env
+    volumes:
+      - jellyfin:/config
+      - jellyfin-cache:/cache
+      - all-media:/media
+      - tv-shows:/media/tv-shows
+      - movies:/media/movies
+
+  jackett:
+    image: ghcr.io/linuxserver/jackett
+    container_name: jackett
+    network_mode: host
+    env_file:
+      - shared.env
+    environment:
+      - PUID=0
+      - PGID=0
+      - AUTO_UPDATE=true
+    volumes:
+      - jackett:/config
+      - downloads:/downloads
+    restart: unless-stopped
+
+  deluge:
+    image: ghcr.io/linuxserver/deluge:2.1.1
+    container_name: deluge
+    network_mode: host
+    restart: unless-stopped
+    env_file:
+      - shared.env
+    volumes:
+      - deluge:/config
+      - downloads:/downloads
+
+  sonarr:
+    image: ghcr.io/linuxserver/sonarr
+    container_name: sonarr
+    network_mode: host
+    depends_on:
+      - jackett
+      - deluge
+    env_file:
+      - shared.env
+    environment:
+      - PUID=0
+      - PGID=0
+    volumes:
+      - tv-shows:/tv
+      - sonarr:/config
+      - downloads:/downloads
+    restart: unless-stopped
+
+  radarr:
+    image: ghcr.io/linuxserver/radarr
+    container_name: radarr
+    network_mode: host
+    depends_on:
+      - jackett
+      - deluge
+    env_file:
+      - shared.env
+    environment:
+      - PUID=0
+      - PGID=0
+    volumes:
+      - movies:/movies
+      - radarr:/config
+      - downloads:/downloads
+    restart: unless-stopped
+
+  bazarr:
+    image: ghcr.io/linuxserver/bazarr
+    container_name: bazarr
+    network_mode: host
+    env_file:
+      - shared.env
+    environment:
+      - PUID=0
+      - PGID=0
+    volumes:
+      - bazarr:/config
+      - tv-shows:/tv
+      - movies:/movies
+    restart: unless-stopped
+
+  jellyseerr:
+    image: fallenbagel/jellyseerr:latest
+    container_name: jellyseerr
+    network_mode: host
+    env_file:
+      - shared.env
+    volumes:
+      - jellyseerr:/app/config
+    restart: unless-stopped
+
+volumes:
+  jellyfin:
+  jellyfin-cache:
+  all-media:
+  tv-shows:
+  movies:
+  jackett:
+  downloads:
+  deluge:
+  sonarr:
+  radarr:
+  bazarr:
+  jellyseerr:
