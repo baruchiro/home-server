@@ -343,230 +343,6 @@
         },
         {
           "title": "נורות",
-          "path": "lights",
-          "icon": "mdi:globe-light",
-          "cards": [
-            {
-              "type": "custom:mushroom-light-card",
-              "entity": "light.bedroom",
-              "use_light_color": true,
-              "show_brightness_control": true,
-              "show_color_temp_control": true,
-              "show_color_control": true,
-              "collapsible_controls": true,
-              "hold_action": {
-                "action": "more-info"
-              }
-            },
-            {
-              "type": "custom:mushroom-light-card",
-              "use_light_color": true,
-              "show_brightness_control": true,
-              "show_color_temp_control": true,
-              "show_color_control": true,
-              "collapsible_controls": true,
-              "entity": "light.bathroom",
-              "hold_action": {
-                "action": "more-info"
-              }
-            },
-            {
-              "type": "custom:mushroom-light-card",
-              "use_light_color": true,
-              "show_brightness_control": true,
-              "show_color_temp_control": true,
-              "show_color_control": true,
-              "collapsible_controls": true,
-              "entity": "light.kitchen",
-              "hold_action": {
-                "action": "more-info"
-              }
-            },
-            {
-              "type": "custom:mushroom-light-card",
-              "use_light_color": true,
-              "show_brightness_control": true,
-              "show_color_temp_control": true,
-              "show_color_control": true,
-              "collapsible_controls": true,
-              "entity": "light.carpet",
-              "hold_action": {
-                "action": "more-info"
-              },
-              "name": "נורה שטיח"
-            },
-            {
-              "type": "custom:mushroom-light-card",
-              "use_light_color": true,
-              "show_brightness_control": true,
-              "show_color_temp_control": true,
-              "show_color_control": true,
-              "collapsible_controls": true,
-              "entity": "light.entrance",
-              "hold_action": {
-                "action": "more-info"
-              },
-              "name": "נורה כניסה"
-            },
-            {
-              "type": "custom:mushroom-light-card",
-              "use_light_color": true,
-              "show_brightness_control": true,
-              "show_color_temp_control": true,
-              "show_color_control": true,
-              "collapsible_controls": true,
-              "entity": "light.food_1",
-              "hold_action": {
-                "action": "more-info"
-              },
-              "name": "נורה אוכל 1"
-            },
-            {
-              "type": "custom:mushroom-light-card",
-              "use_light_color": true,
-              "show_brightness_control": true,
-              "show_color_temp_control": true,
-              "show_color_control": true,
-              "collapsible_controls": true,
-              "entity": "light.food_2",
-              "hold_action": {
-                "action": "more-info"
-              },
-              "name": "נורה אוכל 2"
-            },
-            {
-              "type": "entities",
-              "entities": [
-                "switch.adaptive_lighting_adapt_brightness_adaptive",
-                "switch.adaptive_lighting_adapt_color_adaptive",
-                "switch.adaptive_lighting_sleep_mode_adaptive",
-                "switch.adaptive_lighting_adaptive"
-              ]
-            }
-          ],
-          "subview": false,
-          "badges": [
-            {
-              "type": "entity",
-              "show_name": false,
-              "show_state": true,
-              "show_icon": true,
-              "name": "אור בסלון",
-              "tap_action": {
-                "action": "perform-action",
-                "perform_action": "light.toggle",
-                "target": {
-                  "area_id": "slvn"
-                }
-              },
-              "state_content": "name",
-              "color": "",
-              "entity": "light.kitchen"
-            },
-            {
-              "type": "entity",
-              "entity": "switch.adaptive_lighting_adapt_brightness_adaptive"
-            },
-            {
-              "type": "entity",
-              "entity": "switch.adaptive_lighting_adapt_color_adaptive"
-            },
-            {
-              "type": "entity",
-              "entity": "switch.adaptive_lighting_sleep_mode_adaptive"
-            },
-            {
-              "type": "entity",
-              "entity": "switch.adaptive_lighting_adaptive"
-            }
-          ]
-        },
-        {
-          "type": "sections",
-          "max_columns": 4,
-          "icon": "mdi:air-conditioner",
-          "path": "",
-          "dense_section_placement": true,
-          "sections": [
-            {
-              "type": "grid",
-              "cards": [
-                {
-                  "type": "custom:mushroom-climate-card",
-                  "entity": "climate.mamad_ac",
-                  "icon": "mdi:air-conditioner",
-                  "hvac_modes": [
-                    "dry",
-                    "off",
-                    "fan_only",
-                    "heat"
-                  ],
-                  "collapsible_controls": false,
-                  "tap_action": {
-                    "action": "more-info"
-                  },
-                  "hold_action": {
-                    "action": "none"
-                  },
-                  "double_tap_action": {
-                    "action": "none"
-                  }
-                },
-                {
-                  "type": "custom:mushroom-climate-card",
-                  "entity": "climate.mzgn",
-                  "icon": "mdi:air-conditioner",
-                  "hvac_modes": [
-                    "dry",
-                    "off",
-                    "fan_only",
-                    "heat"
-                  ],
-                  "collapsible_controls": false,
-                  "tap_action": {
-                    "action": "more-info"
-                  },
-                  "hold_action": {
-                    "action": "none"
-                  },
-                  "double_tap_action": {
-                    "action": "none"
-                  }
-                },
-                {
-                  "type": "custom:mushroom-fan-card",
-                  "entity": "fan.mvvrr_khdr",
-                  "icon_animation": true,
-                  "fill_container": false,
-                  "show_percentage_control": true,
-                  "show_oscillate_control": true,
-                  "collapsible_controls": true
-                },
-                {
-                  "type": "custom:mushroom-chips-card",
-                  "chips": [
-                    {
-                      "type": "entity",
-                      "entity": "switch.living_room_fan",
-                      "icon": "mdi:fan",
-                      "use_entity_picture": false,
-                      "name": "מאוורר סלון",
-                      "content_info": "name"
-                    }
-                  ],
-                  "grid_options": {
-                    "columns": 6,
-                    "rows": 1
-                  },
-                  "alignment": "center"
-                }
-              ],
-              "column_span": 1
-            }
-          ]
-        },
-        {
-          "title": "נורות",
           "icon": "mdi:globe-light",
           "cards": [],
           "subview": false,
@@ -730,6 +506,90 @@
                 }
               ],
               "column_span": 2
+            }
+          ]
+        },
+        {
+          "type": "sections",
+          "max_columns": 4,
+          "icon": "mdi:air-conditioner",
+          "path": "",
+          "dense_section_placement": true,
+          "sections": [
+            {
+              "type": "grid",
+              "cards": [
+                {
+                  "type": "custom:mushroom-climate-card",
+                  "entity": "climate.mamad_ac",
+                  "icon": "mdi:air-conditioner",
+                  "hvac_modes": [
+                    "dry",
+                    "off",
+                    "fan_only",
+                    "heat"
+                  ],
+                  "collapsible_controls": false,
+                  "tap_action": {
+                    "action": "more-info"
+                  },
+                  "hold_action": {
+                    "action": "none"
+                  },
+                  "double_tap_action": {
+                    "action": "none"
+                  }
+                },
+                {
+                  "type": "custom:mushroom-climate-card",
+                  "entity": "climate.mzgn",
+                  "icon": "mdi:air-conditioner",
+                  "hvac_modes": [
+                    "dry",
+                    "off",
+                    "fan_only",
+                    "heat"
+                  ],
+                  "collapsible_controls": false,
+                  "tap_action": {
+                    "action": "more-info"
+                  },
+                  "hold_action": {
+                    "action": "none"
+                  },
+                  "double_tap_action": {
+                    "action": "none"
+                  }
+                },
+                {
+                  "type": "custom:mushroom-fan-card",
+                  "entity": "fan.mvvrr_khdr",
+                  "icon_animation": true,
+                  "fill_container": false,
+                  "show_percentage_control": true,
+                  "show_oscillate_control": true,
+                  "collapsible_controls": true
+                },
+                {
+                  "type": "custom:mushroom-chips-card",
+                  "chips": [
+                    {
+                      "type": "entity",
+                      "entity": "switch.living_room_fan",
+                      "icon": "mdi:fan",
+                      "use_entity_picture": false,
+                      "name": "מאוורר סלון",
+                      "content_info": "name"
+                    }
+                  ],
+                  "grid_options": {
+                    "columns": 6,
+                    "rows": 1
+                  },
+                  "alignment": "center"
+                }
+              ],
+              "column_span": 1
             }
           ]
         }
