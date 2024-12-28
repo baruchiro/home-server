@@ -55,12 +55,18 @@
                         {
                           "type": "custom:mushroom-entity-card",
                           "entity": "script.radio_kan_g",
-                          "name": "כאן ג'"
+                          "name": "כאן ג'",
+                          "tap_action": {
+                            "action": "toggle"
+                          }
                         },
                         {
                           "type": "custom:mushroom-entity-card",
                           "entity": "script.radio_galei_zahal",
-                          "name": "גלי צה\"ל"
+                          "name": "גלי צה\"ל",
+                          "tap_action": {
+                            "action": "toggle"
+                          }
                         }
                       ]
                     }
@@ -197,78 +203,6 @@
                 "action": "toggle"
               },
               "color": ""
-            },
-            {
-              "type": "entity",
-              "show_name": true,
-              "show_state": true,
-              "show_icon": true,
-              "entity": "light.kitchen",
-              "show_entity_picture": false,
-              "tap_action": {
-                "action": "toggle"
-              },
-              "visibility": [
-                {
-                  "condition": "state",
-                  "entity": "light.kitchen",
-                  "state_not": "unavailable"
-                }
-              ]
-            },
-            {
-              "type": "entity",
-              "show_name": true,
-              "show_state": true,
-              "show_icon": true,
-              "tap_action": {
-                "action": "toggle"
-              },
-              "visibility": [
-                {
-                  "condition": "state",
-                  "entity": "light.bedroom",
-                  "state_not": "unavailable"
-                }
-              ],
-              "color": "",
-              "entity": "light.bathroom"
-            },
-            {
-              "type": "entity",
-              "show_name": true,
-              "show_state": true,
-              "show_icon": true,
-              "tap_action": {
-                "action": "toggle"
-              },
-              "visibility": [
-                {
-                  "condition": "state",
-                  "entity": "light.bathroom",
-                  "state_not": "unavailable"
-                }
-              ],
-              "color": "",
-              "entity": "light.bedroom"
-            },
-            {
-              "type": "entity",
-              "show_name": true,
-              "show_state": true,
-              "show_icon": true,
-              "show_entity_picture": false,
-              "tap_action": {
-                "action": "toggle"
-              },
-              "entity": "light.food",
-              "visibility": [
-                {
-                  "condition": "state",
-                  "entity": "light.food",
-                  "state_not": "unavailable"
-                }
-              ]
             },
             {
               "type": "entity",
@@ -485,6 +419,23 @@
                     "columns": 12,
                     "rows": 2
                   }
+                },
+                {
+                  "type": "custom:mushroom-light-card",
+                  "use_light_color": true,
+                  "show_brightness_control": true,
+                  "show_color_temp_control": true,
+                  "show_color_control": true,
+                  "collapsible_controls": true,
+                  "entity": "light.mamad",
+                  "hold_action": {
+                    "action": "more-info"
+                  },
+                  "grid_options": {
+                    "columns": 12,
+                    "rows": 2
+                  },
+                  "name": "ממ״ד"
                 }
               ],
               "column_span": 4
@@ -592,6 +543,101 @@
               "column_span": 1
             }
           ]
+        },
+        {
+          "type": "sections",
+          "max_columns": 4,
+          "path": "devices",
+          "sections": [
+            {
+              "type": "grid",
+              "cards": [
+                {
+                  "type": "heading",
+                  "icon": "mdi:cellphone",
+                  "heading_style": "subtitle",
+                  "badges": [
+                    {
+                      "type": "entity",
+                      "entity": "device_tracker.baruch_mobile"
+                    },
+                    {
+                      "type": "entity",
+                      "entity": "sensor.baruch_phone_battery_state"
+                    },
+                    {
+                      "type": "entity",
+                      "entity": "sensor.baruch_phone_charger_type"
+                    },
+                    {
+                      "type": "entity",
+                      "entity": "sensor.baruch_phone_battery_level"
+                    }
+                  ],
+                  "heading": "Baruch - Phone"
+                },
+                {
+                  "type": "heading",
+                  "icon": "mdi:watch",
+                  "heading_style": "subtitle",
+                  "badges": [
+                    {
+                      "type": "entity",
+                      "show_state": true,
+                      "show_icon": true,
+                      "entity": "device_tracker.galaxy_watch6_classic_6zxw",
+                      "visibility": [
+                        {
+                          "condition": "state",
+                          "entity": "device_tracker.galaxy_watch6_classic_6zxw",
+                          "state_not": "unknown"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "entity",
+                      "entity": "sensor.galaxy_watch6_classic_6zxw_battery_state"
+                    },
+                    {
+                      "type": "entity",
+                      "entity": "sensor.galaxy_watch6_classic_6zxw_charger_type"
+                    },
+                    {
+                      "type": "entity",
+                      "entity": "sensor.galaxy_watch6_classic_6zxw_battery_level"
+                    }
+                  ],
+                  "heading": "Baruch - Watch"
+                },
+                {
+                  "type": "heading",
+                  "icon": "mdi:cellphone",
+                  "heading_style": "subtitle",
+                  "badges": [
+                    {
+                      "type": "entity",
+                      "entity": "device_tracker.plpvn_zhr"
+                    },
+                    {
+                      "type": "entity",
+                      "entity": "sensor.plpvn_zhr_battery_state"
+                    },
+                    {
+                      "type": "entity",
+                      "entity": "sensor.plpvn_zhr_charger_type"
+                    },
+                    {
+                      "type": "entity",
+                      "entity": "sensor.plpvn_zhr_battery_level"
+                    }
+                  ],
+                  "heading": "Zohar - Phone"
+                }
+              ]
+            }
+          ],
+          "icon": "mdi:devices",
+          "cards": []
         }
       ]
     }

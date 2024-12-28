@@ -223,6 +223,7 @@
     entity_id:
     - binary_sensor.oref_alert
     to: 'on'
+    from: 'off'
   conditions:
   - condition: numeric_state
     entity_id: zone.home
@@ -232,6 +233,18 @@
   - action: script.unknown_3
     metadata: {}
     data: {}
+    enabled: false
+  - action: light.turn_on
+    metadata: {}
+    data:
+      brightness_pct: 1
+      kelvin: 2000
+      rgb_color:
+      - 0
+      - 0
+      - 255
+    target:
+      device_id: 8e04aa752f41f153165d063030ad8b04
   mode: single
 - id: '1732642378359'
   alias: 'Infinit Screen Switch '

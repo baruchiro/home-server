@@ -32,15 +32,6 @@
         "url_path": "dashboard-hardware"
       },
       {
-        "id": "dashboard_schedule",
-        "show_in_sidebar": true,
-        "icon": "mdi:home-clock-outline",
-        "title": "שעוני שבת",
-        "require_admin": false,
-        "mode": "storage",
-        "url_path": "dashboard-schedule"
-      },
-      {
         "id": "dashboard_kiosk",
         "show_in_sidebar": true,
         "icon": "mdi:tablet",
