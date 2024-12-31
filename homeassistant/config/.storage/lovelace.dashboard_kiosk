@@ -205,9 +205,15 @@
                   "type": "custom:scheduler-card",
                   "include": [
                     "binary_sensor.jewish_calendar_issur_melacha_in_effect",
+                    "climate.mamad_ac",
                     "device_tracker.baruch_mobile",
                     "device_tracker.plpvn_zhr",
                     "fan.mvvrr_khdr",
+                    "light.carpet",
+                    "light.entrance",
+                    "light.food_1",
+                    "light.food_2",
+                    "light.kitchen",
                     "script.fan_tower_sleep",
                     "script.unknown_2",
                     "script.unknown_3",
@@ -217,8 +223,8 @@
                   "exclude": [],
                   "title": false,
                   "sort_by": [
-                    "title",
-                    "state"
+                    "state",
+                    "title"
                   ],
                   "show_header_toggle": true,
                   "display_options": {
@@ -248,7 +254,9 @@
                         }
                       ]
                     }
-                  ]
+                  ],
+                  "time_step": 10,
+                  "discover_existing": true
                 }
               ],
               "visibility": [

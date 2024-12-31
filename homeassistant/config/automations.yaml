@@ -223,6 +223,7 @@
     entity_id:
     - binary_sensor.oref_alert
     to: 'on'
+    from: 'off'
   conditions:
   - condition: numeric_state
     entity_id: zone.home
@@ -232,6 +233,18 @@
   - action: script.unknown_3
     metadata: {}
     data: {}
+    enabled: false
+  - action: light.turn_on
+    metadata: {}
+    data:
+      brightness_pct: 1
+      kelvin: 2000
+      rgb_color:
+      - 0
+      - 0
+      - 255
+    target:
+      device_id: 8e04aa752f41f153165d063030ad8b04
   mode: single
 - id: '1732642378359'
   alias: 'Infinit Screen Switch '
@@ -248,11 +261,12 @@
       entity_id: counter.screen_switcher
   - data:
       entity_id: input_number.screen_switcher_2
-      value: >
-        {% set current = states('input_number.screen_switcher_2') | int %}
-        {% set min = state_attr('input_number.screen_switcher_2', 'min') | int %}
-        {% set max = state_attr('input_number.screen_switcher_2', 'max') | int %}
-        {{ min if current == max else current + 1 }}
+      value: '{% set current = states(''input_number.screen_switcher_2'') | int %}
+        {% set min = state_attr(''input_number.screen_switcher_2'', ''min'') | int
+        %} {% set max = state_attr(''input_number.screen_switcher_2'', ''max'') |
+        int %} {{ min if current == max else current + 1 }}
+
+        '
     action: input_number.set_value
   mode: single
 - id: '1732855919338'
@@ -271,4 +285,38 @@
     metadata: {}
     data:
       message: טעינה מלאה
+  mode: single
+- id: '1733851139367'
+  alias: Button temp
+  description: ''
+  triggers:
+  - domain: mqtt
+    device_id: 158be7c0b2494e50514071e3e4197ff6
+    type: action
+    subtype: single
+    trigger: device
+  conditions: []
+  actions:
+  - variables:
+      min_brightness: "{% set lights = expand(area_entities('slvn')) | selectattr('domain',
+        'eq', 'light') %} {% set brightness_values = lights | map(attribute='attributes.brightness')
+        | list %} {% if brightness_values | length > 0 %}\n  {{ brightness_values
+        | min }}\n{% else %}\n  255\n{% endif %}"
+  - if:
+    - condition: template
+      value_template: '{{ min_brightness <= 51 }}'
+    then:
+    - action: light.turn_on
+      metadata: {}
+      data:
+        brightness_pct: 100
+      target:
+        area_id: slvn
+    else:
+    - action: light.turn_on
+      metadata: {}
+      data:
+        brightness_step_pct: -10
+      target:
+        area_id: slvn
   mode: single
