@@ -1,0 +1,76 @@
+services:
+  nocodb:
+    image: "nocodb/nocodb:latest"
+    container_name: nocodb
+    depends_on:
+      nocodb_mysql:
+        condition: service_healthy
+    environment:
+      NC_DB: "mysql2://nocodb_mysql:3306?u=noco&p=password&d=root_db"
+    ports:
+      - "8765:8080"
+    restart: always
+    volumes:
+      - "nocodb_data:/usr/app/data"
+    networks:
+      - nocode-net
+      - infra_net  # To connect with main MySQL
+
+  nocodb_mysql:
+    image: "mysql:8.3.0"
+    container_name: nocodb_mysql
+    environment:
+      MYSQL_DATABASE: root_db
+      MYSQL_PASSWORD: password
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_USER: noco
+    healthcheck:
+      retries: 10
+      test:
+        - CMD
+        - mysqladmin
+        - ping
+        - "-h"
+        - localhost
+      timeout: 20s
+    restart: always
+    volumes:
+      - "nocodb_mysql_data:/var/lib/mysql"
+    ports:
+      - "3307:3306"  # Changed port to avoid conflict with main MySQL
+    networks:
+      - nocode-net
+
+  nocobase:
+    image: nocobase/nocobase:latest
+    container_name: nocobase
+    env_file:
+      - shared.env
+    environment:
+      - APP_KEY=${NOCOBASRE_APP_KEY}
+      - DB_DIALECT=mysql
+      - DB_HOST=mysql
+      - DB_DATABASE=nocobase
+      - DB_USER=${MYSQL_USER}
+      - DB_PASSWORD=${MYSQL_PASSWORD}
+      - DB_UNDERSCORED=true
+    volumes:
+      - nocobase:/app/nocobase/storage
+    ports:
+      - "13000:13000"
+    networks:
+      - nocode-net
+      - infra_net  # To connect with main MySQL
+
+networks:
+  nocode-net:
+    name: nocode_network
+    driver: bridge
+  infra_net:
+    name: infrastructure_network
+    external: true  # Use the existing infra network
+
+volumes:
+  nocodb_mysql_data:
+  nocodb_data:
+  nocobase:

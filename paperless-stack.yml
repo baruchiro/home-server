@@ -1,0 +1,75 @@
+services:
+  paperless-broker:
+    image: docker.io/library/redis:7
+    restart: unless-stopped
+    volumes:
+      - paperless-redisdata:/data
+    networks:
+      - paperless_net
+
+  paperless-web:
+    image: ghcr.io/paperless-ngx/paperless-ngx:latest
+    restart: unless-stopped
+    depends_on:
+      - paperless-broker
+      - paperless-gotenberg
+      - paperless-tika
+    ports:
+      - "3355:8000"
+    volumes:
+      - paperless-data:/usr/src/paperless/data
+      - paperless-media:/usr/src/paperless/media
+      - paperless-export:/usr/src/paperless/export
+      - paperless-consume:/usr/src/paperless/consume
+      - ./paperless/scripts:/usr/src/paperless/scripts
+    env_file: paperless.env
+    environment:
+      PAPERLESS_REDIS: redis://paperless-broker:6379
+      PAPERLESS_TIKA_ENABLED: 1
+      PAPERLESS_TIKA_GOTENBERG_ENDPOINT: http://paperless-gotenberg:3000
+      PAPERLESS_TIKA_ENDPOINT: http://paperless-tika:9998
+      PAPERLESS_URL: https://paperless.${DOMAIN}
+    labels:
+      ofelia.enabled: "true"
+      ofelia.job-exec.datecron.schedule: "@every 12h"
+      ofelia.job-exec.datecron.command: "document_exporter ../export --delete --no-archive --no-thumbnail --use-folder-prefix --split-manifest"
+    networks:
+      - paperless_net
+
+  paperless-gotenberg:
+    image: docker.io/gotenberg/gotenberg:7.10
+    restart: unless-stopped
+    command:
+      - "gotenberg"
+      - "--chromium-disable-javascript=true"
+      - "--chromium-allow-list=file:///tmp/.*"
+    ports:
+      - "3000:3000"
+    networks:
+      - paperless_net
+
+  paperless-tika:
+    image: ghcr.io/paperless-ngx/tika:latest
+    restart: unless-stopped
+    ports:
+      - "9998:9998"
+    networks:
+      - paperless_net
+
+networks:
+  paperless_net:
+    name: paperless_network
+    driver: bridge
+
+volumes:
+  paperless-redisdata:
+  paperless-data:
+  paperless-media:
+  paperless-export:
+    driver: rclone
+    driver_opts:
+      remote: 'remote-gdrive:paperless'
+      allow_other: 'true'
+      vfs_cache_mode: full
+      poll_interval: 0
+  paperless-consume:
