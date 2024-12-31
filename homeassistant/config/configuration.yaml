@@ -1,6 +1,9 @@
 # Loads default set of integrations. Do not remove.
 default_config:
 
+homeassistant:
+  auth_providers: !include auth_providers.yaml
+
 # Allow Cloudflare Tunnel from Docker
 http:
   use_x_forwarded_for: true
@@ -11,6 +14,7 @@ http:
     - ::1
     - 172.20.0.6
     - 192.168.0.0/24
+      
 
 # Load frontend themes from the themes folder
 frontend:
