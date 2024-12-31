@@ -14,7 +14,10 @@ services:
     devices:
       - /dev/ttyACM0:/dev/ttyACM0
     privileged: true
-    network_mode: host
+    ports:
+      - "8123:8123" # Web interface
+    networks:
+      - ha_net
 
   mqtt:
     image: eclipse-mosquitto:2.0
@@ -22,10 +25,11 @@ services:
     volumes:
       - mosquitto-data:/mosquitto
     ports:
-      - 1883:1883
-      - 9001:9001
+      - "1883:1883" # MQTT
+      - "9001:9001" # MQTT over WebSocket
     command: 'mosquitto -c /mosquitto-no-auth.conf'
-    network_mode: host
+    networks:
+      - ha_net
 
   zigbee2mqtt:
     container_name: zigbee2mqtt
@@ -37,10 +41,29 @@ services:
     env_file:
       - shared.env
     ports:
-      - 8080:8080
+      - "8080:8080" # Web interface
     devices:
       - /dev/ttyACM0:/dev/ttyACM0
-    network_mode: host
+    networks:
+      - ha_net
+    depends_on:
+      - mqtt
+
+networks:
+  ha_net:
+    name: homeassistant_network
+    driver: bridge
+    # Enable IPv6
+    enable_ipv6: true
+    # Enable multicast for device discovery
+    driver_opts:
+      com.docker.network.bridge.host_binding_ipv4: "0.0.0.0"
+      com.docker.network.driver.mtu: "1500"
+    ipam:
+      driver: default
+      config:
+        - subnet: 172.16.238.0/24
+        - subnet: 2001:3984:3989::/64
 
 volumes:
   mosquitto-data:

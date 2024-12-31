@@ -1,5 +1,3 @@
-version: '3.8'
-
 services:
   mysql:
     image: mysql:8
@@ -25,13 +23,17 @@ services:
       - mysql-backup:/var/lib/backup
       - ./mysql/scripts:/var/lib/scripts
       - ./mysql/init:/docker-entrypoint-initdb.d
-    network_mode: host
+    ports:
+      - "3306:3306"
+    networks:
+      - infra_net
 
   node-red:
     image: nodered/node-red
     env_file:
       - shared.env
-    network_mode: host
+    ports:
+      - "1880:1880"
     entrypoint: >
       sh -c " npm install --prefix /data --unsafe-perm --no-update-notifier --no-fund --only=production && npm --no-update-notifier --no-fund start --cache /data/.npm -- --userDir /data"
     environment:
@@ -39,7 +41,8 @@ services:
     volumes:
       - ./node-red:/data
     restart: unless-stopped
-    network_mode: host
+    networks:
+      - infra_net
 
   obsidian-livesync:
     image: couchdb
@@ -52,9 +55,15 @@ services:
       - obsidian-data:/opt/couchdb/data
       - ./obsidian/local.ini:/opt/couchdb/etc/local.ini
     ports:
-      - 5984:5984
+      - "5984:5984"
     restart: unless-stopped
-    network_mode: host
+    networks:
+      - infra_net
+
+networks:
+  infra_net:
+    name: infrastructure_network
+    driver: bridge
 
 volumes:
   mysql:

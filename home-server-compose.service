@@ -6,7 +6,7 @@ After=docker.service
 [Service]
 WorkingDirectory=/home-server
 ExecStart=/home-server/deploy.sh
-ExecStop=/usr/bin/docker stack rm infra-stack && /usr/bin/docker stack rm media-stack && /usr/bin/docker stack rm homeassistant-stack && /usr/bin/docker stack rm nocodb-stack && /usr/bin/docker stack rm paperless-stack
+ExecStop=/home-server/undeploy.sh
 TimeoutStartSec=0
 Restart=on-failure
 StartLimitIntervalSec=60

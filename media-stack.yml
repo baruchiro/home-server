@@ -5,7 +5,8 @@ services:
     container_name: jellyfin
     image: jellyfin/jellyfin
     restart: unless-stopped
-    network_mode: host
+    ports:
+      - "8096:8096"
     env_file:
       - shared.env
     volumes:
@@ -14,11 +15,29 @@ services:
       - all-media:/media
       - tv-shows:/media/tv-shows
       - movies:/media/movies
+    networks:
+      - media_net
+
+  jellyseerr:
+    image: fallenbagel/jellyseerr:latest
+    container_name: jellyseerr
+    ports:
+      - "5055:5055"
+    env_file:
+      - shared.env
+    volumes:
+      - jellyseerr:/app/config
+    restart: unless-stopped
+    networks:
+      - media_net
+    depends_on:
+      - jellyfin
 
   jackett:
     image: ghcr.io/linuxserver/jackett
     container_name: jackett
-    network_mode: host
+    ports:
+      - "9117:9117"
     env_file:
       - shared.env
     environment:
@@ -29,22 +48,28 @@ services:
       - jackett:/config
       - downloads:/downloads
     restart: unless-stopped
+    networks:
+      - media_net
 
   deluge:
     image: ghcr.io/linuxserver/deluge:2.1.1
     container_name: deluge
-    network_mode: host
+    ports:
+      - "8112:8112"
     restart: unless-stopped
     env_file:
       - shared.env
     volumes:
       - deluge:/config
       - downloads:/downloads
+    networks:
+      - media_net
 
   sonarr:
     image: ghcr.io/linuxserver/sonarr
     container_name: sonarr
-    network_mode: host
+    ports:
+      - "8989:8989"
     depends_on:
       - jackett
       - deluge
@@ -58,11 +83,14 @@ services:
       - sonarr:/config
       - downloads:/downloads
     restart: unless-stopped
+    networks:
+      - media_net
 
   radarr:
     image: ghcr.io/linuxserver/radarr
     container_name: radarr
-    network_mode: host
+    ports:
+      - "7878:7878"
     depends_on:
       - jackett
       - deluge
@@ -76,11 +104,14 @@ services:
       - radarr:/config
       - downloads:/downloads
     restart: unless-stopped
+    networks:
+      - media_net
 
   bazarr:
     image: ghcr.io/linuxserver/bazarr
     container_name: bazarr
-    network_mode: host
+    ports:
+      - "6767:6767"
     env_file:
       - shared.env
     environment:
@@ -91,16 +122,16 @@ services:
       - tv-shows:/tv
       - movies:/movies
     restart: unless-stopped
+    networks:
+      - media_net
+    depends_on:
+      - sonarr
+      - radarr
 
-  jellyseerr:
-    image: fallenbagel/jellyseerr:latest
-    container_name: jellyseerr
-    network_mode: host
-    env_file:
-      - shared.env
-    volumes:
-      - jellyseerr:/app/config
-    restart: unless-stopped
+networks:
+  media_net:
+    name: media_network
+    driver: bridge
 
 volumes:
   jellyfin:

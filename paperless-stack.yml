@@ -1,12 +1,11 @@
-version: '3.8'
-
 services:
   paperless-broker:
     image: docker.io/library/redis:7
     restart: unless-stopped
     volumes:
       - paperless-redisdata:/data
-    network_mode: host
+    networks:
+      - paperless_net
 
   paperless-web:
     image: ghcr.io/paperless-ngx/paperless-ngx:latest
@@ -34,7 +33,8 @@ services:
       ofelia.enabled: "true"
       ofelia.job-exec.datecron.schedule: "@every 12h"
       ofelia.job-exec.datecron.command: "document_exporter ../export --delete --no-archive --no-thumbnail --use-folder-prefix --split-manifest"
-    network_mode: host
+    networks:
+      - paperless_net
 
   paperless-gotenberg:
     image: docker.io/gotenberg/gotenberg:7.10
@@ -43,12 +43,23 @@ services:
       - "gotenberg"
       - "--chromium-disable-javascript=true"
       - "--chromium-allow-list=file:///tmp/.*"
-    network_mode: host
+    ports:
+      - "3000:3000"
+    networks:
+      - paperless_net
 
   paperless-tika:
     image: ghcr.io/paperless-ngx/tika:latest
     restart: unless-stopped
-    network_mode: host
+    ports:
+      - "9998:9998"
+    networks:
+      - paperless_net
+
+networks:
+  paperless_net:
+    name: paperless_network
+    driver: bridge
 
 volumes:
   paperless-redisdata:
