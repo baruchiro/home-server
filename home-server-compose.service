@@ -5,6 +5,8 @@ After=docker.service
 
 [Service]
 WorkingDirectory=/home-server
+Type=oneshot
+RemainAfterExit=yes
 ExecStart=/home-server/deploy.sh
 ExecStop=/home-server/undeploy.sh
 TimeoutStartSec=0
