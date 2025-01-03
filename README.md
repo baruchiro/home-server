@@ -119,3 +119,26 @@ Add **Telegram**.
   - **Hostname or IP Address:** `localhost`
   - **API Key:** Get from `Sonarr -> Settings -> General`
 - **Notifications:** Telegram
+
+### Paperless-ngx
+
+> **Port:** `3355`
+
+For the first time, you need to create a superuser account:
+
+1. Start the Paperless services:
+```bash
+docker compose -f paperless-stack.yml up -d
+```
+
+2. Open a shell inside the paperless-web container:
+```bash
+docker compose -f paperless-stack.yml exec paperless-web bash
+```
+
+3. Create the superuser account:
+```bash
+python3 manage.py createsuperuser
+```
+
+4. Follow the prompts to set up your admin username, email, and password.

@@ -1,3 +1,5 @@
+# TODO: ofelia
+# TODO: export without deleted documents
 services:
   paperless-broker:
     image: docker.io/library/redis:7
