@@ -142,3 +142,9 @@ python3 manage.py createsuperuser
 ```
 
 4. Follow the prompts to set up your admin username, email, and password.
+
+### Nocobase
+
+> **Default login credentials:**
+> - **Email:** `admin@nocobase.com`
+> - **Password:** `admin123`

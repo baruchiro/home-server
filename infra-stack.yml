@@ -27,6 +27,10 @@ services:
       - "3306:3306"
     networks:
       - infra_net
+    labels:
+      ofelia.enabled: "true"
+      ofelia.job-exec.backup-nocobase.schedule: "@daily"
+      ofelia.job-exec.backup-nocobase.command: "sh -c '/var/lib/scripts/backup.sh /var/lib/backup'"
 
   node-red:
     image: nodered/node-red
