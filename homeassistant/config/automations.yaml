@@ -275,7 +275,7 @@
   triggers:
   - type: battery_level
     device_id: 8ef6a86daebbb51a8c7766df58661c4b
-    entity_id: f1df36b6389ffd78015bd467f65b38d9
+    entity_id: 3c0fae71e08a8db7858f24daf4c813a0
     domain: sensor
     trigger: device
     above: 99
