@@ -5,8 +5,10 @@ After=docker.service
 
 [Service]
 WorkingDirectory=/home-server
-ExecStart=/usr/bin/docker compose up
-ExecStop=/usr/bin/docker compose down
+Type=oneshot
+RemainAfterExit=yes
+ExecStart=/home-server/deploy.sh
+ExecStop=/home-server/undeploy.sh
 TimeoutStartSec=0
 Restart=on-failure
 StartLimitIntervalSec=60

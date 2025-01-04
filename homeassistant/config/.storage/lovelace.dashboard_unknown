@@ -55,12 +55,18 @@
                         {
                           "type": "custom:mushroom-entity-card",
                           "entity": "script.radio_kan_g",
-                          "name": "כאן ג'"
+                          "name": "כאן ג'",
+                          "tap_action": {
+                            "action": "toggle"
+                          }
                         },
                         {
                           "type": "custom:mushroom-entity-card",
                           "entity": "script.radio_galei_zahal",
-                          "name": "גלי צה\"ל"
+                          "name": "גלי צה\"ל",
+                          "tap_action": {
+                            "action": "toggle"
+                          }
                         }
                       ]
                     }
@@ -201,78 +207,6 @@
             {
               "type": "entity",
               "show_name": true,
-              "show_state": true,
-              "show_icon": true,
-              "entity": "light.kitchen",
-              "show_entity_picture": false,
-              "tap_action": {
-                "action": "toggle"
-              },
-              "visibility": [
-                {
-                  "condition": "state",
-                  "entity": "light.kitchen",
-                  "state_not": "unavailable"
-                }
-              ]
-            },
-            {
-              "type": "entity",
-              "show_name": true,
-              "show_state": true,
-              "show_icon": true,
-              "tap_action": {
-                "action": "toggle"
-              },
-              "visibility": [
-                {
-                  "condition": "state",
-                  "entity": "light.bedroom",
-                  "state_not": "unavailable"
-                }
-              ],
-              "color": "",
-              "entity": "light.bathroom"
-            },
-            {
-              "type": "entity",
-              "show_name": true,
-              "show_state": true,
-              "show_icon": true,
-              "tap_action": {
-                "action": "toggle"
-              },
-              "visibility": [
-                {
-                  "condition": "state",
-                  "entity": "light.bathroom",
-                  "state_not": "unavailable"
-                }
-              ],
-              "color": "",
-              "entity": "light.bedroom"
-            },
-            {
-              "type": "entity",
-              "show_name": true,
-              "show_state": true,
-              "show_icon": true,
-              "show_entity_picture": false,
-              "tap_action": {
-                "action": "toggle"
-              },
-              "entity": "light.food",
-              "visibility": [
-                {
-                  "condition": "state",
-                  "entity": "light.food",
-                  "state_not": "unavailable"
-                }
-              ]
-            },
-            {
-              "type": "entity",
-              "show_name": true,
               "show_state": false,
               "show_icon": true,
               "entity": "fan.mvvrr_khdr",
@@ -343,70 +277,186 @@
         },
         {
           "title": "נורות",
-          "path": "lights",
           "icon": "mdi:globe-light",
-          "cards": [
-            {
-              "type": "custom:mushroom-light-card",
-              "entity": "light.bedroom",
-              "use_light_color": true,
-              "show_brightness_control": true,
-              "show_color_temp_control": true,
-              "show_color_control": true,
-              "collapsible_controls": true,
-              "hold_action": {
-                "action": "more-info"
-              }
-            },
-            {
-              "type": "custom:mushroom-light-card",
-              "use_light_color": true,
-              "show_brightness_control": true,
-              "show_color_temp_control": true,
-              "show_color_control": true,
-              "collapsible_controls": true,
-              "entity": "light.bathroom",
-              "hold_action": {
-                "action": "more-info"
-              }
-            },
-            {
-              "type": "custom:mushroom-light-card",
-              "use_light_color": true,
-              "show_brightness_control": true,
-              "show_color_temp_control": true,
-              "show_color_control": true,
-              "collapsible_controls": true,
-              "entity": "light.food",
-              "hold_action": {
-                "action": "more-info"
-              }
-            },
-            {
-              "type": "custom:mushroom-light-card",
-              "use_light_color": true,
-              "show_brightness_control": true,
-              "show_color_temp_control": true,
-              "show_color_control": true,
-              "collapsible_controls": true,
-              "entity": "light.kitchen",
-              "hold_action": {
-                "action": "more-info"
-              }
-            }
-          ],
+          "cards": [],
           "subview": false,
           "badges": [
             {
               "type": "entity",
-              "entity": "script.toggle_light",
+              "show_name": false,
+              "show_state": true,
+              "show_icon": true,
               "name": "אור בסלון",
               "tap_action": {
                 "action": "perform-action",
-                "perform_action": "script.toggle_light",
-                "target": {}
+                "perform_action": "light.toggle",
+                "target": {
+                  "area_id": "slvn"
+                }
               },
-              "state_content": "name"
+              "state_content": "name",
+              "color": "",
+              "entity": "light.kitchen"
+            }
+          ],
+          "type": "sections",
+          "sections": [
+            {
+              "type": "grid",
+              "cards": [
+                {
+                  "type": "custom:mushroom-light-card",
+                  "entity": "light.bedroom",
+                  "use_light_color": true,
+                  "show_brightness_control": true,
+                  "show_color_temp_control": true,
+                  "show_color_control": true,
+                  "collapsible_controls": true,
+                  "hold_action": {
+                    "action": "more-info"
+                  },
+                  "grid_options": {
+                    "columns": 12,
+                    "rows": 2
+                  }
+                },
+                {
+                  "type": "custom:mushroom-light-card",
+                  "use_light_color": true,
+                  "show_brightness_control": true,
+                  "show_color_temp_control": true,
+                  "show_color_control": true,
+                  "collapsible_controls": true,
+                  "entity": "light.bathroom",
+                  "hold_action": {
+                    "action": "more-info"
+                  },
+                  "grid_options": {
+                    "columns": 12,
+                    "rows": 2
+                  }
+                },
+                {
+                  "type": "custom:mushroom-light-card",
+                  "use_light_color": true,
+                  "show_brightness_control": true,
+                  "show_color_temp_control": true,
+                  "show_color_control": true,
+                  "collapsible_controls": true,
+                  "entity": "light.kitchen",
+                  "hold_action": {
+                    "action": "more-info"
+                  },
+                  "grid_options": {
+                    "columns": 12,
+                    "rows": 2
+                  }
+                },
+                {
+                  "type": "custom:mushroom-light-card",
+                  "use_light_color": true,
+                  "show_brightness_control": true,
+                  "show_color_temp_control": true,
+                  "show_color_control": true,
+                  "collapsible_controls": true,
+                  "entity": "light.carpet",
+                  "hold_action": {
+                    "action": "more-info"
+                  },
+                  "name": "נורה שטיח",
+                  "grid_options": {
+                    "columns": 12,
+                    "rows": 2
+                  }
+                },
+                {
+                  "type": "custom:mushroom-light-card",
+                  "use_light_color": true,
+                  "show_brightness_control": true,
+                  "show_color_temp_control": true,
+                  "show_color_control": true,
+                  "collapsible_controls": true,
+                  "entity": "light.entrance",
+                  "hold_action": {
+                    "action": "more-info"
+                  },
+                  "name": "נורה כניסה",
+                  "grid_options": {
+                    "columns": 12,
+                    "rows": 2
+                  }
+                },
+                {
+                  "type": "custom:mushroom-light-card",
+                  "use_light_color": true,
+                  "show_brightness_control": true,
+                  "show_color_temp_control": true,
+                  "show_color_control": true,
+                  "collapsible_controls": true,
+                  "entity": "light.food_1",
+                  "hold_action": {
+                    "action": "more-info"
+                  },
+                  "name": "נורה אוכל 1",
+                  "grid_options": {
+                    "columns": 12,
+                    "rows": 2
+                  }
+                },
+                {
+                  "type": "custom:mushroom-light-card",
+                  "use_light_color": true,
+                  "show_brightness_control": true,
+                  "show_color_temp_control": true,
+                  "show_color_control": true,
+                  "collapsible_controls": true,
+                  "entity": "light.food_2",
+                  "hold_action": {
+                    "action": "more-info"
+                  },
+                  "name": "נורה אוכל 2",
+                  "grid_options": {
+                    "columns": 12,
+                    "rows": 2
+                  }
+                },
+                {
+                  "type": "custom:mushroom-light-card",
+                  "use_light_color": true,
+                  "show_brightness_control": true,
+                  "show_color_temp_control": true,
+                  "show_color_control": true,
+                  "collapsible_controls": true,
+                  "entity": "light.mamad",
+                  "hold_action": {
+                    "action": "more-info"
+                  },
+                  "grid_options": {
+                    "columns": 12,
+                    "rows": 2
+                  },
+                  "name": "ממ״ד"
+                }
+              ],
+              "column_span": 4
+            },
+            {
+              "type": "grid",
+              "cards": [
+                {
+                  "type": "entities",
+                  "entities": [
+                    "switch.adaptive_lighting_adapt_brightness_adaptive",
+                    "switch.adaptive_lighting_adapt_color_adaptive",
+                    "switch.adaptive_lighting_sleep_mode_adaptive",
+                    "switch.adaptive_lighting_adaptive"
+                  ],
+                  "grid_options": {
+                    "columns": "full"
+                  }
+                }
+              ],
+              "column_span": 2
             }
           ]
         },
@@ -422,21 +472,44 @@
               "cards": [
                 {
                   "type": "custom:mushroom-climate-card",
-                  "entity": "climate.mzgn",
-                  "fill_container": false,
+                  "entity": "climate.mamad_ac",
                   "icon": "mdi:air-conditioner",
                   "hvac_modes": [
-                    "heat",
-                    "cool",
                     "dry",
+                    "off",
                     "fan_only",
-                    "off"
+                    "heat"
                   ],
-                  "show_temperature_control": true,
-                  "collapsible_controls": true,
-                  "grid_options": {
-                    "columns": 6,
-                    "rows": 2
+                  "collapsible_controls": false,
+                  "tap_action": {
+                    "action": "more-info"
+                  },
+                  "hold_action": {
+                    "action": "none"
+                  },
+                  "double_tap_action": {
+                    "action": "none"
+                  }
+                },
+                {
+                  "type": "custom:mushroom-climate-card",
+                  "entity": "climate.mzgn",
+                  "icon": "mdi:air-conditioner",
+                  "hvac_modes": [
+                    "dry",
+                    "off",
+                    "fan_only",
+                    "heat"
+                  ],
+                  "collapsible_controls": false,
+                  "tap_action": {
+                    "action": "more-info"
+                  },
+                  "hold_action": {
+                    "action": "none"
+                  },
+                  "double_tap_action": {
+                    "action": "none"
                   }
                 },
                 {
@@ -461,7 +534,7 @@
                     }
                   ],
                   "grid_options": {
-                    "columns": 12,
+                    "columns": 6,
                     "rows": 1
                   },
                   "alignment": "center"
@@ -470,6 +543,101 @@
               "column_span": 1
             }
           ]
+        },
+        {
+          "type": "sections",
+          "max_columns": 4,
+          "path": "devices",
+          "sections": [
+            {
+              "type": "grid",
+              "cards": [
+                {
+                  "type": "heading",
+                  "icon": "mdi:cellphone",
+                  "heading_style": "subtitle",
+                  "badges": [
+                    {
+                      "type": "entity",
+                      "entity": "device_tracker.baruch_mobile"
+                    },
+                    {
+                      "type": "entity",
+                      "entity": "sensor.baruch_phone_battery_state"
+                    },
+                    {
+                      "type": "entity",
+                      "entity": "sensor.baruch_phone_charger_type"
+                    },
+                    {
+                      "type": "entity",
+                      "entity": "sensor.baruch_phone_battery_level"
+                    }
+                  ],
+                  "heading": "Baruch - Phone"
+                },
+                {
+                  "type": "heading",
+                  "icon": "mdi:watch",
+                  "heading_style": "subtitle",
+                  "badges": [
+                    {
+                      "type": "entity",
+                      "show_state": true,
+                      "show_icon": true,
+                      "entity": "device_tracker.galaxy_watch6_classic_6zxw",
+                      "visibility": [
+                        {
+                          "condition": "state",
+                          "entity": "device_tracker.galaxy_watch6_classic_6zxw",
+                          "state_not": "unknown"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "entity",
+                      "entity": "sensor.galaxy_watch6_classic_6zxw_battery_state"
+                    },
+                    {
+                      "type": "entity",
+                      "entity": "sensor.galaxy_watch6_classic_6zxw_charger_type"
+                    },
+                    {
+                      "type": "entity",
+                      "entity": "sensor.galaxy_watch6_classic_6zxw_battery_level"
+                    }
+                  ],
+                  "heading": "Baruch - Watch"
+                },
+                {
+                  "type": "heading",
+                  "icon": "mdi:cellphone",
+                  "heading_style": "subtitle",
+                  "badges": [
+                    {
+                      "type": "entity",
+                      "entity": "device_tracker.plpvn_zhr"
+                    },
+                    {
+                      "type": "entity",
+                      "entity": "sensor.plpvn_zhr_battery_state"
+                    },
+                    {
+                      "type": "entity",
+                      "entity": "sensor.plpvn_zhr_charger_type"
+                    },
+                    {
+                      "type": "entity",
+                      "entity": "sensor.plpvn_zhr_battery_level"
+                    }
+                  ],
+                  "heading": "Zohar - Phone"
+                }
+              ]
+            }
+          ],
+          "icon": "mdi:devices",
+          "cards": []
         }
       ]
     }

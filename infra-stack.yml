@@ -1,0 +1,81 @@
+services:
+  mysql:
+    image: mysql:8
+    env_file:
+      - shared.env
+    environment:
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+    healthcheck:
+      retries: 10
+      test:
+        - CMD
+        - mysqladmin
+        - ping
+        - "-h"
+        - localhost
+      timeout: 20s
+    restart: always
+    entrypoint: sh -c " echo 'CREATE DATABASE IF NOT EXISTS nocodb;' > /docker-entrypoint-initdb.d/0-init.sql; echo 'CREATE DATABASE IF NOT EXISTS nocobase;' >> /docker-entrypoint-initdb.d/0-init.sql; echo 'GRANT ALL PRIVILEGES ON nocodb.* TO \"${MYSQL_USER}\"@\"%\";' >> /docker-entrypoint-initdb.d/0-init.sql; echo 'GRANT ALL PRIVILEGES ON nocobase.* TO \"${MYSQL_USER}\"@\"%\";' >> /docker-entrypoint-initdb.d/0-init.sql; echo 'FLUSH PRIVILEGES;' >> /docker-entrypoint-initdb.d/0-init.sql; /usr/local/bin/docker-entrypoint.sh --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci "
+    volumes:
+      - mysql:/var/lib/mysql
+      - mysql-backup:/var/lib/backup
+      - ./mysql/scripts:/var/lib/scripts
+      - ./mysql/init:/docker-entrypoint-initdb.d
+    ports:
+      - "3306:3306"
+    networks:
+      - infra_net
+    labels:
+      ofelia.enabled: "true"
+      ofelia.job-exec.backup-nocobase.schedule: "@daily"
+      ofelia.job-exec.backup-nocobase.command: "sh -c '/var/lib/scripts/backup.sh /var/lib/backup'"
+
+  node-red:
+    image: nodered/node-red
+    env_file:
+      - shared.env
+    ports:
+      - "1880:1880"
+    entrypoint: >
+      sh -c " npm install --prefix /data --unsafe-perm --no-update-notifier --no-fund --only=production && npm --no-update-notifier --no-fund start --cache /data/.npm -- --userDir /data"
+    environment:
+      NODE_RED_CREDENTIAL_SECRET: ${NODE_RED_CREDENTIAL_SECRET}
+    volumes:
+      - ./node-red:/data
+    restart: unless-stopped
+    networks:
+      - infra_net
+
+  obsidian-livesync:
+    image: couchdb
+    container_name: obsidian-livesync
+    user: 1000:1000
+    environment:
+      - COUCHDB_USER=${OBSIDIAN_COUCHDB_USER}
+      - COUCHDB_PASSWORD=${OBSIDIAN_COUCHDB_PASSWORD}
+    volumes:
+      - obsidian-data:/opt/couchdb/data
+      - ./obsidian/local.ini:/opt/couchdb/etc/local.ini
+    ports:
+      - "5984:5984"
+    restart: unless-stopped
+    networks:
+      - infra_net
+
+networks:
+  infra_net:
+    name: infrastructure_network
+    driver: bridge
+
+volumes:
+  mysql:
+  mysql-backup:
+    driver: rclone
+    driver_opts:
+      remote: 'remote-gdrive:nocobase-backup'
+      allow_other: 'true'
+      vfs_cache_mode: full
+      poll_interval: 0
+  obsidian-data:

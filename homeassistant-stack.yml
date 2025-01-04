@@ -1,0 +1,69 @@
+version: '3.8'
+
+services:
+  homeassistant:
+    container_name: homeassistant
+    image: "ghcr.io/home-assistant/home-assistant:stable"
+    volumes:
+      - ./homeassistant/config:/config
+      - /etc/localtime:/etc/localtime:ro
+      - /run/dbus:/run/dbus:ro
+    restart: unless-stopped
+    env_file:
+      - shared.env
+    devices:
+      - /dev/ttyACM0:/dev/ttyACM0
+    privileged: true
+    ports:
+      - "8123:8123" # Web interface
+    networks:
+      - ha_net
+
+  mqtt:
+    image: eclipse-mosquitto:2.0
+    restart: unless-stopped
+    volumes:
+      - mosquitto-data:/mosquitto
+    ports:
+      - "1883:1883" # MQTT
+      - "9001:9001" # MQTT over WebSocket
+    command: 'mosquitto -c /mosquitto-no-auth.conf'
+    networks:
+      - ha_net
+
+  zigbee2mqtt:
+    container_name: zigbee2mqtt
+    restart: unless-stopped
+    image: koenkk/zigbee2mqtt
+    volumes:
+      - ./zigbee2mqtt:/app/data
+      - /run/udev:/run/udev:ro
+    env_file:
+      - shared.env
+    ports:
+      - "8080:8080" # Web interface
+    devices:
+      - /dev/ttyACM0:/dev/ttyACM0
+    networks:
+      - ha_net
+    depends_on:
+      - mqtt
+
+networks:
+  ha_net:
+    name: homeassistant_network
+    driver: bridge
+    # Enable IPv6
+    enable_ipv6: true
+    # Enable multicast for device discovery
+    driver_opts:
+      com.docker.network.bridge.host_binding_ipv4: "0.0.0.0"
+      com.docker.network.driver.mtu: "1500"
+    ipam:
+      driver: default
+      config:
+        - subnet: 172.16.238.0/24
+        - subnet: 2001:3984:3989::/64
+
+volumes:
+  mosquitto-data:
