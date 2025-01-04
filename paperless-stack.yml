@@ -1,5 +1,3 @@
-# TODO: ofelia
-# TODO: export without deleted documents
 services:
   paperless-broker:
     image: docker.io/library/redis:7
@@ -57,6 +55,14 @@ services:
       - "9998:9998"
     networks:
       - paperless_net
+
+  # This is here because it must start last
+  # https://github.com/mcuadros/ofelia/pull/137
+  ofelia:
+    image: mcuadros/ofelia:latest
+    command: daemon --docker
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
 
 networks:
   paperless_net:
