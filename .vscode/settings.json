@@ -3,6 +3,9 @@
         "homeassistant/config/*.yaml": "home-assistant"
     },
     "cSpell.words": [
-        "hass"
+        "budibase",
+        "hass",
+        "livesync",
+        "nocodb"
     ]
 }
