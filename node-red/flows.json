@@ -2423,8 +2423,8 @@
         "exposeAsEntityConfig": "",
         "entities": {
             "entity": [
-                "sensor.baruch_phone_battery_level",
-                "sensor.plpvn_zhr_battery_level"
+                "sensor.baruch_mobile_battery_level",
+                "sensor.zohar_mobile_battery_level_2"
             ],
             "substring": [],
             "regex": []

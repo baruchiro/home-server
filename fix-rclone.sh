@@ -2,7 +2,7 @@
 
 docker volume rm paperless_paperless-export
 docker volume rm paperless_paperless-consume
-docker volume rm paperless_mysql-backup
+docker volume rm infra_mysql-backup
 
 docker plugin disable rclone
 sudo rm /var/lib/docker-plugins/rclone/cache/docker-plugin.state
