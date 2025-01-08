@@ -60,7 +60,32 @@ services:
       - ./obsidian/local.ini:/opt/couchdb/etc/local.ini
     ports:
       - "5984:5984"
+    healthcheck:
+      test: curl -f http://localhost:5984/_up || exit 1
+      interval: 30s
+      timeout: 10s
+      retries: 5
     restart: unless-stopped
+    networks:
+      - infra_net
+
+  minio:
+    restart: unless-stopped
+    image: minio/minio
+    volumes:
+      - minio_data:/data
+    environment:
+    # TODO: WARNING: MINIO_ACCESS_KEY and MINIO_SECRET_KEY are deprecated.
+     #    Please use MINIO_ROOT_USER and MINIO_ROOT_PASSWORD
+      MINIO_ACCESS_KEY: ${MINIO_ACCESS_KEY}
+      MINIO_SECRET_KEY: ${MINIO_SECRET_KEY}
+      MINIO_BROWSER: "off"
+    command: server /data --console-address ":9001"
+    healthcheck:
+      test: "timeout 5s bash -c ':> /dev/tcp/127.0.0.1/9000' || exit 1"
+      interval: 30s
+      timeout: 20s
+      retries: 3
     networks:
       - infra_net
 
@@ -79,3 +104,4 @@ volumes:
       vfs_cache_mode: full
       poll_interval: 0
   obsidian-data:
+  minio_data:
