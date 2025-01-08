@@ -281,7 +281,7 @@
     above: 99
   conditions: []
   actions:
-  - action: notify.mobile_app_baruch_phone
+  - action: notify.mobile_app_m2102j20sg
     metadata: {}
     data:
       message: טעינה מלאה
