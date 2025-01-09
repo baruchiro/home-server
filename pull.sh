@@ -11,7 +11,6 @@ echo -e "\033[1;34m🐳 Pulling latest Docker images...\033[0m"
 docker compose -f infra-stack.yml pull
 docker compose -f media-stack.yml pull
 docker compose -f homeassistant-stack.yml pull
-docker compose -f co-code-stack.yml pull
 docker compose -f paperless-stack.yml pull
 docker compose -f budibase-stack.yml pull
 

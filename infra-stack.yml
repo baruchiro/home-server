@@ -17,20 +17,19 @@ services:
         - localhost
       timeout: 20s
     restart: always
-    entrypoint: sh -c " echo 'CREATE DATABASE IF NOT EXISTS nocodb;' > /docker-entrypoint-initdb.d/0-init.sql; echo 'CREATE DATABASE IF NOT EXISTS nocobase;' >> /docker-entrypoint-initdb.d/0-init.sql; echo 'GRANT ALL PRIVILEGES ON nocodb.* TO \"${MYSQL_USER}\"@\"%\";' >> /docker-entrypoint-initdb.d/0-init.sql; echo 'GRANT ALL PRIVILEGES ON nocobase.* TO \"${MYSQL_USER}\"@\"%\";' >> /docker-entrypoint-initdb.d/0-init.sql; echo 'FLUSH PRIVILEGES;' >> /docker-entrypoint-initdb.d/0-init.sql; /usr/local/bin/docker-entrypoint.sh --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci "
+    entrypoint: sh -c " echo 'CREATE DATABASE IF NOT EXISTS personal;' > /docker-entrypoint-initdb.d/0-init.sql; echo 'GRANT ALL PRIVILEGES ON personal.* TO \"${MYSQL_USER}\"@\"%\";' >> /docker-entrypoint-initdb.d/0-init.sql; echo 'FLUSH PRIVILEGES;' >> /docker-entrypoint-initdb.d/0-init.sql; /usr/local/bin/docker-entrypoint.sh --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci "
     volumes:
       - mysql:/var/lib/mysql
       - mysql-backup:/var/lib/backup
       - ./mysql/scripts:/var/lib/scripts
-      - ./mysql/init:/docker-entrypoint-initdb.d
     ports:
       - "3306:3306"
     networks:
       - infra_net
     labels:
       ofelia.enabled: "true"
-      ofelia.job-exec.backup-nocobase.schedule: "@daily"
-      ofelia.job-exec.backup-nocobase.command: "sh -c '/var/lib/scripts/backup.sh /var/lib/backup'"
+      ofelia.job-exec.backup-personal.schedule: "@daily"
+      ofelia.job-exec.backup-personal.command: "sh -c '/var/lib/scripts/backup-personal.sh /var/lib/backup'"
 
   node-red:
     image: nodered/node-red
@@ -74,7 +73,7 @@ volumes:
   mysql-backup:
     driver: rclone
     driver_opts:
-      remote: 'remote-gdrive:nocobase-backup'
+      remote: 'remote-gdrive:mysql-backup'
       allow_other: 'true'
       vfs_cache_mode: full
       poll_interval: 0

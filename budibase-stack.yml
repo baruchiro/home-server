@@ -140,4 +140,5 @@ networks:
   budibase_network:
     driver: bridge
   infra_net:
-    external: true
+    name: infrastructure_network
+    external: true  # Use the existing infra network
