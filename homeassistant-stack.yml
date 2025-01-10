@@ -48,6 +48,19 @@ services:
       - ha_net
     depends_on:
       - mqtt
+  
+  firefox:
+    image: jlesage/firefox:v1.18.0
+    ports:
+      - "5800:5800"
+      - "5900:5900"
+    volumes:
+      - "firefox:/config:rw"
+    env_file:
+      - shared.env
+    environment:
+      - FF_OPEN_URL=https://homeassistant:8123
+
 
 networks:
   ha_net:
@@ -67,3 +80,4 @@ networks:
 
 volumes:
   mosquitto-data:
+  firefox:
