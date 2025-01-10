@@ -7,14 +7,6 @@
       "views": [
         {
           "title": "Home",
-          "visible": [
-            {
-              "user": "185d26a8b9d848ecbc5c183aa6de3d6c"
-            },
-            {
-              "user": "8c491900665142d49ce10244953bbf79"
-            }
-          ],
           "cards": [],
           "type": "sections",
           "sections": [
@@ -28,14 +20,7 @@
                   "title": "Google",
                   "card_mod": {
                     "style": "ha-card {\n  direction: ltr\n}\n"
-                  },
-                  "visibility": [
-                    {
-                      "condition": "state",
-                      "entity": "sensor.living_room_speaker_timers",
-                      "state_not": "unavailable"
-                    }
-                  ]
+                  }
                 },
                 {
                   "show_current": false,
@@ -58,13 +43,13 @@
                   ],
                   "wizards": [
                     {
-                      "entity": "device_tracker.baruch_mobile",
+                      "entity": "device_tracker.baruch_mobilee",
                       "name": "Baruch",
                       "colour": "#F00",
                       "textcolour": "#00F"
                     },
                     {
-                      "entity": "device_tracker.plpvn_zhr",
+                      "entity": "device_tracker.zohar_mobile",
                       "name": "Zohar",
                       "colour": "#0F0"
                     }
@@ -88,13 +73,6 @@
                         "on_off"
                       ],
                       "collapsible_controls": true,
-                      "visibility": [
-                        {
-                          "condition": "state",
-                          "entity": "media_player.living_room_speaker",
-                          "state_not": "off"
-                        }
-                      ],
                       "fill_container": true,
                       "volume_controls": [
                         "volume_buttons"
@@ -123,14 +101,7 @@
                   ]
                 }
               ],
-              "column_span": 2,
-              "visibility": [
-                {
-                  "condition": "state",
-                  "entity": "binary_sensor.jewish_calendar_issur_melacha_in_effect",
-                  "state": "off"
-                }
-              ]
+              "column_span": 2
             },
             {
               "type": "grid",
@@ -172,25 +143,6 @@
                       "entity": "sensor.upcoming_havdalah_time",
                       "name": "הבדלה",
                       "icon": "mdi:weather-night"
-                    }
-                  ],
-                  "visibility": [
-                    {
-                      "condition": "or",
-                      "conditions": [
-                        {
-                          "condition": "user",
-                          "users": [
-                            "185d26a8b9d848ecbc5c183aa6de3d6c"
-                          ]
-                        },
-                        {
-                          "condition": "numeric_state",
-                          "entity": "input_number.screen_switcher_2",
-                          "above": 0,
-                          "below": 2
-                        }
-                      ]
                     }
                   ],
                   "grid_options": {
@@ -236,55 +188,8 @@
                     "icon": "action"
                   },
                   "tags": [],
-                  "visibility": [
-                    {
-                      "condition": "or",
-                      "conditions": [
-                        {
-                          "condition": "user",
-                          "users": [
-                            "185d26a8b9d848ecbc5c183aa6de3d6c"
-                          ]
-                        },
-                        {
-                          "condition": "numeric_state",
-                          "entity": "input_number.screen_switcher_2",
-                          "above": 1,
-                          "below": 3
-                        }
-                      ]
-                    }
-                  ],
                   "time_step": 10,
                   "discover_existing": true
-                }
-              ],
-              "visibility": [
-                {
-                  "condition": "or",
-                  "conditions": [
-                    {
-                      "condition": "user",
-                      "users": [
-                        "185d26a8b9d848ecbc5c183aa6de3d6c"
-                      ]
-                    },
-                    {
-                      "condition": "or",
-                      "conditions": [
-                        {
-                          "condition": "state",
-                          "entity": "binary_sensor.jewish_calendar_erev_shabbat_hag",
-                          "state": "on"
-                        },
-                        {
-                          "condition": "state",
-                          "entity": "binary_sensor.jewish_calendar_issur_melacha_in_effect",
-                          "state": "on"
-                        }
-                      ]
-                    }
-                  ]
                 }
               ],
               "column_span": 2
