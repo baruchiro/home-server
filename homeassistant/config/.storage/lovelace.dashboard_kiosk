@@ -14,53 +14,6 @@
               "type": "grid",
               "cards": [
                 {
-                  "type": "custom:googletimers-card",
-                  "entity": "sensor.living_room_speaker_timers",
-                  "alarms_entity": "sensor.living_room_speaker_alarms",
-                  "title": "Google",
-                  "card_mod": {
-                    "style": "ha-card {\n  direction: ltr\n}\n"
-                  }
-                },
-                {
-                  "show_current": false,
-                  "show_forecast": true,
-                  "type": "weather-forecast",
-                  "entity": "weather.forecast_home",
-                  "forecast_type": "hourly",
-                  "grid_options": {
-                    "columns": 12,
-                    "rows": 3
-                  }
-                },
-                {
-                  "type": "custom:weasley-card",
-                  "locations": [
-                    "Home",
-                    "Work",
-                    "בית כנסת",
-                    "הגן השקוף"
-                  ],
-                  "wizards": [
-                    {
-                      "entity": "device_tracker.baruch_mobilee",
-                      "name": "Baruch",
-                      "colour": "#F00",
-                      "textcolour": "#00F"
-                    },
-                    {
-                      "entity": "device_tracker.zohar_mobile",
-                      "name": "Zohar",
-                      "colour": "#0F0"
-                    }
-                  ],
-                  "fontname": "itcblkad_font",
-                  "fontface": "font-family: itcblkad_font;    src: local(itcblkad_font), url('/local/custom-lovelace/ITCBLKAD.TTF') format('opentype');",
-                  "width": 1000,
-                  "lost": "Lost",
-                  "travelling": "Moving"
-                },
-                {
                   "type": "horizontal-stack",
                   "cards": [
                     {
@@ -98,14 +51,23 @@
                         }
                       ]
                     }
-                  ]
-                }
-              ],
-              "column_span": 2
-            },
-            {
-              "type": "grid",
-              "cards": [
+                  ],
+                  "grid_options": {
+                    "columns": 12,
+                    "rows": 3
+                  }
+                },
+                {
+                  "show_current": false,
+                  "show_forecast": true,
+                  "type": "weather-forecast",
+                  "entity": "weather.forecast_home",
+                  "forecast_type": "hourly",
+                  "grid_options": {
+                    "columns": 12,
+                    "rows": 3
+                  }
+                },
                 {
                   "type": "entities",
                   "entities": [
@@ -159,7 +121,9 @@
                     "binary_sensor.jewish_calendar_issur_melacha_in_effect",
                     "climate.mamad_ac",
                     "device_tracker.baruch_mobile",
+                    "device_tracker.baruch_mobilee",
                     "device_tracker.plpvn_zhr",
+                    "device_tracker.zohar_mobile",
                     "fan.mvvrr_khdr",
                     "light.carpet",
                     "light.entrance",
@@ -190,8 +154,40 @@
                   "tags": [],
                   "time_step": 10,
                   "discover_existing": true
+                },
+                {
+                  "type": "custom:weasley-card",
+                  "locations": [
+                    "Home",
+                    "Work",
+                    "בית כנסת",
+                    "הגן השקוף"
+                  ],
+                  "wizards": [
+                    {
+                      "entity": "device_tracker.baruch_mobilee",
+                      "name": "Baruch",
+                      "colour": "#F00",
+                      "textcolour": "#00F"
+                    },
+                    {
+                      "entity": "device_tracker.zohar_mobile",
+                      "name": "Zohar",
+                      "colour": "#0F0"
+                    }
+                  ],
+                  "fontname": "itcblkad_font",
+                  "fontface": "font-family: itcblkad_font;    src: local(itcblkad_font), url('/local/custom-lovelace/ITCBLKAD.TTF') format('opentype');",
+                  "width": 400,
+                  "lost": "Lost",
+                  "travelling": "Moving"
                 }
               ],
+              "column_span": 2
+            },
+            {
+              "type": "grid",
+              "cards": [],
               "column_span": 2
             }
           ],

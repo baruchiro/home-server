@@ -58,8 +58,10 @@ services:
       - "firefox:/config:rw"
     env_file:
       - shared.env
-    environment:
-      - FF_OPEN_URL=https://homeassistant:8123
+    # environment:
+    #   For IPAD2
+    #   - DISPLAY_WIDTH=768
+    #   - DISPLAY_HEIGHT=768
 
 
 networks:
