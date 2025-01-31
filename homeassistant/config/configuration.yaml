@@ -25,11 +25,20 @@ script: !include scripts.yaml
 scene: !include scenes.yaml
 template: !include templates.yaml
 
+group:
+  family:
+    name: Family
+    entities:
+      - person.baruch_odem
+      - person.zhr
+
 recorder:
   exclude:
     entities:
       - automation.infinit_screen_switch
       - input_number.screen_switcher_2
+
+
 
 smartir:
 

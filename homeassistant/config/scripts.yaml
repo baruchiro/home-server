@@ -154,3 +154,54 @@ unknown:
       device_id: ddda0c7e7b0177094ca218497c439fdb
   description: ''
   icon: mdi:fan
+toggle_mamad_night_light:
+  sequence:
+  - if:
+    - condition: or
+      conditions:
+      - condition: numeric_state
+        entity_id: light.mamad
+        attribute: brightness
+        above: 10
+      - condition: state
+        entity_id: light.mamad
+        state: 'off'
+    then:
+    - action: light.turn_on
+      metadata: {}
+      data:
+        brightness_pct: 1
+        rgb_color: "[{{ range(0, 256) | random }}, {{ range(0, 256) | random}},{{ range(0, 256) | random }}]"
+      target:
+        entity_id: light.mamad
+      alias: 1 brightness random color
+    else:
+    - action: light.turn_on
+      metadata: {}
+      data:
+        brightness_pct: 100
+        kelvin: 6500
+      target:
+        entity_id: light.mamad
+  alias: 'Toggle Mamad Night Light '
+  description: ''
+  icon: mdi:lightbulb-night
+unknown_2:
+  sequence:
+  - action: switch.turn_on
+    metadata: {}
+    data: {}
+    target:
+      entity_id: switch.heat_spreader
+  - delay:
+      hours: 0
+      minutes: 45
+      seconds: 0
+  - action: switch.turn_off
+    metadata: {}
+    data: {}
+    target:
+      entity_id: switch.heat_spreader
+  alias: מקלחת טליה
+  description: ''
+  icon: mdi:shower-head

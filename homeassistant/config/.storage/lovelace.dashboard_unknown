@@ -272,6 +272,20 @@
                   "below": 20
                 }
               ]
+            },
+            {
+              "type": "entity",
+              "show_name": true,
+              "show_state": true,
+              "show_icon": true,
+              "color": "",
+              "entity": "light.mamad",
+              "name": "מצב שינה ממ\"ד",
+              "tap_action": {
+                "action": "perform-action",
+                "perform_action": "script.toggle_mamad_night_light",
+                "target": {}
+              }
             }
           ]
         },
@@ -297,6 +311,20 @@
               "state_content": "name",
               "color": "",
               "entity": "light.kitchen"
+            },
+            {
+              "type": "entity",
+              "show_name": true,
+              "show_state": true,
+              "show_icon": true,
+              "color": "",
+              "entity": "light.mamad",
+              "name": "מצב שינה",
+              "tap_action": {
+                "action": "perform-action",
+                "perform_action": "script.toggle_mamad_night_light",
+                "target": {}
+              }
             }
           ],
           "type": "sections",
@@ -429,7 +457,9 @@
                   "collapsible_controls": true,
                   "entity": "light.mamad",
                   "hold_action": {
-                    "action": "more-info"
+                    "action": "perform-action",
+                    "perform_action": "script.toggle_mamad_night_light",
+                    "target": {}
                   },
                   "grid_options": {
                     "columns": 12,

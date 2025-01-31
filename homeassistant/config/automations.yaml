@@ -216,7 +216,7 @@
       device_id: 7a63b27e74067348ddb7eeaff985a304
   mode: single
 - id: '1730216355376'
-  alias: הפעל מזגן בעת אזעקה
+  alias: כשיש אזעקה בגדרה
   description: ''
   triggers:
   - trigger: state
@@ -225,26 +225,42 @@
     to: 'on'
     from: 'off'
   conditions:
-  - condition: numeric_state
-    entity_id: zone.home
-    attribute: persons
-    above: 0
+  - condition: state
+    entity_id: group.family
+    state: home
   actions:
-  - action: script.unknown_3
-    metadata: {}
-    data: {}
-    enabled: false
+  - if:
+    - condition: state
+      entity_id: light.mamad
+      state: 'off'
+    then:
+    - action: light.turn_on
+      metadata: {}
+      data:
+        brightness_pct: 10
+        rgb_color:
+        - 65
+        - 83
+        - 175
+      target:
+        entity_id: light.mamad
+  - wait_for_trigger:
+    - trigger: state
+      entity_id:
+      - binary_sensor.oref_alert
+      from: 'on'
+      to: 'off'
+    continue_on_timeout: false
   - action: light.turn_on
     metadata: {}
     data:
-      brightness_pct: 1
-      kelvin: 2000
       rgb_color:
       - 0
-      - 0
       - 255
+      - 0
     target:
-      device_id: 8e04aa752f41f153165d063030ad8b04
+      entity_id:
+      - light.mamad
   mode: single
 - id: '1732855919338'
   alias: הודעה על טלפון טעינה מלאה
@@ -296,4 +312,64 @@
         brightness_step_pct: -10
       target:
         area_id: slvn
+  mode: single
+- id: '1737729641555'
+  alias: כיבוי מזגן טליה בלילה
+  description: ''
+  triggers:
+  - trigger: time
+    at: 01:00:00
+  conditions: []
+  actions:
+  - action: climate.set_hvac_mode
+    metadata: {}
+    data:
+      hvac_mode: 'off'
+    target:
+      entity_id: climate.mamad_ac
+  mode: single
+- id: '1738179559914'
+  alias: Mamad Button Hold
+  description: ''
+  triggers:
+  - domain: mqtt
+    device_id: a97c3cda04d9ee57934c720d58e4f172
+    type: action
+    subtype: hold
+    trigger: device
+  conditions: []
+  actions:
+  - action: script.toggle_mamad_night_light
+    metadata: {}
+    data: {}
+  mode: single
+- id: '1738179994742'
+  alias: Mamad Button Single
+  description: ''
+  triggers:
+  - domain: mqtt
+    device_id: a97c3cda04d9ee57934c720d58e4f172
+    type: action
+    subtype: single
+    trigger: device
+  conditions: []
+  actions:
+  - if:
+    - condition: state
+      entity_id: light.mamad
+      state: 'off'
+    then:
+    - action: light.turn_on
+      metadata: {}
+      data:
+        kelvin: 6500
+        brightness_pct: 100
+      target:
+        entity_id: light.mamad
+    else:
+    - action: light.turn_off
+      metadata: {}
+      data: {}
+      target:
+        entity_id: light.mamad
   mode: single
