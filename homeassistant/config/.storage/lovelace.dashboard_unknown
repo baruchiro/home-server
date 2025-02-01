@@ -194,15 +194,18 @@
               "show_name": false,
               "show_state": true,
               "show_icon": true,
-              "entity": "switch.living_room_fan",
-              "name": "מאוורר",
-              "icon": "mdi:fan",
-              "show_entity_picture": false,
-              "state_content": "name",
+              "entity": "switch.heat_spreader",
+              "icon": "mdi:heat-wave",
+              "show_entity_picture": true,
+              "state_content": [
+                "name",
+                "state"
+              ],
               "tap_action": {
                 "action": "toggle"
               },
-              "color": ""
+              "color": "state",
+              "name": "מפזר חום"
             },
             {
               "type": "entity",

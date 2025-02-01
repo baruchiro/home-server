@@ -14,6 +14,29 @@
               "type": "grid",
               "cards": [
                 {
+                  "type": "markdown",
+                  "content": "## התראות פעילות\n{% for alert in states.geo_location |\n   selectattr('entity_id', 'in', integration_entities('oref_alert')) |\n   sort(attribute='attributes.home_distance') %}\n  <p>\n    <font color=\"red\"><ha-icon icon=\"{{ alert.attributes.icon }}\"></ha-icon></font>\n    <a href=\"https://maps.google.com/?q={{ alert.attributes.latitude }},{{ alert.attributes.longitude }}\">{{ alert.name }}</a>\n    [{{ alert.state | int }} ק״מ]\n    ({{ alert.attributes.date | as_timestamp | timestamp_custom('%H:%M') }})\n  </p>\n{% endfor %}",
+                  "card_mod": {
+                    "style": "ha-card {\n  direction: rtl;\n}\n"
+                  },
+                  "visibility": [
+                    {
+                      "condition": "state",
+                      "entity": "binary_sensor.oref_alert_all_areas",
+                      "state": "on"
+                    }
+                  ],
+                  "grid_options": {
+                    "columns": 9,
+                    "rows": "auto"
+                  }
+                }
+              ]
+            },
+            {
+              "type": "grid",
+              "cards": [
+                {
                   "type": "entities",
                   "entities": [
                     {
@@ -135,6 +158,12 @@
                       "condition": "state",
                       "entity": "binary_sensor.jewish_calendar_issur_melacha_in_effect",
                       "state": "on"
+                    },
+                    {
+                      "condition": "user",
+                      "users": [
+                        "185d26a8b9d848ecbc5c183aa6de3d6c"
+                      ]
                     }
                   ]
                 }
@@ -143,24 +172,6 @@
             {
               "type": "grid",
               "cards": [
-                {
-                  "type": "markdown",
-                  "content": "## התראות פעילות\n{% for alert in states.geo_location |\n   selectattr('entity_id', 'in', integration_entities('oref_alert')) |\n   sort(attribute='attributes.home_distance') %}\n  <p>\n    <font color=\"red\"><ha-icon icon=\"{{ alert.attributes.icon }}\"></ha-icon></font>\n    <a href=\"https://maps.google.com/?q={{ alert.attributes.latitude }},{{ alert.attributes.longitude }}\">{{ alert.name }}</a>\n    [{{ alert.state | int }} ק״מ]\n    ({{ alert.attributes.date | as_timestamp | timestamp_custom('%H:%M') }})\n  </p>\n{% endfor %}",
-                  "card_mod": {
-                    "style": "ha-card {\n  direction: rtl;\n}\n"
-                  },
-                  "visibility": [
-                    {
-                      "condition": "state",
-                      "entity": "binary_sensor.oref_alert_all_areas",
-                      "state": "on"
-                    }
-                  ],
-                  "grid_options": {
-                    "columns": 9,
-                    "rows": "auto"
-                  }
-                },
                 {
                   "show_current": false,
                   "show_forecast": true,
@@ -173,61 +184,6 @@
                   },
                   "card_mod": {
                     "style": "ha-card {\n  direction: rtl\n}\n"
-                  }
-                },
-                {
-                  "type": "custom:mushroom-chips-card",
-                  "chips": [
-                    {
-                      "type": "conditional",
-                      "conditions": [
-                        {
-                          "condition": "state",
-                          "entity": "switch.heat_spreader",
-                          "state": "off"
-                        }
-                      ],
-                      "chip": {
-                        "type": "entity",
-                        "entity": "switch.heat_spreader",
-                        "tap_action": {
-                          "action": "perform-action",
-                          "perform_action": "script.unknown_2",
-                          "target": {}
-                        },
-                        "hold_action": {
-                          "action": "none"
-                        },
-                        "double_tap_action": {
-                          "action": "none"
-                        },
-                        "name": "מקלחת טליה",
-                        "content_info": "name",
-                        "icon": "mdi:shower-head"
-                      }
-                    },
-                    {
-                      "type": "entity",
-                      "entity": "switch.heat_spreader",
-                      "tap_action": {
-                        "action": "toggle"
-                      },
-                      "hold_action": {
-                        "action": "none"
-                      },
-                      "double_tap_action": {
-                        "action": "none"
-                      },
-                      "name": "מפזר חום",
-                      "content_info": "name",
-                      "icon": "mdi:heat-wave",
-                      "use_entity_picture": true
-                    }
-                  ],
-                  "alignment": "justify",
-                  "grid_options": {
-                    "columns": 3,
-                    "rows": "auto"
                   }
                 },
                 {
@@ -291,6 +247,61 @@
                   ],
                   "card_mod": {
                     "style": "ha-card {\n  direction: rtl\n}\n"
+                  }
+                },
+                {
+                  "type": "custom:mushroom-chips-card",
+                  "chips": [
+                    {
+                      "type": "conditional",
+                      "conditions": [
+                        {
+                          "condition": "state",
+                          "entity": "switch.heat_spreader",
+                          "state": "off"
+                        }
+                      ],
+                      "chip": {
+                        "type": "entity",
+                        "entity": "switch.heat_spreader",
+                        "tap_action": {
+                          "action": "perform-action",
+                          "perform_action": "script.unknown_2",
+                          "target": {}
+                        },
+                        "hold_action": {
+                          "action": "none"
+                        },
+                        "double_tap_action": {
+                          "action": "none"
+                        },
+                        "name": "מקלחת טליה",
+                        "content_info": "name",
+                        "icon": "mdi:shower-head"
+                      }
+                    },
+                    {
+                      "type": "entity",
+                      "entity": "switch.heat_spreader",
+                      "tap_action": {
+                        "action": "toggle"
+                      },
+                      "hold_action": {
+                        "action": "none"
+                      },
+                      "double_tap_action": {
+                        "action": "none"
+                      },
+                      "name": "מפזר חום",
+                      "content_info": "name",
+                      "icon": "mdi:heat-wave",
+                      "use_entity_picture": true
+                    }
+                  ],
+                  "alignment": "justify",
+                  "grid_options": {
+                    "columns": 3,
+                    "rows": "auto"
                   }
                 },
                 {
