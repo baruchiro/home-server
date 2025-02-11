@@ -3,6 +3,7 @@ jellyfin
 GITHUB_TOKEN
 passwords.txt
 
+
 # VSCode bug
 debug.log
 
