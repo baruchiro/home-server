@@ -28,8 +28,11 @@
     zone: zone.home
   actions:
   - metadata: {}
-    data: {}
-    action: script.radio_galei_zahal
+    data:
+      title: גל״צ
+      message: להפעיל סיון וידידיה?
+      script_name: radio_galei_zahal
+    action: script.ask_zohar_for_glz
   mode: single
 - id: '1712297018032'
   alias: Kan g Friday 13:00
@@ -63,10 +66,10 @@
 - id: '1712769427085'
   alias: Trigger 4 after noon radio
   description: ''
-  trigger:
-  - platform: time
-    at: '16:00:00'
-  condition:
+  triggers:
+  - at: '16:00:00'
+    trigger: time
+  conditions:
   - condition: state
     entity_id: binary_sensor.jewish_calendar_issur_melacha_in_effect
     state: 'off'
@@ -80,10 +83,13 @@
     - tue
     - wed
     - thu
-  action:
-  - service: script.ask_for_4_after_noon_radio
-    metadata: {}
-    data: {}
+  actions:
+  - metadata: {}
+    data:
+      title: 4 אחרי הצהריים
+      message: האם את רוצה להפעיל?
+      script_name: radio_galei_zahal
+    action: script.ask_zohar_for_glz
   mode: single
 - id: '1721359874047'
   alias: Trigger ארון השירים היהודי

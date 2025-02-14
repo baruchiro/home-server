@@ -42,21 +42,26 @@ radio_kan_g:
         media_content_id: media-source://radio_browser/country/IL
   mode: single
   icon: mdi:radio
-ask_for_4_after_noon_radio:
-  alias: Ask for 4 after noon Radio
+ask_zohar_for_glz:
+  alias: Ask Zohar for Glz
+  variables:
+    title: '{{ title | default(''גל״צ'') }}'
+    message: '{{ message | default(''האם להפעיל?'') }}'
+    script_name: '{{ script_name | default(''radio_galei_zahal'') }}'
   use_blueprint:
     path: homeassistant/confirmable_notification.yaml
     input:
       notify_device: b85fff6170a535d2566d4ea2ce88674f
-      title: 4 אחרי הצהריים
-      message: האם את רוצה להפעיל?
+      title: '{{ title }}'
+      message: '{{ message }}'
       confirm_text: כן
       dismiss_text: לא עכשיו
       confirm_action:
-      - service: script.radio_galei_zahal
-        metadata: {}
+      - metadata: {}
         data: {}
+        action: script.radio_galei_zahal
   icon: mdi:radio
+  description: ''
 ask_baruch_for_kan_g:
   alias: Ask Baruch for Kan G
   use_blueprint:
