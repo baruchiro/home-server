@@ -14,29 +14,6 @@
               "type": "grid",
               "cards": [
                 {
-                  "type": "markdown",
-                  "content": "## התראות פעילות\n{% for alert in states.geo_location |\n   selectattr('entity_id', 'in', integration_entities('oref_alert')) |\n   sort(attribute='attributes.home_distance') %}\n  <p>\n    <font color=\"red\"><ha-icon icon=\"{{ alert.attributes.icon }}\"></ha-icon></font>\n    <a href=\"https://maps.google.com/?q={{ alert.attributes.latitude }},{{ alert.attributes.longitude }}\">{{ alert.name }}</a>\n    [{{ alert.state | int }} ק״מ]\n    ({{ alert.attributes.date | as_timestamp | timestamp_custom('%H:%M') }})\n  </p>\n{% endfor %}",
-                  "card_mod": {
-                    "style": "ha-card {\n  direction: rtl;\n}\n"
-                  },
-                  "visibility": [
-                    {
-                      "condition": "state",
-                      "entity": "binary_sensor.oref_alert_all_areas",
-                      "state": "on"
-                    }
-                  ],
-                  "grid_options": {
-                    "columns": 9,
-                    "rows": "auto"
-                  }
-                }
-              ]
-            },
-            {
-              "type": "grid",
-              "cards": [
-                {
                   "type": "entities",
                   "entities": [
                     {
@@ -141,6 +118,10 @@
                   "discover_existing": true,
                   "card_mod": {
                     "style": "ha-card {\n  direction: rtl\n}\n"
+                  },
+                  "grid_options": {
+                    "columns": 11,
+                    "rows": "auto"
                   }
                 }
               ],
@@ -166,6 +147,29 @@
                       ]
                     }
                   ]
+                }
+              ]
+            },
+            {
+              "type": "grid",
+              "cards": [
+                {
+                  "type": "markdown",
+                  "content": "## התראות פעילות\n{% for alert in states.geo_location |\n   selectattr('entity_id', 'in', integration_entities('oref_alert')) |\n   sort(attribute='attributes.home_distance') %}\n  <p>\n    <font color=\"red\"><ha-icon icon=\"{{ alert.attributes.icon }}\"></ha-icon></font>\n    <a href=\"https://maps.google.com/?q={{ alert.attributes.latitude }},{{ alert.attributes.longitude }}\">{{ alert.name }}</a>\n    [{{ alert.state | int }} ק״מ]\n    ({{ alert.attributes.date | as_timestamp | timestamp_custom('%H:%M') }})\n  </p>\n{% endfor %}",
+                  "card_mod": {
+                    "style": "ha-card {\n  direction: rtl;\n}\n"
+                  },
+                  "visibility": [
+                    {
+                      "condition": "state",
+                      "entity": "binary_sensor.oref_alert_all_areas",
+                      "state": "on"
+                    }
+                  ],
+                  "grid_options": {
+                    "columns": 9,
+                    "rows": "auto"
+                  }
                 }
               ]
             },
@@ -305,12 +309,54 @@
                   }
                 },
                 {
+                  "type": "custom:mushroom-climate-card",
+                  "entity": "climate.mzgn",
+                  "icon": "mdi:air-conditioner",
+                  "hvac_modes": [
+                    "dry",
+                    "off",
+                    "fan_only",
+                    "heat"
+                  ],
+                  "collapsible_controls": false,
+                  "tap_action": {
+                    "action": "more-info"
+                  },
+                  "hold_action": {
+                    "action": "none"
+                  },
+                  "double_tap_action": {
+                    "action": "none"
+                  }
+                },
+                {
+                  "type": "custom:mushroom-climate-card",
+                  "entity": "climate.mamad_ac",
+                  "icon": "mdi:air-conditioner",
+                  "hvac_modes": [
+                    "dry",
+                    "off",
+                    "fan_only",
+                    "heat"
+                  ],
+                  "collapsible_controls": false,
+                  "tap_action": {
+                    "action": "more-info"
+                  },
+                  "hold_action": {
+                    "action": "none"
+                  },
+                  "double_tap_action": {
+                    "action": "none"
+                  }
+                },
+                {
                   "type": "custom:weasley-card",
                   "locations": [
                     "Home",
                     "Work",
                     "בית כנסת",
-                    "הגן השקוף"
+                    "מעון"
                   ],
                   "wizards": [
                     {
@@ -339,10 +385,11 @@
                   ]
                 }
               ],
-              "column_span": 2
+              "column_span": 3
             }
           ],
-          "max_columns": 2
+          "max_columns": 4,
+          "dense_section_placement": true
         }
       ]
     }

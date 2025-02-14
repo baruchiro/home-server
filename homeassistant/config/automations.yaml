@@ -2,7 +2,7 @@
   alias: Play glz Friday 11:58
   description: ''
   triggers:
-  - at: '11:58:00'
+  - at: '12:02:00'
     trigger: time
   conditions:
   - condition: time
@@ -88,10 +88,10 @@
 - id: '1721359874047'
   alias: Trigger ארון השירים היהודי
   description: ''
-  trigger:
-  - platform: time
-    at: 08:00:00
-  condition:
+  triggers:
+  - at: 08:00:00
+    trigger: time
+  conditions:
   - condition: time
     weekday:
     - fri
@@ -103,10 +103,10 @@
     domain: device_tracker
     entity_id: df33579cfb8dc5f962c3ba4d1aaa286b
     type: is_home
-  action:
-  - service: script.ask_baruch_for_kan_g
-    metadata: {}
+  actions:
+  - metadata: {}
     data: {}
+    action: script.ask_baruch_for_kan_g
   mode: single
 - id: '1722881168850'
   alias: If Mazgan should be on
@@ -268,13 +268,13 @@
   triggers:
   - type: battery_level
     device_id: 8ef6a86daebbb51a8c7766df58661c4b
-    entity_id: 3c0fae71e08a8db7858f24daf4c813a0
+    entity_id: e9f1e300d850a8a5912004c494fd1164
     domain: sensor
     trigger: device
     above: 99
   conditions: []
   actions:
-  - action: notify.mobile_app_m2102j20sg
+  - action: notify.mobile_app_baruch_mobile
     metadata: {}
     data:
       message: טעינה מלאה
@@ -312,21 +312,6 @@
         brightness_step_pct: -10
       target:
         area_id: slvn
-  mode: single
-- id: '1737729641555'
-  alias: כיבוי מזגן טליה בלילה
-  description: ''
-  triggers:
-  - trigger: time
-    at: 01:00:00
-  conditions: []
-  actions:
-  - action: climate.set_hvac_mode
-    metadata: {}
-    data:
-      hvac_mode: 'off'
-    target:
-      entity_id: climate.mamad_ac
   mode: single
 - id: '1738179559914'
   alias: Mamad Button Hold
