@@ -46,6 +46,23 @@ services:
     restart: unless-stopped
     networks:
       - infra_net
+  
+  n8n:
+    image: docker.n8n.io/n8nio/n8n
+    restart: always
+    ports:
+      - "5678:5678"
+    environment:
+      - N8N_HOST=n8n.${DOMAIN}
+      - N8N_PORT=5678
+      - N8N_PROTOCOL=https
+      - NODE_ENV=production
+      - WEBHOOK_URL=https://n8n.${DOMAIN}/
+      - GENERIC_TIMEZONE=Asia/Jerusalem
+    volumes:
+      - n8n-data:/home/node/.n8n
+    networks:
+      - infra_net
 
   obsidian-livesync:
     image: couchdb
@@ -78,3 +95,4 @@ volumes:
       vfs_cache_mode: full
       poll_interval: 0
   obsidian-data:
+  n8n-data:
