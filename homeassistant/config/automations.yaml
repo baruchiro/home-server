@@ -364,3 +364,65 @@
       target:
         entity_id: light.mamad
   mode: single
+- id: '1739529060364'
+  alias: כיבוי מפזר חום אחרי 45 דקות
+  description: ''
+  triggers:
+  - trigger: state
+    entity_id:
+    - switch.heat_spreader
+    to: 'on'
+  conditions: []
+  actions:
+  - delay:
+      hours: 0
+      minutes: 45
+      seconds: 0
+  - action: switch.turn_off
+    metadata: {}
+    data: {}
+    target:
+      entity_id: switch.heat_spreader
+    enabled: true
+  mode: restart
+- id: '1739543743534'
+  alias: כיבוי מכשירים כניסת שבת
+  description: ''
+  triggers:
+  - trigger: state
+    entity_id:
+    - binary_sensor.jewish_calendar_issur_melacha_in_effect
+    from: 'off'
+    to: 'on'
+  conditions: []
+  actions:
+  - action: media_player.media_stop
+    metadata: {}
+    data: {}
+    target:
+      entity_id: media_player.living_room_speaker
+  - action: switch.turn_off
+    metadata: {}
+    data: {}
+    target:
+      entity_id: switch.heat_spreader
+  mode: single
+- id: '1739543976751'
+  alias: חידוש רשימת יום שישי
+  description: ''
+  triggers:
+  - trigger: state
+    entity_id:
+    - binary_sensor.jewish_calendar_issur_melacha_in_effect
+    from: 'on'
+    to: 'off'
+  conditions: []
+  actions:
+  - action: todo.get_items
+    metadata: {}
+    data:
+      status:
+      - completed
+    target:
+      entity_id: todo.yvm_shyshy
+  mode: single

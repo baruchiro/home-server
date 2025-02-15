@@ -93,7 +93,7 @@
                     "light.food_2",
                     "light.kitchen",
                     "script.fan_tower_sleep",
-                    "script.unknown_2",
+                    "script.talia_shower",
                     "script.unknown_3",
                     "script.unknown_4",
                     "switch.living_room_fan"
@@ -123,9 +123,35 @@
                     "columns": 11,
                     "rows": "auto"
                   }
+                },
+                {
+                  "type": "todo-list",
+                  "entity": "todo.yvm_shyshy",
+                  "hide_completed": false,
+                  "hide_create": true,
+                  "title": "יום שישי",
+                  "card_mod": {
+                    "style": "ha-card {\n  direction: rtl\n}\n"
+                  },
+                  "grid_options": {
+                    "columns": 6,
+                    "rows": "auto"
+                  },
+                  "visibility": [
+                    {
+                      "condition": "state",
+                      "entity": "binary_sensor.jewish_calendar_erev_shabbat_hag",
+                      "state": "on"
+                    },
+                    {
+                      "condition": "state",
+                      "entity": "binary_sensor.jewish_calendar_issur_melacha_in_effect",
+                      "state": "off"
+                    }
+                  ]
                 }
               ],
-              "column_span": 2,
+              "column_span": 3,
               "visibility": [
                 {
                   "condition": "or",
@@ -171,7 +197,8 @@
                     "rows": "auto"
                   }
                 }
-              ]
+              ],
+              "column_span": 1
             },
             {
               "type": "grid",
@@ -270,7 +297,7 @@
                         "entity": "switch.heat_spreader",
                         "tap_action": {
                           "action": "perform-action",
-                          "perform_action": "script.unknown_2",
+                          "perform_action": "script.talia_shower",
                           "target": {}
                         },
                         "hold_action": {
@@ -360,7 +387,7 @@
                   ],
                   "wizards": [
                     {
-                      "entity": "device_tracker.baruch_mobilee",
+                      "entity": "device_tracker.baruch_mobile",
                       "name": "Baruch",
                       "colour": "#F00",
                       "textcolour": "#00F"
@@ -385,7 +412,7 @@
                   ]
                 }
               ],
-              "column_span": 3
+              "column_span": 4
             }
           ],
           "max_columns": 4,

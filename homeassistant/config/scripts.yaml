@@ -192,7 +192,7 @@ toggle_mamad_night_light:
   alias: 'Toggle Mamad Night Light '
   description: ''
   icon: mdi:lightbulb-night
-unknown_2:
+talia_shower:
   sequence:
   - action: switch.turn_on
     metadata: {}
@@ -212,15 +212,6 @@ unknown_2:
       fan_mode: auto
     target:
       entity_id: climate.mamad_ac
-  - delay:
-      hours: 0
-      minutes: 45
-      seconds: 0
-  - action: switch.turn_off
-    metadata: {}
-    data: {}
-    target:
-      entity_id: switch.heat_spreader
   alias: מקלחת טליה
   description: ''
   icon: mdi:shower-head
