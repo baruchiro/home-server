@@ -416,6 +416,10 @@
     - binary_sensor.jewish_calendar_issur_melacha_in_effect
     from: 'on'
     to: 'off'
+    for:
+      hours: 10
+      minutes: 0
+      seconds: 0
   conditions: []
   actions:
   - action: todo.get_items
@@ -425,4 +429,16 @@
       - completed
     target:
       entity_id: todo.yvm_shyshy
+    response_variable: response_items
+  - repeat:
+      sequence:
+      - action: todo.update_item
+        metadata: {}
+        data:
+          status: needs_action
+          item: '{{ repeat.item.uid }}'
+        target:
+          entity_id: todo.yvm_shyshy
+      for_each: '{{ response_items[''todo.yvm_shyshy''][''items''] }}'
+    enabled: true
   mode: single
