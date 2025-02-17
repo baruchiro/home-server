@@ -378,7 +378,7 @@
                   }
                 },
                 {
-                  "type": "custom:weasley-card",
+                  "type": "custom:wizard-clock-card",
                   "locations": [
                     "Home",
                     "Work",
@@ -401,8 +401,8 @@
                   "fontname": "itcblkad_font",
                   "fontface": "font-family: itcblkad_font;    src: local(itcblkad_font), url('/local/custom-lovelace/ITCBLKAD.TTF') format('opentype');",
                   "width": 300,
-                  "lost": "Lost",
-                  "travelling": "Moving",
+                  "lost": "אבוד",
+                  "travelling": "בדרך",
                   "visibility": [
                     {
                       "condition": "state",
@@ -416,7 +416,30 @@
             }
           ],
           "max_columns": 4,
-          "dense_section_placement": true
+          "dense_section_placement": true,
+          "badges": [
+            {
+              "type": "entity",
+              "show_name": false,
+              "show_state": true,
+              "show_icon": true,
+              "entity": "media_player.spotify_baruch_odem",
+              "color": "",
+              "state_content": [
+                "media_title",
+                "media_album_name",
+                "media_playlist"
+              ],
+              "show_entity_picture": true,
+              "visibility": [
+                {
+                  "condition": "state",
+                  "entity": "media_player.spotify_baruch_odem",
+                  "state": "playing"
+                }
+              ]
+            }
+          ]
         }
       ]
     }

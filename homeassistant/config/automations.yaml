@@ -477,3 +477,20 @@
         {{ states(''sensor.home_nearest_device'') }} Direction: {{ states(''sensor.home_nearest_direction_of_travel'')
         }}'
   mode: single
+- id: '1739813097940'
+  alias: Test zohar toward home
+  description: ''
+  triggers:
+  - trigger: state
+    entity_id:
+    - sensor.home_zhr_direction_of_travel
+    to: towards
+  conditions: []
+  actions:
+  - action: notify.mobile_app_baruch_mobile
+    metadata: {}
+    data:
+      title: Zohar Toward
+      message: 'Direction: {{ states(''sensor.home_zhr_direction_of_travel'') }} Distance:
+        {{ states(''sensor.home_zhr_distance'') }}'
+  mode: single
