@@ -388,14 +388,17 @@
                   "wizards": [
                     {
                       "entity": "device_tracker.baruch_mobile",
-                      "name": "Baruch",
+                      "name": "ברוך",
                       "colour": "#F00",
-                      "textcolour": "#00F"
+                      "textcolour": "#00F",
+                      "proximity_sensor": "sensor.home_baruch_odem_direction_of_travel"
                     },
                     {
                       "entity": "device_tracker.zohar_mobile",
-                      "name": "Zohar",
-                      "colour": "#0F0"
+                      "name": "זהר",
+                      "colour": "#00F",
+                      "textcolour": "#F00",
+                      "proximity_sensor": "sensor.home_zhr_direction_of_travel"
                     }
                   ],
                   "fontname": "itcblkad_font",
