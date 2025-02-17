@@ -442,3 +442,38 @@
       for_each: '{{ response_items[''todo.yvm_shyshy''][''items''] }}'
     enabled: true
   mode: single
+- id: '1739731596012'
+  alias: 'Test proximity '
+  description: ''
+  triggers:
+  - trigger: numeric_state
+    entity_id:
+    - sensor.home_nearest_distance
+    above: 0
+    for:
+      hours: 0
+      minutes: 5
+      seconds: 0
+  - trigger: numeric_state
+    entity_id:
+    - sensor.home_nearest_distance
+    for:
+      hours: 0
+      minutes: 5
+      seconds: 0
+    below: 100
+  - trigger: state
+    entity_id:
+    - sensor.home_nearest_device
+  - trigger: state
+    entity_id:
+    - sensor.home_nearest_direction_of_travel
+  conditions: []
+  actions:
+  - action: notify.mobile_app_baruch_mobile
+    metadata: {}
+    data:
+      message: 'Proximity: {{ states(''sensor.home_nearest_distance'') }} Device:
+        {{ states(''sensor.home_nearest_device'') }} Direction: {{ states(''sensor.home_nearest_direction_of_travel'')
+        }}'
+  mode: single
