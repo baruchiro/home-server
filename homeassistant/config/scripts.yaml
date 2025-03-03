@@ -209,9 +209,21 @@ talia_shower:
   - action: climate.set_fan_mode
     metadata: {}
     data:
+      fan_mode: high
+    target:
+      entity_id: climate.mamad_ac
+  - delay:
+      hours: 1
+      minutes: 0
+      seconds: 0
+      milliseconds: 0
+  - action: climate.set_fan_mode
+    metadata: {}
+    data:
       fan_mode: auto
     target:
       entity_id: climate.mamad_ac
   alias: מקלחת טליה
   description: ''
   icon: mdi:shower-head
+  mode: restart

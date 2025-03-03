@@ -416,10 +416,6 @@
     - binary_sensor.jewish_calendar_issur_melacha_in_effect
     from: 'on'
     to: 'off'
-    for:
-      hours: 10
-      minutes: 0
-      seconds: 0
   conditions: []
   actions:
   - action: todo.get_items
@@ -493,4 +489,48 @@
       title: Zohar Toward
       message: 'Direction: {{ states(''sensor.home_zhr_direction_of_travel'') }} Distance:
         {{ states(''sensor.home_zhr_distance'') }}'
+  mode: single
+- id: '1739893266807'
+  alias: What last leaving the house
+  description: ''
+  triggers:
+  - entity_id: sensor.home_nearest_distance
+    above: 0
+    for:
+      minutes: 5
+    trigger: numeric_state
+  actions:
+  - data:
+      title: בית ריק
+      message: 'Distance: {{ states(''sensor.home_nearest_distance'') }} Device: {{
+        states(''sensor.home_nearest_device'') }} Direction: {{ states(''sensor.home_nearest_direction_of_travel'')
+        }}'
+    action: notify.mobile_app_baruch_mobile
+  - choose:
+    - conditions:
+      - condition: state
+        entity_id: sensor.home_nearest_device
+        state: זהר
+      sequence:
+      - data:
+          title: בית ריק
+          message: היי זהר, ראיתי שיצאת מהבית. בפעם הבאה אני אודיע לך אם השארת משהו
+            דולק.
+        action: notify.mobile_app_m2102j20sg
+    - conditions:
+      - condition: state
+        entity_id: sensor.home_nearest_device
+        state: Baruch Odem
+      sequence:
+      - data:
+          title: בית ריק
+          message: היי ברוך, ראיתי שיצאת מהבית. בפעם הבאה אני אודיע לך אם השארת משהו
+            דולק.
+        action: notify.mobile_app_baruch_mobile
+    default:
+    - data:
+        title: בית ריק
+        message: 'Unknown device detected: {{ states(''sensor.home_nearest_device'')
+          }}'
+      action: notify.mobile_app_baruch_mobile
   mode: single

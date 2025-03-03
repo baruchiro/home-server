@@ -92,7 +92,9 @@
                     "light.food_1",
                     "light.food_2",
                     "light.kitchen",
+                    "light.mamad",
                     "script.fan_tower_sleep",
+                    "script.toggle_mamad_night_light",
                     "script.unknown_2",
                     "script.unknown_3",
                     "script.unknown_4",
@@ -116,12 +118,12 @@
                   "tags": [],
                   "time_step": 10,
                   "discover_existing": true,
-                  "card_mod": {
-                    "style": "ha-card {\n  direction: rtl\n}\n"
-                  },
                   "grid_options": {
                     "columns": 11,
                     "rows": "auto"
+                  },
+                  "card_mod": {
+                    "style": "ha-card {\n  direction: rtl\n}\n"
                   }
                 },
                 {
