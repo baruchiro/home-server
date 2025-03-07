@@ -328,7 +328,8 @@
                       "name": "מפזר חום",
                       "content_info": "name",
                       "icon": "mdi:heat-wave",
-                      "use_entity_picture": true
+                      "use_entity_picture": true,
+                      "icon_color": "red"
                     }
                   ],
                   "alignment": "justify",
