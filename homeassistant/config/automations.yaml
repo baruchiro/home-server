@@ -250,6 +250,12 @@
         - 175
       target:
         entity_id: light.mamad
+  - action: climate.set_hvac_mode
+    metadata: {}
+    data:
+      hvac_mode: cool
+    target:
+      area_id: mm_d
   - wait_for_trigger:
     - trigger: state
       entity_id:
@@ -267,6 +273,12 @@
     target:
       entity_id:
       - light.mamad
+  - action: climate.set_hvac_mode
+    metadata: {}
+    data:
+      hvac_mode: 'off'
+    target:
+      area_id: mm_d
   mode: single
 - id: '1732855919338'
   alias: הודעה על טלפון טעינה מלאה
@@ -491,7 +503,7 @@
         {{ states(''sensor.home_zhr_distance'') }}'
   mode: single
 - id: '1739893266807'
-  alias: What last leaving the house
+  alias: When last leaving the house
   description: ''
   triggers:
   - entity_id: sensor.home_nearest_distance
@@ -517,6 +529,9 @@
           message: היי זהר, ראיתי שיצאת מהבית. בפעם הבאה אני אודיע לך אם השארת משהו
             דולק.
         action: notify.mobile_app_m2102j20sg
+      - service: script.ask_to_stop_devices
+        data:
+          device_id: b85fff6170a535d2566d4ea2ce88674f
     - conditions:
       - condition: state
         entity_id: sensor.home_nearest_device
@@ -527,10 +542,40 @@
           message: היי ברוך, ראיתי שיצאת מהבית. בפעם הבאה אני אודיע לך אם השארת משהו
             דולק.
         action: notify.mobile_app_baruch_mobile
+      - service: script.ask_to_stop_devices
+        data:
+          device_id: 8ef6a86daebbb51a8c7766df58661c4b
     default:
     - data:
         title: בית ריק
         message: 'Unknown device detected: {{ states(''sensor.home_nearest_device'')
           }}'
       action: notify.mobile_app_baruch_mobile
+  mode: single
+- id: '1741877229902'
+  alias: סיום צום
+  description: ''
+  triggers:
+  - trigger: state
+    entity_id:
+    - sensor.jewish_calendar_holiday
+    attribute: type
+    from: FAST_DAY
+  conditions: []
+  actions:
+  - action: notify.mobile_app_baruch_mobile
+    metadata: {}
+    data:
+      title: צום
+      message: יצא הצום!
+  - action: notify.mobile_app_m2102j20sg
+    metadata: {}
+    data:
+      message: יצא הצום!
+      title: צום
+  - wait_for_trigger:
+    - entity_id:
+      - sensor.jewish_calendar_t_set_hakochavim
+      trigger: state
+    continue_on_timeout: false
   mode: single

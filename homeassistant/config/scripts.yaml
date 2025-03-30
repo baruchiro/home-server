@@ -227,3 +227,26 @@ talia_shower:
   description: ''
   icon: mdi:shower-head
   mode: restart
+ask_to_stop_devices:
+  alias: Ask to Stop Devices
+  description: 'Checks if devices are on and sends notification to turn them off'
+  icon: mdi:power-off
+  variables:
+    device_id: '{{ device_id }}'
+  sequence:
+  - condition: state
+    entity_id: media_player.living_room_speaker
+    state: playing
+  - use_blueprint:
+      path: homeassistant/confirmable_notification.yaml
+      input:
+        notify_device: '{{ device_id }}'
+        title: 'כיבוי מכשירים'
+        message: 'הרמקול בסלון מנגן. לכבות?'
+        confirm_text: 'לכבות'
+        dismiss_text: 'להשאיר'
+        confirm_action:
+        - service: media_player.media_stop
+          target:
+            entity_id: media_player.living_room_speaker
+  mode: single

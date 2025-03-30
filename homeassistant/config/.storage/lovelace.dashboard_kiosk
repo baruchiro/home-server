@@ -14,6 +14,30 @@
               "type": "grid",
               "cards": [
                 {
+                  "type": "markdown",
+                  "content": "## התראות פעילות\n{% for alert in states.geo_location |\n   selectattr('entity_id', 'in', integration_entities('oref_alert')) |\n   sort(attribute='attributes.home_distance') %}\n  <p>\n    <font color=\"red\"><ha-icon icon=\"{{ alert.attributes.icon }}\"></ha-icon></font>\n    <a href=\"https://maps.google.com/?q={{ alert.attributes.latitude }},{{ alert.attributes.longitude }}\">{{ alert.name }}</a>\n    [{{ alert.state | int }} ק״מ]\n    ({{ alert.attributes.date | as_timestamp | timestamp_custom('%H:%M') }})\n  </p>\n{% endfor %}",
+                  "card_mod": {
+                    "style": "ha-card {\n  direction: rtl;\n}\n"
+                  },
+                  "visibility": [
+                    {
+                      "condition": "state",
+                      "entity": "binary_sensor.oref_alert_all_areas",
+                      "state": "on"
+                    }
+                  ],
+                  "grid_options": {
+                    "columns": 9,
+                    "rows": "auto"
+                  }
+                }
+              ],
+              "column_span": 1
+            },
+            {
+              "type": "grid",
+              "cards": [
+                {
                   "type": "entities",
                   "entities": [
                     {
@@ -82,6 +106,7 @@
                   "include": [
                     "binary_sensor.jewish_calendar_issur_melacha_in_effect",
                     "climate.mamad_ac",
+                    "climate.mzgn",
                     "device_tracker.baruch_mobile",
                     "device_tracker.baruch_mobilee",
                     "device_tracker.plpvn_zhr",
@@ -177,30 +202,6 @@
                   ]
                 }
               ]
-            },
-            {
-              "type": "grid",
-              "cards": [
-                {
-                  "type": "markdown",
-                  "content": "## התראות פעילות\n{% for alert in states.geo_location |\n   selectattr('entity_id', 'in', integration_entities('oref_alert')) |\n   sort(attribute='attributes.home_distance') %}\n  <p>\n    <font color=\"red\"><ha-icon icon=\"{{ alert.attributes.icon }}\"></ha-icon></font>\n    <a href=\"https://maps.google.com/?q={{ alert.attributes.latitude }},{{ alert.attributes.longitude }}\">{{ alert.name }}</a>\n    [{{ alert.state | int }} ק״מ]\n    ({{ alert.attributes.date | as_timestamp | timestamp_custom('%H:%M') }})\n  </p>\n{% endfor %}",
-                  "card_mod": {
-                    "style": "ha-card {\n  direction: rtl;\n}\n"
-                  },
-                  "visibility": [
-                    {
-                      "condition": "state",
-                      "entity": "binary_sensor.oref_alert_all_areas",
-                      "state": "on"
-                    }
-                  ],
-                  "grid_options": {
-                    "columns": 9,
-                    "rows": "auto"
-                  }
-                }
-              ],
-              "column_span": 1
             },
             {
               "type": "grid",
@@ -343,10 +344,10 @@
                   "entity": "climate.mzgn",
                   "icon": "mdi:air-conditioner",
                   "hvac_modes": [
-                    "dry",
                     "off",
                     "fan_only",
-                    "heat"
+                    "heat",
+                    "cool"
                   ],
                   "collapsible_controls": false,
                   "tap_action": {
@@ -364,10 +365,10 @@
                   "entity": "climate.mamad_ac",
                   "icon": "mdi:air-conditioner",
                   "hvac_modes": [
-                    "dry",
                     "off",
                     "fan_only",
-                    "heat"
+                    "heat",
+                    "cool"
                   ],
                   "collapsible_controls": false,
                   "tap_action": {
