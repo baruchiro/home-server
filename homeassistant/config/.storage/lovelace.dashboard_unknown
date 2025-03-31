@@ -77,10 +77,10 @@
                   "entity": "climate.mzgn",
                   "icon": "mdi:air-conditioner",
                   "hvac_modes": [
-                    "dry",
                     "off",
                     "fan_only",
-                    "heat"
+                    "heat",
+                    "cool"
                   ],
                   "collapsible_controls": false,
                   "tap_action": {
@@ -151,10 +151,10 @@
               "entity": "climate.mamad_ac",
               "icon": "mdi:air-conditioner",
               "hvac_modes": [
-                "dry",
                 "off",
                 "fan_only",
-                "heat"
+                "heat",
+                "cool"
               ],
               "collapsible_controls": false,
               "tap_action": {
