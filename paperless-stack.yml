@@ -31,8 +31,8 @@ services:
       PAPERLESS_URL: https://paperless.${DOMAIN}
     labels:
       ofelia.enabled: "true"
-      ofelia.job-exec.datecron.schedule: "@every 12h"
-      ofelia.job-exec.datecron.command: "document_exporter ../export --delete --no-archive --no-thumbnail --use-folder-prefix --split-manifest"
+      ofelia.job-exec.paperless-export.schedule: "@every 12h"
+      ofelia.job-exec.paperless-export.command: "document_exporter ../export --delete --no-archive --no-thumbnail --use-folder-prefix --split-manifest"
     networks:
       - paperless_net
 

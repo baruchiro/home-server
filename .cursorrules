@@ -1,0 +1,34 @@
+# Home Server Project Rules
+
+## Key Scripts (Most Important)
+- deploy.sh: Deploys all stacks in order (infra → media → homeassistant → paperless → budget → budibase)
+- undeploy.sh: Stops all stacks in reverse order
+- pull.sh: Updates system (stops service → git pull → docker pull → restart service → show logs)
+- backup_volumes.sh: Creates tar.gz backups of all home-server_* volumes in ~/volume_backups/YYYYMMDD/
+- fix-rclone.sh: Resets rclone plugin (requires confirmation, undeploys stacks, removes volumes)
+
+## Project Structure
+- Docker-based home server with multiple stacks
+- Managed via systemd service (home-server-compose.service)
+- Uses Docker Compose for stack management
+
+## Core Stacks
+- infra: Infrastructure services
+- media: Media services
+- homeassistant: Home automation
+- paperless: Document management (includes Ofelia for task scheduling)
+- budget: Personal finance tracking (Actual Budget)
+- budibase: Low-code platform
+
+## Task Scheduling
+- Ofelia service in paperless stack manages scheduled tasks across all stacks
+- Paperless stack must be deployed last to ensure Ofelia can detect all containers
+- Services can be scheduled using Ofelia labels:
+  - ofelia.enabled: "true"
+  - ofelia.job-exec.datecron.schedule: "@daily" (or other cron expressions)
+  - ofelia.job-exec.datecron.command: "command to run"
+
+## Environment
+- Uses .env files for configuration
+- Requires Docker and systemd
+- Volumes prefixed with 'home-server_' 

@@ -3,6 +3,9 @@
 echo -e "\033[1;34m📄 Stopping Paperless Stack...\033[0m"
 docker compose -p paperless -f paperless-stack.yml down
 
+echo -e "\033[1;34m💰 Stopping Budget Stack...\033[0m"
+docker compose -p budget -f budget-stack.yml down
+
 echo -e "\033[1;34m🏠 Stopping Home Assistant Stack...\033[0m"
 docker compose -p homeassistant -f homeassistant-stack.yml down
 

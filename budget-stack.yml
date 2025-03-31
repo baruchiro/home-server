@@ -1,0 +1,20 @@
+services:
+  moneyman:
+    image: ghcr.io/daniel-hauser/moneyman:latest
+    container_name: moneyman
+    command: tail -f /dev/null
+    env_file:
+      - moneyman.env
+    labels:
+      ofelia.enabled: "true"
+      ofelia.job-exec.moneyman.schedule: "0 0 8,20 * * *"
+      ofelia.job-exec.moneyman.command: "npm run start"
+      ofelia.job-exec.moneyman.container: "moneyman"
+      ofelia.job-exec.moneyman.user: "pptruser"
+    networks:
+      - budget_net
+
+networks:
+  budget_net:
+    name: budget_network
+    driver: bridge

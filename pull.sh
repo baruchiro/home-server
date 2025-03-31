@@ -12,8 +12,8 @@ docker compose -f infra-stack.yml pull
 docker compose -f media-stack.yml pull
 docker compose -f homeassistant-stack.yml pull
 docker compose -f paperless-stack.yml pull
+docker compose -f budget-stack.yml pull
 docker compose -f budibase-stack.yml pull
-
 
 echo -e "\033[1;34m🚀 Starting home-server-compose.service...\033[0m"
 sudo systemctl start home-server-compose.service
