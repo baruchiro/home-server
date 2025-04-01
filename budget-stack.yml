@@ -1,10 +1,27 @@
 services:
+  actual-budget:
+    image: actualbudget/actual-server:latest
+    ports:
+      - '5006:5006'
+    volumes:
+      - actual-data:/data
+    env_file:
+      - shared.env
+    healthcheck:
+      test: ['CMD-SHELL', 'node src/scripts/health-check.js']
+      interval: 60s
+      timeout: 10s
+      retries: 3
+      start_period: 20s
+    restart: unless-stopped
+
   moneyman:
-    image: ghcr.io/daniel-hauser/moneyman:latest
+    image: ghcr.io/daniel-hauser/moneyman:sha-6bd487f
     container_name: moneyman
     command: tail -f /dev/null
     env_file:
       - moneyman.env
+      - shared.env
     labels:
       ofelia.enabled: "true"
       ofelia.job-exec.moneyman.schedule: "0 0 8,20 * * *"
@@ -13,8 +30,13 @@ services:
       ofelia.job-exec.moneyman.user: "pptruser"
     networks:
       - budget_net
+    depends_on:
+      - actual-budget
 
 networks:
   budget_net:
     name: budget_network
     driver: bridge
+
+volumes:
+  actual-data:
