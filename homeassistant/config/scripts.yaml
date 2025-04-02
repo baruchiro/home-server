@@ -227,26 +227,60 @@ talia_shower:
   description: ''
   icon: mdi:shower-head
   mode: restart
-ask_to_stop_devices:
-  alias: Ask to Stop Devices
-  description: 'Checks if devices are on and sends notification to turn them off'
-  icon: mdi:power-off
-  variables:
-    device_id: '{{ device_id }}'
+check_device_state_and_notify:
+  alias: Check Device State and Notify
+  description: Checks if a device is not in its off state and sends actionable notification
+  fields:
+    notify_device:
+      name: Notification Device ID
+      description: The device ID to send notification to
+      required: true
+    entity_id:
+      name: Entity ID
+      description: The entity to check
+      required: true
+    friendly_name:
+      name: Friendly Name
+      description: Display name of the device
+      required: true
+    off_state:
+      name: Off State
+      description: The state that means the device is off
+      required: true
+    turn_off_service:
+      name: Turn Off Service
+      description: Service to call for turning off
+      required: true
+    turn_off_data:
+      name: Turn Off Data
+      description: Additional data for turn off service
+      required: false
+      default: {}
   sequence:
-  - condition: state
-    entity_id: media_player.living_room_speaker
-    state: playing
-  - use_blueprint:
-      path: homeassistant/confirmable_notification.yaml
-      input:
-        notify_device: '{{ device_id }}'
-        title: 'כיבוי מכשירים'
-        message: 'הרמקול בסלון מנגן. לכבות?'
-        confirm_text: 'לכבות'
-        dismiss_text: 'להשאיר'
-        confirm_action:
-        - service: media_player.media_stop
-          target:
-            entity_id: media_player.living_room_speaker
-  mode: single
+  - condition: template
+    value_template: "{{ states(entity_id) != off_state }}"
+  - service: notify.mobile_app_{{ notify_device }}
+    data:
+      title: כיבוי מכשירים
+      message: "{{ friendly_name }} פועל. לכבות?"
+      data:
+        actions:
+          - action: TURN_OFF_DEVICE
+            title: לכבות
+          - action: DISMISS
+            title: להשאיר
+  - wait_for_trigger:
+    - platform: event
+      event_type: mobile_app_notification_action
+      event_data:
+        action: TURN_OFF_DEVICE
+    timeout: 300
+  - choose:
+    - conditions:
+      - condition: template
+        value_template: "{{ wait.trigger.event.data.action == 'TURN_OFF_DEVICE' }}"
+      sequence:
+      - service: "{{ turn_off_service }}"
+        target:
+          entity_id: "{{ entity_id }}"
+        data: "{{ turn_off_data }}"

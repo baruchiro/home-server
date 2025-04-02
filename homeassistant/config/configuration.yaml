@@ -3,6 +3,8 @@ default_config:
 
 homeassistant:
   auth_providers: !include auth_providers.yaml
+  packages:
+    leaving_home_devices: !include leaving_home_devices.yaml
 
 # Allow Cloudflare Tunnel from Docker
 http:
