@@ -579,3 +579,24 @@
       trigger: state
     continue_on_timeout: false
   mode: single
+- id: '1741877229903'
+  alias: Work Leaving Reminder
+  description: 'Reminds to leave work and resets the reminder time to default'
+  trigger:
+  - platform: time
+    at: input_datetime.leaving_the_work
+  condition:
+  - condition: state
+    entity_id: person.baruch_odem
+    state: work
+  action:
+  - service: notify.mobile_app_baruch_mobile
+    data:
+      title: תזכורת
+      message: צריך ללכת הביתה
+  - service: input_datetime.set_datetime
+    target:
+      entity_id: input_datetime.leaving_the_work
+    data:
+      time: "16:45:00"
+  mode: single
