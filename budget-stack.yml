@@ -14,9 +14,11 @@ services:
       retries: 3
       start_period: 20s
     restart: unless-stopped
+    networks:
+      - budget_net
 
   moneyman:
-    image: ghcr.io/daniel-hauser/moneyman:sha-6bd487f
+    image: ghcr.io/baruchiro/moneyman:pr-2
     container_name: moneyman
     command: tail -f /dev/null
     env_file:
