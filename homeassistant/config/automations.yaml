@@ -518,10 +518,8 @@
     devices_config: "{{ state_attr('sensor.devices_to_check_when_leaving', 'devices') }}"
     user_devices:
       זהר:
-        notify_device: b85fff6170a535d2566d4ea2ce88674f
         notify_service: notify.mobile_app_m2102j20sg
       Baruch Odem:
-        notify_device: 8ef6a86daebbb51a8c7766df58661c4b
         notify_service: notify.mobile_app_baruch_mobile
   actions:
     - service: system_log.write
@@ -550,7 +548,7 @@
                       message: "Leaving Home Debug - Checking Device: Device: {{ repeat.item.friendly_name }} Current State: {{ states(repeat.item.entity_id) }} Off State: {{ repeat.item.off_state }}"
                   - service: script.check_device_state_and_notify
                     data:
-                      notify_device: "{{ user_config.notify_device }}"
+                      notify_service: "{{ user_config.notify_service }}"
                       entity_id: "{{ repeat.item.entity_id }}"
                       friendly_name: "{{ repeat.item.friendly_name }}"
                       off_state: "{{ repeat.item.off_state }}"
@@ -603,9 +601,9 @@
         title: תזכורת
         message: צריך ללכת הביתה
     action: notify.mobile_app_baruch_mobile
-  - target:
-        entity_id: input_datetime.leaving_the_work
-        data:
+  - data:
         time: '16:45:00'
+    target:
+        entity_id: input_datetime.leaving_the_work
     action: input_datetime.set_datetime
   mode: single

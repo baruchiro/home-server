@@ -231,9 +231,9 @@ check_device_state_and_notify:
   alias: Check Device State and Notify
   description: Checks if a device is not in its off state and sends actionable notification
   fields:
-    notify_device:
-      name: Notification Device ID
-      description: The device ID to send notification to
+    notify_service:
+      name: Notification Service
+      description: The notification service to use
       required: true
     entity_id:
       name: Entity ID
@@ -259,7 +259,7 @@ check_device_state_and_notify:
   sequence:
   - condition: template
     value_template: "{{ states(entity_id) != off_state }}"
-  - service: notify.mobile_app_{{ notify_device }}
+  - service: "{{ notify_service }}"
     data:
       title: כיבוי מכשירים
       message: "{{ friendly_name }} פועל. לכבות?"
