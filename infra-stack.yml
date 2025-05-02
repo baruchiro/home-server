@@ -73,6 +73,7 @@ services:
       - COUCHDB_PASSWORD=${OBSIDIAN_COUCHDB_PASSWORD}
     volumes:
       - obsidian-data:/opt/couchdb/data
+      - couchdb-etc:/opt/couchdb/etc/local.d
       - ./obsidian/local.ini:/opt/couchdb/etc/local.ini
     ports:
       - "5984:5984"
@@ -95,4 +96,5 @@ volumes:
       vfs_cache_mode: full
       poll_interval: 0
   obsidian-data:
+  couchdb-etc:
   n8n-data:
