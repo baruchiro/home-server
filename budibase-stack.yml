@@ -122,6 +122,7 @@ services:
     volumes:
       - couchdb3_data:/opt/couchdb/data
 
+  # TODO: use redis from infra-stack.yml
   redis-service:
     restart: unless-stopped
     image: redis

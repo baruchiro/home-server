@@ -1,6 +1,7 @@
 .env
 moneyman.env
-jellyfin
+jellyfin.env
+postiz.env
 GITHUB_TOKEN
 passwords.txt
 
