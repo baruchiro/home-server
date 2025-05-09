@@ -71,7 +71,7 @@ rest:
         value_template: "{{ value_json.downloads }}"
         unit_of_measurement: "downloads"
   
-  - resource: https://script.google.com/macros/s/AKfycbyDkIaGizQpnhE3qXLOohmIj-P0q94tr6lnro8TX7aJ2lFivoC6uyffJfrFwOTJUTAwTw/exec?zmanim=true
+  - resource: https://script.google.com/macros/s/AKfycbxJzW36SnSz02mSO0reGyswAtHoSFt07lfcmxWvJnQwhkypdCMNk8avQyQq84xrgv_X/exec?zmanim=true
     scan_interval: 43200 # 12 hours
     sensor:
       - name: "Tfilot Chol - Shaarit 1"

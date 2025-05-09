@@ -152,14 +152,12 @@
                   }
                 },
                 {
+                  "display_order": "none",
                   "type": "todo-list",
                   "entity": "todo.yvm_shyshy",
                   "hide_completed": false,
                   "hide_create": true,
                   "title": "יום שישי",
-                  "card_mod": {
-                    "style": "ha-card {\n  direction: rtl\n}\n"
-                  },
                   "grid_options": {
                     "columns": 6,
                     "rows": "auto"
@@ -175,7 +173,10 @@
                       "entity": "binary_sensor.jewish_calendar_issur_melacha_in_effect",
                       "state": "off"
                     }
-                  ]
+                  ],
+                  "card_mod": {
+                    "style": "ha-card {\n  direction: rtl\n}\ndiv.header {\n  display: none;\n}\n"
+                  }
                 }
               ],
               "column_span": 3,
