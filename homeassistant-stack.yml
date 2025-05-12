@@ -18,6 +18,7 @@ services:
       - "8123:8123" # Web interface
     networks:
       - ha_net
+      - infra_net
 
   mqtt:
     image: eclipse-mosquitto:2.0
@@ -65,6 +66,9 @@ services:
 
 
 networks:
+  infra_net:
+    name: infrastructure_network
+    external: true  # Use the existing infra network
   ha_net:
     name: homeassistant_network
     driver: bridge

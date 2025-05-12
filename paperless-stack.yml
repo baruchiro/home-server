@@ -61,6 +61,8 @@ services:
   # https://github.com/mcuadros/ofelia/pull/137
   ofelia:
     image: mcuadros/ofelia:latest
+    env_file:
+      - shared.env
     command: daemon --docker
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
