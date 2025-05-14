@@ -56,6 +56,18 @@ services:
       - "9998:9998"
     networks:
       - paperless_net
+  
+  paperless-mcp:
+    image: ghcr.io/baruchiro/baruchiro/paperless-mcp:latest
+    restart: unless-stopped
+    env_file:
+      - shared.env
+    environment:
+      - PAPERLESS_URL="http://paperless-web:3355"
+      - API_KEY="${PAPERLESS_API_KEY}"
+    networks:
+      - paperless_net
+      - infra_net
 
   # This is here because it must start last
   # https://github.com/mcuadros/ofelia/pull/137
@@ -71,6 +83,9 @@ networks:
   paperless_net:
     name: paperless_network
     driver: bridge
+  infra_net:
+    name: infrastructure_network
+    external: true  # Use the existing infra network
 
 volumes:
   paperless-redisdata:

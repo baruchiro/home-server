@@ -94,6 +94,42 @@
                   }
                 },
                 {
+                  "type": "custom:mushroom-climate-card",
+                  "entity": "climate.mamad_ac",
+                  "icon": "mdi:air-conditioner",
+                  "hvac_modes": [
+                    "off",
+                    "fan_only",
+                    "heat",
+                    "cool"
+                  ],
+                  "collapsible_controls": false,
+                  "tap_action": {
+                    "action": "more-info"
+                  },
+                  "hold_action": {
+                    "action": "none"
+                  },
+                  "double_tap_action": {
+                    "action": "none"
+                  }
+                },
+                {
+                  "type": "custom:mushroom-fan-card",
+                  "entity": "fan.mvvrr_khdr",
+                  "icon_animation": true,
+                  "show_oscillate_control": true,
+                  "show_direction_control": false,
+                  "collapsible_controls": true,
+                  "show_percentage_control": true,
+                  "fill_container": false,
+                  "tap_action": {
+                    "action": "perform-action",
+                    "perform_action": "script.unknown",
+                    "target": {}
+                  }
+                },
+                {
                   "type": "entities",
                   "entities": [
                     {
@@ -145,27 +181,6 @@
                   ]
                 }
               ]
-            },
-            {
-              "type": "custom:mushroom-climate-card",
-              "entity": "climate.mamad_ac",
-              "icon": "mdi:air-conditioner",
-              "hvac_modes": [
-                "off",
-                "fan_only",
-                "heat",
-                "cool"
-              ],
-              "collapsible_controls": false,
-              "tap_action": {
-                "action": "more-info"
-              },
-              "hold_action": {
-                "action": "none"
-              },
-              "double_tap_action": {
-                "action": "none"
-              }
             }
           ],
           "badges": [
@@ -191,11 +206,25 @@
             },
             {
               "type": "entity",
+              "show_name": true,
+              "show_state": true,
+              "show_icon": true,
+              "color": "",
+              "entity": "light.mamad",
+              "name": "מצב שינה ממ\"ד",
+              "tap_action": {
+                "action": "perform-action",
+                "perform_action": "script.toggle_mamad_night_light",
+                "target": {}
+              }
+            },
+            {
+              "type": "entity",
               "show_name": false,
               "show_state": true,
               "show_icon": true,
               "entity": "switch.heat_spreader",
-              "icon": "mdi:heat-wave",
+              "icon": "",
               "show_entity_picture": true,
               "state_content": [
                 "name",
@@ -203,9 +232,7 @@
               ],
               "tap_action": {
                 "action": "toggle"
-              },
-              "color": "state",
-              "name": "מפזר חום"
+              }
             },
             {
               "type": "entity",
@@ -281,14 +308,29 @@
               "show_name": true,
               "show_state": true,
               "show_icon": true,
-              "color": "",
-              "entity": "light.mamad",
-              "name": "מצב שינה ממ\"ד",
-              "tap_action": {
-                "action": "perform-action",
-                "perform_action": "script.toggle_mamad_night_light",
-                "target": {}
-              }
+              "entity": "sensor.mamad_button_battery",
+              "show_entity_picture": false,
+              "visibility": [
+                {
+                  "condition": "numeric_state",
+                  "entity": "sensor.mamad_button_battery",
+                  "below": 20
+                }
+              ]
+            },
+            {
+              "type": "entity",
+              "show_name": true,
+              "show_state": true,
+              "show_icon": true,
+              "entity": "sensor.living_room_button_battery",
+              "visibility": [
+                {
+                  "condition": "numeric_state",
+                  "entity": "sensor.living_room_button_battery",
+                  "below": 20
+                }
+              ]
             }
           ]
         },

@@ -1,590 +1,577 @@
-- id: "1712296895921"
+- id: '1712296895921'
   alias: Play glz Friday 11:58
-  description: ""
+  description: ''
   triggers:
-    - at: "12:02:00"
-      trigger: time
+  - at: '12:02:00'
+    trigger: time
   conditions:
-    - condition: time
-      weekday:
-        - fri
-    - condition: state
-      entity_id: binary_sensor.jewish_calendar_issur_melacha_in_effect
-      state: "off"
-    - condition: or
-      conditions:
-        - condition: device
-          device_id: 8288654bfeb9407d2e40977c3071a61a
-          domain: media_player
-          entity_id: 6640ff97d1c4cc702f313780845a106b
-          type: is_paused
-        - condition: device
-          device_id: 8288654bfeb9407d2e40977c3071a61a
-          domain: media_player
-          entity_id: 6640ff97d1c4cc702f313780845a106b
-          type: is_idle
-    - condition: zone
-      entity_id: person.zhr
-      zone: zone.home
-  actions:
-    - metadata: {}
-      data:
-        title: גל״צ
-        message: להפעיל סיון וידידיה?
-        script_name: radio_galei_zahal
-      action: script.ask_zohar_for_glz
-  mode: single
-- id: "1712297018032"
-  alias: Kan g Friday 13:00
-  description: ""
-  triggers:
-    - at: "13:00:00"
-      trigger: time
-  conditions:
-    - condition: time
-      weekday:
-        - fri
-    - condition: state
-      entity_id: binary_sensor.jewish_calendar_issur_melacha_in_effect
-      state: "off"
-    - condition: or
-      conditions:
-        - condition: device
-          device_id: 8288654bfeb9407d2e40977c3071a61a
-          domain: media_player
-          entity_id: 6640ff97d1c4cc702f313780845a106b
-          type: is_paused
-        - condition: device
-          device_id: 8288654bfeb9407d2e40977c3071a61a
-          domain: media_player
-          entity_id: 6640ff97d1c4cc702f313780845a106b
-          type: is_idle
-  actions:
-    - data: {}
-      action: script.radio_kan_g
-  mode: single
-- id: "1712769427085"
-  alias: Trigger 4 after noon radio
-  description: ""
-  triggers:
-    - at: "16:00:00"
-      trigger: time
-  conditions:
-    - condition: state
-      entity_id: binary_sensor.jewish_calendar_issur_melacha_in_effect
-      state: "off"
-    - condition: zone
-      entity_id: person.zhr
-      zone: zone.home
-    - condition: time
-      weekday:
-        - sun
-        - mon
-        - tue
-        - wed
-        - thu
-  actions:
-    - metadata: {}
-      data:
-        title: 4 אחרי הצהריים
-        message: האם את רוצה להפעיל?
-        script_name: radio_galei_zahal
-      action: script.ask_zohar_for_glz
-  mode: single
-- id: "1721359874047"
-  alias: Trigger ארון השירים היהודי
-  description: ""
-  triggers:
-    - at: 08:00:00
-      trigger: time
-  conditions:
-    - condition: time
-      weekday:
-        - fri
-    - condition: state
-      state: "off"
-      entity_id: binary_sensor.jewish_calendar_issur_melacha_in_effect
+  - condition: time
+    weekday:
+    - fri
+  - condition: state
+    entity_id: binary_sensor.jewish_calendar_issur_melacha_in_effect
+    state: 'off'
+  - condition: or
+    conditions:
     - condition: device
-      device_id: 8ef6a86daebbb51a8c7766df58661c4b
-      domain: device_tracker
-      entity_id: df33579cfb8dc5f962c3ba4d1aaa286b
-      type: is_home
+      device_id: 8288654bfeb9407d2e40977c3071a61a
+      domain: media_player
+      entity_id: 6640ff97d1c4cc702f313780845a106b
+      type: is_paused
+    - condition: device
+      device_id: 8288654bfeb9407d2e40977c3071a61a
+      domain: media_player
+      entity_id: 6640ff97d1c4cc702f313780845a106b
+      type: is_idle
+  - condition: zone
+    entity_id: person.zhr
+    zone: zone.home
   actions:
-    - metadata: {}
-      data: {}
-      action: script.ask_baruch_for_kan_g
+  - metadata: {}
+    data:
+      title: גל״צ
+      message: להפעיל סיון וידידיה?
+      script_name: radio_galei_zahal
+    action: script.ask_zohar_for_glz
   mode: single
-- id: "1722881168850"
+- id: '1712297018032'
+  alias: Kan g Friday 13:00
+  description: ''
+  triggers:
+  - at: '13:00:00'
+    trigger: time
+  conditions:
+  - condition: time
+    weekday:
+    - fri
+  - condition: state
+    entity_id: binary_sensor.jewish_calendar_issur_melacha_in_effect
+    state: 'off'
+  - condition: or
+    conditions:
+    - condition: device
+      device_id: 8288654bfeb9407d2e40977c3071a61a
+      domain: media_player
+      entity_id: 6640ff97d1c4cc702f313780845a106b
+      type: is_paused
+    - condition: device
+      device_id: 8288654bfeb9407d2e40977c3071a61a
+      domain: media_player
+      entity_id: 6640ff97d1c4cc702f313780845a106b
+      type: is_idle
+  actions:
+  - data: {}
+    action: script.radio_kan_g
+  mode: single
+- id: '1712769427085'
+  alias: Trigger 4 after noon radio
+  description: ''
+  triggers:
+  - at: '16:00:00'
+    trigger: time
+  conditions:
+  - condition: state
+    entity_id: binary_sensor.jewish_calendar_issur_melacha_in_effect
+    state: 'off'
+  - condition: zone
+    entity_id: person.zhr
+    zone: zone.home
+  - condition: time
+    weekday:
+    - sun
+    - mon
+    - tue
+    - wed
+    - thu
+  actions:
+  - metadata: {}
+    data:
+      title: 4 אחרי הצהריים
+      message: האם את רוצה להפעיל?
+      script_name: radio_galei_zahal
+    action: script.ask_zohar_for_glz
+  mode: single
+- id: '1721359874047'
+  alias: Trigger ארון השירים היהודי
+  description: ''
+  triggers:
+  - at: 08:00:00
+    trigger: time
+  conditions:
+  - condition: time
+    weekday:
+    - fri
+  - condition: state
+    state: 'off'
+    entity_id: binary_sensor.jewish_calendar_issur_melacha_in_effect
+  - condition: device
+    device_id: 8ef6a86daebbb51a8c7766df58661c4b
+    domain: device_tracker
+    entity_id: df33579cfb8dc5f962c3ba4d1aaa286b
+    type: is_home
+  actions:
+  - metadata: {}
+    data: {}
+    action: script.ask_baruch_for_kan_g
+  mode: single
+- id: '1722881168850'
   alias: If Mazgan should be on
-  description: ""
+  description: ''
   trigger:
-    - platform: state
-      entity_id:
-        - input_boolean.is_mazgan_should_be_enabled
-      from: "off"
-      to: "on"
+  - platform: state
+    entity_id:
+    - input_boolean.is_mazgan_should_be_enabled
+    from: 'off'
+    to: 'on'
   condition: []
   action:
-    - service: script.mazgan_cool_baruch_confirm
-      metadata: {}
-      data: {}
+  - service: script.mazgan_cool_baruch_confirm
+    metadata: {}
+    data: {}
   mode: single
-- id: "1722886260971"
+- id: '1722886260971'
   alias: Mazgan from cool to dry
-  description: ""
+  description: ''
   trigger:
-    - platform: device
-      device_id: 3daeb7afe3a86c54a308f1f0efd58f89
-      domain: climate
-      entity_id: 946a669e8b6968b40a237f5126631b0c
-      type: hvac_mode_changed
-      to: cool
-      for:
-        hours: 4
-        minutes: 0
-        seconds: 0
+  - platform: device
+    device_id: 3daeb7afe3a86c54a308f1f0efd58f89
+    domain: climate
+    entity_id: 946a669e8b6968b40a237f5126631b0c
+    type: hvac_mode_changed
+    to: cool
+    for:
+      hours: 4
+      minutes: 0
+      seconds: 0
   condition: []
   action:
-    - device_id: 3daeb7afe3a86c54a308f1f0efd58f89
-      domain: climate
-      entity_id: 946a669e8b6968b40a237f5126631b0c
-      type: set_hvac_mode
-      hvac_mode: dry
+  - device_id: 3daeb7afe3a86c54a308f1f0efd58f89
+    domain: climate
+    entity_id: 946a669e8b6968b40a237f5126631b0c
+    type: set_hvac_mode
+    hvac_mode: dry
   mode: single
-- id: "1722949510202"
+- id: '1722949510202'
   alias: Mazgan dry to cool
-  description: ""
+  description: ''
   trigger:
-    - platform: device
-      device_id: 3daeb7afe3a86c54a308f1f0efd58f89
-      domain: climate
-      entity_id: 946a669e8b6968b40a237f5126631b0c
-      type: hvac_mode_changed
-      to: dry
-      for:
-        hours: 0
-        minutes: 30
-        seconds: 0
-      alias: מזגן במצב טיפה לחצי שעה
+  - platform: device
+    device_id: 3daeb7afe3a86c54a308f1f0efd58f89
+    domain: climate
+    entity_id: 946a669e8b6968b40a237f5126631b0c
+    type: hvac_mode_changed
+    to: dry
+    for:
+      hours: 0
+      minutes: 30
+      seconds: 0
+    alias: מזגן במצב טיפה לחצי שעה
   condition: []
   action:
-    - device_id: 3daeb7afe3a86c54a308f1f0efd58f89
-      domain: climate
-      entity_id: 946a669e8b6968b40a237f5126631b0c
-      type: set_hvac_mode
-      hvac_mode: cool
-      alias: מזגן למצב קירור
+  - device_id: 3daeb7afe3a86c54a308f1f0efd58f89
+    domain: climate
+    entity_id: 946a669e8b6968b40a237f5126631b0c
+    type: set_hvac_mode
+    hvac_mode: cool
+    alias: מזגן למצב קירור
   mode: single
-- id: "1725150648817"
+- id: '1725150648817'
   alias: זהר - בית
-  description: ""
+  description: ''
   use_blueprint:
     path: homeassistant/notify_leaving_zone.yaml
     input:
       person_entity: person.zhr
       zone_entity: zone.home
       notify_device: 8ef6a86daebbb51a8c7766df58661c4b
-- id: "1725161057865"
+- id: '1725161057865'
   alias: זהר - הגן השקוף
-  description: ""
+  description: ''
   use_blueprint:
     path: homeassistant/notify_leaving_zone.yaml
     input:
       person_entity: person.zhr
       zone_entity: zone.hgn_hshqvp
       notify_device: 8ef6a86daebbb51a8c7766df58661c4b
-- id: "1728937251378"
+- id: '1728937251378'
   alias: הפעל לילה טוב כאשר שעון בהטענה
-  description: ""
+  description: ''
   triggers:
-    - entity_id:
-        - sensor.galaxy_watch6_classic_6zxw_battery_state
-      to: charging
-      trigger: state
+  - entity_id:
+    - sensor.galaxy_watch6_classic_6zxw_battery_state
+    to: charging
+    trigger: state
   conditions:
-    - condition: state
-      entity_id: person.baruch_odem
-      state: home
-    - condition: device
-      device_id: ddda0c7e7b0177094ca218497c439fdb
-      domain: fan
-      entity_id: 514fd8e508cdcb7dbb6d55e7c0870d8d
-      type: is_off
+  - condition: state
+    entity_id: person.baruch_odem
+    state: home
+  - condition: device
+    device_id: ddda0c7e7b0177094ca218497c439fdb
+    domain: fan
+    entity_id: 514fd8e508cdcb7dbb6d55e7c0870d8d
+    type: is_off
   actions:
-    - action: script.unknown
+  - action: script.unknown
+    metadata: {}
+    data: {}
+    enabled: false
+  - action: light.turn_off
+    metadata: {}
+    data: {}
+    target:
+      device_id: 7a63b27e74067348ddb7eeaff985a304
+  mode: single
+- id: '1730216355376'
+  alias: כשיש אזעקה בגדרה
+  description: ''
+  triggers:
+  - trigger: state
+    entity_id:
+    - binary_sensor.oref_alert
+    to: 'on'
+    from: 'off'
+  conditions:
+  - condition: state
+    entity_id: group.family
+    state: home
+  actions:
+  - if:
+    - condition: state
+      entity_id: light.mamad
+      state: 'off'
+    then:
+    - action: light.turn_on
       metadata: {}
-      data: {}
-      enabled: false
+      data:
+        brightness_pct: 10
+        rgb_color:
+        - 65
+        - 83
+        - 175
+      target:
+        entity_id: light.mamad
+  - action: climate.set_hvac_mode
+    metadata: {}
+    data:
+      hvac_mode: cool
+    target:
+      area_id: mm_d
+  - wait_for_trigger:
+    - trigger: state
+      entity_id:
+      - binary_sensor.oref_alert
+      from: 'on'
+      to: 'off'
+    continue_on_timeout: false
+  - action: light.turn_on
+    metadata: {}
+    data:
+      rgb_color:
+      - 0
+      - 255
+      - 0
+    target:
+      entity_id:
+      - light.mamad
+  - action: climate.set_hvac_mode
+    metadata: {}
+    data:
+      hvac_mode: 'off'
+    target:
+      area_id: mm_d
+  mode: single
+- id: '1732855919338'
+  alias: הודעה על טלפון טעינה מלאה
+  description: ''
+  triggers:
+  - type: battery_level
+    device_id: 8ef6a86daebbb51a8c7766df58661c4b
+    entity_id: abe951cb0d8b4f7057a4e5b628e05455
+    domain: sensor
+    trigger: device
+    above: 99
+  conditions: []
+  actions:
+  - action: notify.mobile_app_baruch_mobile
+    metadata: {}
+    data:
+      message: טעינה מלאה
+  mode: single
+- id: '1733851139367'
+  alias: Button temp
+  description: ''
+  triggers:
+  - domain: mqtt
+    device_id: 158be7c0b2494e50514071e3e4197ff6
+    type: action
+    subtype: single
+    trigger: device
+  conditions: []
+  actions:
+  - action: switch.toggle
+    metadata: {}
+    data: {}
+    target:
+      entity_id: switch.heat_spreader
+  mode: single
+- id: '1738179559914'
+  alias: Mamad Button Hold
+  description: ''
+  triggers:
+  - domain: mqtt
+    device_id: a97c3cda04d9ee57934c720d58e4f172
+    type: action
+    subtype: hold
+    trigger: device
+  conditions: []
+  actions:
+  - action: script.toggle_mamad_night_light
+    metadata: {}
+    data: {}
+  mode: single
+- id: '1738179994742'
+  alias: Mamad Button Single
+  description: ''
+  triggers:
+  - domain: mqtt
+    device_id: a97c3cda04d9ee57934c720d58e4f172
+    type: action
+    subtype: single
+    trigger: device
+  conditions: []
+  actions:
+  - if:
+    - condition: state
+      entity_id: light.mamad
+      state: 'off'
+    then:
+    - action: light.turn_on
+      metadata: {}
+      data:
+        kelvin: 6500
+        brightness_pct: 100
+      target:
+        entity_id: light.mamad
+    else:
     - action: light.turn_off
       metadata: {}
       data: {}
       target:
-        device_id: 7a63b27e74067348ddb7eeaff985a304
+        entity_id: light.mamad
   mode: single
-- id: "1730216355376"
-  alias: כשיש אזעקה בגדרה
-  description: ""
-  triggers:
-    - trigger: state
-      entity_id:
-        - binary_sensor.oref_alert
-      to: "on"
-      from: "off"
-  conditions:
-    - condition: state
-      entity_id: group.family
-      state: home
-  actions:
-    - if:
-        - condition: state
-          entity_id: light.mamad
-          state: "off"
-      then:
-        - action: light.turn_on
-          metadata: {}
-          data:
-            brightness_pct: 10
-            rgb_color:
-              - 65
-              - 83
-              - 175
-          target:
-            entity_id: light.mamad
-    - action: climate.set_hvac_mode
-      metadata: {}
-      data:
-        hvac_mode: cool
-      target:
-        area_id: mm_d
-    - wait_for_trigger:
-        - trigger: state
-          entity_id:
-            - binary_sensor.oref_alert
-          from: "on"
-          to: "off"
-      continue_on_timeout: false
-    - action: light.turn_on
-      metadata: {}
-      data:
-        rgb_color:
-          - 0
-          - 255
-          - 0
-      target:
-        entity_id:
-          - light.mamad
-    - action: climate.set_hvac_mode
-      metadata: {}
-      data:
-        hvac_mode: "off"
-      target:
-        area_id: mm_d
-  mode: single
-- id: "1732855919338"
-  alias: הודעה על טלפון טעינה מלאה
-  description: ""
-  triggers:
-    - type: battery_level
-      device_id: 8ef6a86daebbb51a8c7766df58661c4b
-      entity_id: abe951cb0d8b4f7057a4e5b628e05455
-      domain: sensor
-      trigger: device
-      above: 99
-  conditions: []
-  actions:
-    - action: notify.mobile_app_baruch_mobile
-      metadata: {}
-      data:
-        message: טעינה מלאה
-  mode: single
-- id: "1733851139367"
-  alias: Button temp
-  description: ""
-  triggers:
-    - domain: mqtt
-      device_id: 158be7c0b2494e50514071e3e4197ff6
-      type: action
-      subtype: single
-      trigger: device
-  conditions: []
-  actions:
-    - variables:
-        min_brightness:
-          "{% set lights = expand(area_entities('slvn')) | selectattr('domain',
-          'eq', 'light') %} {% set brightness_values = lights | map(attribute='attributes.brightness')
-          | list %} {% if brightness_values | length > 0 %}\n  {{ brightness_values
-          | min }}\n{% else %}\n  255\n{% endif %}"
-    - if:
-        - condition: template
-          value_template: "{{ min_brightness <= 51 }}"
-      then:
-        - action: light.turn_on
-          metadata: {}
-          data:
-            brightness_pct: 100
-          target:
-            area_id: slvn
-      else:
-        - action: light.turn_on
-          metadata: {}
-          data:
-            brightness_step_pct: -10
-          target:
-            area_id: slvn
-  mode: single
-- id: "1738179559914"
-  alias: Mamad Button Hold
-  description: ""
-  triggers:
-    - domain: mqtt
-      device_id: a97c3cda04d9ee57934c720d58e4f172
-      type: action
-      subtype: hold
-      trigger: device
-  conditions: []
-  actions:
-    - action: script.toggle_mamad_night_light
-      metadata: {}
-      data: {}
-  mode: single
-- id: "1738179994742"
-  alias: Mamad Button Single
-  description: ""
-  triggers:
-    - domain: mqtt
-      device_id: a97c3cda04d9ee57934c720d58e4f172
-      type: action
-      subtype: single
-      trigger: device
-  conditions: []
-  actions:
-    - if:
-        - condition: state
-          entity_id: light.mamad
-          state: "off"
-      then:
-        - action: light.turn_on
-          metadata: {}
-          data:
-            kelvin: 6500
-            brightness_pct: 100
-          target:
-            entity_id: light.mamad
-      else:
-        - action: light.turn_off
-          metadata: {}
-          data: {}
-          target:
-            entity_id: light.mamad
-  mode: single
-- id: "1739529060364"
+- id: '1739529060364'
   alias: כיבוי מפזר חום אחרי 45 דקות
-  description: ""
+  description: ''
   triggers:
-    - trigger: state
-      entity_id:
-        - switch.heat_spreader
-      to: "on"
+  - trigger: state
+    entity_id:
+    - switch.heat_spreader
+    to: 'on'
   conditions: []
   actions:
-    - delay:
-        hours: 0
-        minutes: 45
-        seconds: 0
-    - action: switch.turn_off
-      metadata: {}
-      data: {}
-      target:
-        entity_id: switch.heat_spreader
-      enabled: true
+  - delay:
+      hours: 0
+      minutes: 45
+      seconds: 0
+  - action: switch.turn_off
+    metadata: {}
+    data: {}
+    target:
+      entity_id: switch.heat_spreader
+    enabled: true
   mode: restart
-- id: "1739543743534"
+- id: '1739543743534'
   alias: כיבוי מכשירים כניסת שבת
-  description: ""
+  description: ''
   triggers:
-    - trigger: state
-      entity_id:
-        - binary_sensor.jewish_calendar_issur_melacha_in_effect
-      from: "off"
-      to: "on"
+  - trigger: state
+    entity_id:
+    - binary_sensor.jewish_calendar_issur_melacha_in_effect
+    from: 'off'
+    to: 'on'
   conditions: []
   actions:
-    - action: media_player.media_stop
-      metadata: {}
-      data: {}
-      target:
-        entity_id: media_player.living_room_speaker
-    - action: switch.turn_off
-      metadata: {}
-      data: {}
-      target:
-        entity_id: switch.heat_spreader
+  - action: media_player.media_stop
+    metadata: {}
+    data: {}
+    target:
+      entity_id: media_player.living_room_speaker
+  - action: switch.turn_off
+    metadata: {}
+    data: {}
+    target:
+      entity_id: switch.heat_spreader
   mode: single
-- id: "1739543976751"
+- id: '1739543976751'
   alias: חידוש רשימת יום שישי
-  description: ""
+  description: ''
   triggers:
-    - trigger: state
-      entity_id:
-        - binary_sensor.jewish_calendar_issur_melacha_in_effect
-      from: "on"
-      to: "off"
+  - trigger: state
+    entity_id:
+    - binary_sensor.jewish_calendar_issur_melacha_in_effect
+    from: 'on'
+    to: 'off'
   conditions: []
   actions:
-    - action: todo.get_items
-      metadata: {}
-      data:
-        status:
-          - completed
-      target:
-        entity_id: todo.yvm_shyshy
-      response_variable: response_items
-    - repeat:
-        sequence:
-          - action: todo.update_item
-            metadata: {}
-            data:
-              status: needs_action
-              item: "{{ repeat.item.uid }}"
-            target:
-              entity_id: todo.yvm_shyshy
-        for_each: "{{ response_items['todo.yvm_shyshy']['items'] }}"
-      enabled: true
+  - action: todo.get_items
+    metadata: {}
+    data:
+      status:
+      - completed
+    target:
+      entity_id: todo.yvm_shyshy
+    response_variable: response_items
+  - repeat:
+      sequence:
+      - action: todo.update_item
+        metadata: {}
+        data:
+          status: needs_action
+          item: '{{ repeat.item.uid }}'
+        target:
+          entity_id: todo.yvm_shyshy
+      for_each: '{{ response_items[''todo.yvm_shyshy''][''items''] }}'
+    enabled: true
   mode: single
-- id: "1739731596012"
-  alias: "Test proximity "
-  description: ""
+- id: '1739731596012'
+  alias: 'Test proximity '
+  description: ''
   triggers:
-    - trigger: numeric_state
-      entity_id:
-        - sensor.home_nearest_distance
-      above: 0
-      for:
-        hours: 0
-        minutes: 5
-        seconds: 0
-    - trigger: numeric_state
-      entity_id:
-        - sensor.home_nearest_distance
-      for:
-        hours: 0
-        minutes: 5
-        seconds: 0
-      below: 100
-    - trigger: state
-      entity_id:
-        - sensor.home_nearest_device
-    - trigger: state
-      entity_id:
-        - sensor.home_nearest_direction_of_travel
+  - trigger: numeric_state
+    entity_id:
+    - sensor.home_nearest_distance
+    above: 0
+    for:
+      hours: 0
+      minutes: 5
+      seconds: 0
+  - trigger: numeric_state
+    entity_id:
+    - sensor.home_nearest_distance
+    for:
+      hours: 0
+      minutes: 5
+      seconds: 0
+    below: 100
+  - trigger: state
+    entity_id:
+    - sensor.home_nearest_device
+  - trigger: state
+    entity_id:
+    - sensor.home_nearest_direction_of_travel
   conditions: []
   actions:
-    - action: notify.mobile_app_baruch_mobile
-      metadata: {}
-      data:
-        message:
-          "Proximity: {{ states('sensor.home_nearest_distance') }} Device:
-          {{ states('sensor.home_nearest_device') }} Direction: {{ states('sensor.home_nearest_direction_of_travel')
-          }}"
+  - action: notify.mobile_app_baruch_mobile
+    metadata: {}
+    data:
+      message: 'Proximity: {{ states(''sensor.home_nearest_distance'') }} Device:
+        {{ states(''sensor.home_nearest_device'') }} Direction: {{ states(''sensor.home_nearest_direction_of_travel'')
+        }}'
   mode: single
-- id: "1739813097940"
+- id: '1739813097940'
   alias: Test zohar toward home
-  description: ""
+  description: ''
   triggers:
-    - trigger: state
-      entity_id:
-        - sensor.home_zhr_direction_of_travel
-      to: towards
+  - trigger: state
+    entity_id:
+    - sensor.home_zhr_direction_of_travel
+    to: towards
   conditions: []
   actions:
-    - action: notify.mobile_app_baruch_mobile
-      metadata: {}
-      data:
-        title: Zohar Toward
-        message:
-          "Direction: {{ states('sensor.home_zhr_direction_of_travel') }} Distance:
-          {{ states('sensor.home_zhr_distance') }}"
+  - action: notify.mobile_app_baruch_mobile
+    metadata: {}
+    data:
+      title: Zohar Toward
+      message: 'Direction: {{ states(''sensor.home_zhr_direction_of_travel'') }} Distance:
+        {{ states(''sensor.home_zhr_distance'') }}'
   mode: single
-- id: "1739893266807"
+- id: '1739893266807'
   alias: When last leaving the house
   description: Check devices state when last person leaves
   triggers:
-    - entity_id: sensor.home_nearest_distance
-      above: 0
-      for:
-        minutes: 5
-      trigger: numeric_state
+  - entity_id: sensor.home_nearest_distance
+    above: 0
+    for:
+      minutes: 5
+    trigger: numeric_state
   variables:
-    devices_config: "{{ state_attr('sensor.devices_to_check_when_leaving', 'devices') }}"
+    devices_config: '{{ state_attr(''sensor.devices_to_check_when_leaving'', ''devices'')
+      }}'
     user_devices:
       זהר:
         notify_service: notify.mobile_app_m2102j20sg
       Baruch Odem:
         notify_service: notify.mobile_app_baruch_mobile
   actions:
+  - service: system_log.write
+    data:
+      message: 'Leaving Home Debug - Loaded Config: Devices: {{ devices_config | tojson
+        }} Current Device: {{ states(''sensor.home_nearest_device'') }}'
+  - choose:
+    - conditions:
+      - condition: template
+        value_template: '{{ states(''sensor.home_nearest_device'') in user_devices
+          }}'
+      sequence:
+      - variables:
+          current_user: '{{ states(''sensor.home_nearest_device'') }}'
+          user_config: '{{ user_devices[states(''sensor.home_nearest_device'')] }}'
+      - service: system_log.write
+        data:
+          message: 'Leaving Home Debug - User Config: User: {{ current_user }} Config:
+            {{ user_config | tojson }}'
+      - service: '{{ user_config.notify_service }}'
+        data:
+          title: בית ריק
+          message: היי {{ current_user }}, בדיקת מכשירים דולקים...
+      - repeat:
+          for_each: '{{ devices_config }}'
+          sequence:
+          - service: system_log.write
+            data:
+              message: 'Leaving Home Debug - Checking Device: Device: {{ repeat.item.friendly_name
+                }} Current State: {{ states(repeat.item.entity_id) }} Off State: {{
+                repeat.item.off_state }}'
+          - service: script.check_device_state_and_notify
+            data:
+              notify_service: '{{ user_config.notify_service }}'
+              entity_id: '{{ repeat.item.entity_id }}'
+              friendly_name: '{{ repeat.item.friendly_name }}'
+              off_state: '{{ repeat.item.off_state }}'
+              turn_off_service: '{{ repeat.item.turn_off_service }}'
+              turn_off_data: '{{ repeat.item.turn_off_data | default({}) }}'
+    default:
     - service: system_log.write
       data:
-        message: "Leaving Home Debug - Loaded Config: Devices: {{ devices_config | tojson }} Current Device: {{ states('sensor.home_nearest_device') }}"
-    - choose:
-        - conditions:
-            - condition: template
-              value_template: "{{ states('sensor.home_nearest_device') in user_devices }}"
-          sequence:
-            - variables:
-                current_user: "{{ states('sensor.home_nearest_device') }}"
-                user_config: "{{ user_devices[states('sensor.home_nearest_device')] }}"
-            - service: system_log.write
-              data:
-                message: "Leaving Home Debug - User Config: User: {{ current_user }} Config: {{ user_config | tojson }}"
-            - service: "{{ user_config.notify_service }}"
-              data:
-                title: בית ריק
-                message: "היי {{ current_user }}, בדיקת מכשירים דולקים..."
-            - repeat:
-                for_each: "{{ devices_config }}"
-                sequence:
-                  - service: system_log.write
-                    data:
-                      message: "Leaving Home Debug - Checking Device: Device: {{ repeat.item.friendly_name }} Current State: {{ states(repeat.item.entity_id) }} Off State: {{ repeat.item.off_state }}"
-                  - service: script.check_device_state_and_notify
-                    data:
-                      notify_service: "{{ user_config.notify_service }}"
-                      entity_id: "{{ repeat.item.entity_id }}"
-                      friendly_name: "{{ repeat.item.friendly_name }}"
-                      off_state: "{{ repeat.item.off_state }}"
-                      turn_off_service: "{{ repeat.item.turn_off_service }}"
-                      turn_off_data: "{{ repeat.item.turn_off_data | default({}) }}"
-      default:
-        - service: system_log.write
-          data:
-            message: "Leaving Home Debug - Unknown Device: Device: {{ states('sensor.home_nearest_device') }}"
+        message: 'Leaving Home Debug - Unknown Device: Device: {{ states(''sensor.home_nearest_device'')
+          }}'
   mode: single
-- id: "1741877229902"
+- id: '1741877229902'
   alias: סיום צום
-  description: ""
+  description: ''
   triggers:
-    - trigger: state
-      entity_id:
-        - sensor.jewish_calendar_holiday
-      attribute: type
-      from: FAST_DAY
+  - trigger: state
+    entity_id:
+    - sensor.jewish_calendar_holiday
+    attribute: type
+    from: FAST_DAY
   conditions: []
   actions:
-    - action: notify.mobile_app_baruch_mobile
-      metadata: {}
-      data:
-        title: צום
-        message: יצא הצום!
-    - action: notify.mobile_app_m2102j20sg
-      metadata: {}
-      data:
-        message: יצא הצום!
-        title: צום
-    - wait_for_trigger:
-        - entity_id:
-            - sensor.jewish_calendar_t_set_hakochavim
-          trigger: state
-      continue_on_timeout: false
+  - action: notify.mobile_app_baruch_mobile
+    metadata: {}
+    data:
+      title: צום
+      message: יצא הצום!
+  - action: notify.mobile_app_m2102j20sg
+    metadata: {}
+    data:
+      message: יצא הצום!
+      title: צום
+  - wait_for_trigger:
+    - entity_id:
+      - sensor.jewish_calendar_t_set_hakochavim
+      trigger: state
+    continue_on_timeout: false
   mode: single
 - id: '1741877229903'
   alias: Work Leaving Reminder
@@ -593,17 +580,17 @@
   - at: input_datetime.leaving_the_work
     trigger: time
   conditions:
-    - condition: state
-      entity_id: person.baruch_odem
-      state: Work
+  - condition: state
+    entity_id: person.baruch_odem
+    state: Work
   actions:
   - data:
-        title: תזכורת
-        message: צריך ללכת הביתה
+      title: תזכורת
+      message: צריך ללכת הביתה
     action: notify.mobile_app_baruch_mobile
   - data:
-        time: '16:45:00'
+      time: '16:45:00'
     target:
-        entity_id: input_datetime.leaving_the_work
+      entity_id: input_datetime.leaving_the_work
     action: input_datetime.set_datetime
   mode: single
