@@ -11,5 +11,5 @@
   "requirements": [
     "shapely==2.0.7"
   ],
-  "version": "v2.19.0"
+  "version": "v2.19.1"
 }
