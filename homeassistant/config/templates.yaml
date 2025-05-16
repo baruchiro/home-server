@@ -35,3 +35,13 @@
           {% else %}
             N/A
           {% endif %}
+
+    - name: "Shkia Static Time"
+      unique_id: shkia_static_time
+      icon: mdi:weather-sunset
+      state: >
+        {% if states('sensor.jewish_calendar_shkia') not in ['unknown', 'unavailable', None] %}
+          {{ states('sensor.jewish_calendar_shkia') | as_datetime | as_local | as_timestamp | timestamp_custom('%H:%M', true) }}
+        {% else %}
+          N/A
+        {% endif %}

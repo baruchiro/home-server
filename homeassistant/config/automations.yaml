@@ -132,19 +132,19 @@
 - id: '1722886260971'
   alias: Mazgan from cool to dry
   description: ''
-  trigger:
-  - platform: device
-    device_id: 3daeb7afe3a86c54a308f1f0efd58f89
+  triggers:
+  - device_id: 3daeb7afe3a86c54a308f1f0efd58f89
     domain: climate
     entity_id: 946a669e8b6968b40a237f5126631b0c
     type: hvac_mode_changed
     to: cool
     for:
-      hours: 4
+      hours: 3
       minutes: 0
       seconds: 0
-  condition: []
-  action:
+    trigger: device
+  conditions: []
+  actions:
   - device_id: 3daeb7afe3a86c54a308f1f0efd58f89
     domain: climate
     entity_id: 946a669e8b6968b40a237f5126631b0c

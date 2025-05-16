@@ -41,14 +41,14 @@
                   "type": "entities",
                   "entities": [
                     {
-                      "entity": "sensor.jewish_calendar_parshat_hashavua",
+                      "entity": "sensor.shabbat_parashat",
                       "name": " ",
                       "card_mod": {
                         "style": ":host {\n  display: flex;\n  justify-content: center;\n  font-size: large;\n}\n"
                       }
                     },
                     {
-                      "entity": "sensor.upcoming_candle_lighting_time",
+                      "entity": "sensor.shabbat_candles_time",
                       "icon": "mdi:candelabra",
                       "name": "הדלקת נרות"
                     },
@@ -63,15 +63,27 @@
                       "icon": "mdi:white-balance-sunny"
                     },
                     {
+                      "entity": "sensor.shabbat_event_gmara_time",
+                      "name": "שיעור גמרא",
+                      "icon": "mdi:book-open-page-variant"
+                    },
+                    {
                       "entity": "sensor.tfilot_shabat_minha_time",
-                      "name": "מנחה"
+                      "name": "מנחה",
+                      "icon": "mdi:synagogue-outline"
+                    },
+                    {
+                      "entity": "sensor.shkia_static_time",
+                      "name": "שקיעה",
+                      "icon": "mdi:weather-sunset"
                     },
                     {
                       "entity": "sensor.tfilot_shabat_arvit_zet_shabat_time",
-                      "name": "ערבית"
+                      "name": "ערבית",
+                      "icon": "mdi:synagogue"
                     },
                     {
-                      "entity": "sensor.upcoming_havdalah_time",
+                      "entity": "sensor.havdalah_time",
                       "name": "הבדלה",
                       "icon": "mdi:weather-night"
                     }
@@ -79,9 +91,6 @@
                   "grid_options": {
                     "columns": 9,
                     "rows": "auto"
-                  },
-                  "card_mod": {
-                    "style": "ha-card {\n  direction: rtl\n}\n"
                   },
                   "visibility": [
                     {
@@ -99,7 +108,10 @@
                         }
                       ]
                     }
-                  ]
+                  ],
+                  "card_mod": {
+                    "style": "ha-card {\n  direction: rtl\n}\n"
+                  }
                 },
                 {
                   "type": "custom:scheduler-card",
@@ -123,6 +135,7 @@
                     "script.unknown_2",
                     "script.unknown_3",
                     "script.unknown_4",
+                    "switch.heat_spreader",
                     "switch.living_room_fan"
                   ],
                   "exclude": [],
