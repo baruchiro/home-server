@@ -237,21 +237,23 @@
             {
               "type": "entity",
               "show_name": true,
-              "show_state": false,
+              "show_state": true,
               "show_icon": true,
-              "entity": "fan.mvvrr_khdr",
+              "entity": "input_select.fan_sleep_mode",
+              "name": "חדר שינה",
+              "show_entity_picture": false,
               "tap_action": {
                 "action": "perform-action",
-                "perform_action": "script.unknown",
-                "target": {}
-              },
-              "name": "מגדל",
-              "show_entity_picture": false,
-              "color": "",
-              "state_content": [
-                "oscillating",
-                "percentage"
-              ]
+                "perform_action": "input_select.select_next",
+                "target": {
+                  "entity_id": [
+                    "input_select.fan_sleep_mode"
+                  ]
+                },
+                "data": {
+                  "cycle": true
+                }
+              }
             },
             {
               "type": "custom:mushroom-template-badge",

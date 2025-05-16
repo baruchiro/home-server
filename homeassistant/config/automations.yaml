@@ -594,3 +594,59 @@
       entity_id: input_datetime.leaving_the_work
     action: input_datetime.set_datetime
   mode: single
+- alias: Set Fan Mode Based on Input Select
+  id: set_fan_mode_based_on_input_select
+  trigger:
+    - platform: state
+      entity_id: input_select.fan_sleep_mode
+  action:
+    - choose:
+        - conditions:
+            - condition: state
+              entity_id: input_select.fan_sleep_mode
+              state: "off"
+          sequence:
+            - service: fan.turn_off
+              target:
+                device_id: ddda0c7e7b0177094ca218497c439fdb
+        - conditions:
+            - condition: state
+              entity_id: input_select.fan_sleep_mode
+              state: "sleep"
+          sequence:
+            - service: fan.turn_on
+              target:
+                device_id: ddda0c7e7b0177094ca218497c439fdb
+            - service: fan.set_preset_mode
+              data:
+                preset_mode: sleep
+              target:
+                device_id: ddda0c7e7b0177094ca218497c439fdb
+            - service: fan.set_percentage
+              data:
+                percentage: 1
+              target:
+                device_id: ddda0c7e7b0177094ca218497c439fdb
+            - service: fan.oscillate
+              data:
+                oscillating: true
+              target:
+                device_id: ddda0c7e7b0177094ca218497c439fdb
+        - conditions:
+            - condition: state
+              entity_id: input_select.fan_sleep_mode
+              state: "high"
+          sequence:
+            - service: fan.turn_on
+              target:
+                device_id: ddda0c7e7b0177094ca218497c439fdb
+            - service: fan.set_percentage
+              data:
+                percentage: 100
+              target:
+                device_id: ddda0c7e7b0177094ca218497c439fdb
+            - service: fan.oscillate
+              data:
+                oscillating: true
+              target:
+                device_id: ddda0c7e7b0177094ca218497c439fdb

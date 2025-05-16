@@ -124,6 +124,8 @@
                     "device_tracker.plpvn_zhr",
                     "device_tracker.zohar_mobile",
                     "fan.mvvrr_khdr",
+                    "group.family",
+                    "input_select.fan_sleep_mode",
                     "light.carpet",
                     "light.entrance",
                     "light.food_1",
