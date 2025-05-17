@@ -435,6 +435,80 @@
                   "state": "playing"
                 }
               ]
+            },
+            {
+              "type": "entity",
+              "show_name": true,
+              "show_state": true,
+              "show_icon": true,
+              "entity": "climate.mzgn",
+              "state_content": [
+                "state",
+                "fan_mode",
+                "temperature"
+              ],
+              "visibility": [
+                {
+                  "condition": "state",
+                  "entity": "binary_sensor.jewish_calendar_issur_melacha_in_effect",
+                  "state": "on"
+                }
+              ]
+            },
+            {
+              "type": "entity",
+              "show_name": true,
+              "show_state": true,
+              "show_icon": true,
+              "entity": "climate.mamad_ac",
+              "state_content": [
+                "state",
+                "fan_mode",
+                "temperature"
+              ],
+              "visibility": [
+                {
+                  "condition": "state",
+                  "entity": "binary_sensor.jewish_calendar_issur_melacha_in_effect",
+                  "state": "on"
+                }
+              ]
+            },
+            {
+              "type": "entity",
+              "show_name": true,
+              "show_state": true,
+              "show_icon": true,
+              "entity": "fan.mvvrr_khdr",
+              "state_content": [
+                "state",
+                "oscillating",
+                "percentage"
+              ],
+              "visibility": [
+                {
+                  "condition": "state",
+                  "entity": "binary_sensor.jewish_calendar_issur_melacha_in_effect",
+                  "state": "on"
+                }
+              ]
+            },
+            {
+              "type": "entity",
+              "show_name": true,
+              "show_state": true,
+              "show_icon": true,
+              "entity": "switch.heat_spreader",
+              "tap_action": {
+                "action": "none"
+              },
+              "visibility": [
+                {
+                  "condition": "state",
+                  "entity": "binary_sensor.jewish_calendar_issur_melacha_in_effect",
+                  "state": "on"
+                }
+              ]
             }
           ]
         }
