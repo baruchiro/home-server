@@ -117,16 +117,15 @@
                 {
                   "type": "custom:mushroom-fan-card",
                   "entity": "fan.mvvrr_khdr",
-                  "icon_animation": true,
                   "show_oscillate_control": true,
-                  "show_direction_control": false,
-                  "collapsible_controls": true,
                   "show_percentage_control": true,
-                  "fill_container": false,
+                  "collapsible_controls": true,
+                  "show_direction_control": false,
                   "tap_action": {
-                    "action": "perform-action",
-                    "perform_action": "script.unknown",
-                    "target": {}
+                    "action": "toggle"
+                  },
+                  "hold_action": {
+                    "action": "more-info"
                   }
                 },
                 {

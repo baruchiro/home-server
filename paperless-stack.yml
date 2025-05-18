@@ -63,8 +63,8 @@ services:
     env_file:
       - shared.env
     environment:
-      - PAPERLESS_URL="http://paperless-web:3355"
-      - API_KEY="${PAPERLESS_API_KEY}"
+      PAPERLESS_URL: http://paperless-web:8000
+      API_KEY: ${PAPERLESS_API_KEY}
     networks:
       - paperless_net
       - infra_net
