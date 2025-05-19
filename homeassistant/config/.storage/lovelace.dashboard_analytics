@@ -63,6 +63,34 @@
               "icon": "mdi:twitter",
               "unit": "Followers",
               "name": "Twitter Followers (month)"
+            },
+            {
+              "graph": "line",
+              "type": "sensor",
+              "entity": "sensor.baruchiro_electron_google_oauth2_stars",
+              "detail": 1,
+              "hours_to_show": 672
+            },
+            {
+              "graph": "line",
+              "type": "sensor",
+              "entity": "sensor.baruchiro_paperless_mcp_stars",
+              "detail": 1,
+              "hours_to_show": 672
+            },
+            {
+              "graph": "line",
+              "type": "sensor",
+              "entity": "sensor.baruchiro_gh_prstuck_stars",
+              "detail": 1,
+              "hours_to_show": 672
+            },
+            {
+              "graph": "line",
+              "type": "sensor",
+              "entity": "sensor.baruchiro_url_title_preview_stars",
+              "detail": 1,
+              "hours_to_show": 672
             }
           ]
         }

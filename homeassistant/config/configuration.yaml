@@ -153,10 +153,3 @@ scrape:
         value_template: "{{ value.replace(',', '') | int }}"
         icon: mdi:stack-overflow
   
-  - resource: https://nitter.privacydev.net/baruchiro
-    scan_interval: 86400 # 24 hours
-    sensor:
-      - name: "Twitter Followers"
-        select: ".followers .profile-stat-num"
-        value_template: "{{ value.replace(',', '') | int }}"
-        icon: mdi:twitter
