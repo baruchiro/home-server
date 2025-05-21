@@ -6,6 +6,9 @@ homeassistant:
   packages:
     leaving_home_devices: !include leaving_home_devices.yaml
 
+# https://www.home-assistant.io/integrations/api/
+api:
+
 # Allow Cloudflare Tunnel from Docker
 http:
   use_x_forwarded_for: true

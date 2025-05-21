@@ -57,16 +57,6 @@
             {
               "graph": "line",
               "type": "sensor",
-              "entity": "sensor.twitter_followers",
-              "detail": 2,
-              "hours_to_show": 672,
-              "icon": "mdi:twitter",
-              "unit": "Followers",
-              "name": "Twitter Followers (month)"
-            },
-            {
-              "graph": "line",
-              "type": "sensor",
               "entity": "sensor.baruchiro_electron_google_oauth2_stars",
               "detail": 1,
               "hours_to_show": 672
