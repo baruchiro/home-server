@@ -608,7 +608,7 @@
       sequence:
       - service: fan.turn_off
         target:
-          device_id: ddda0c7e7b0177094ca218497c439fdb
+          entity_id: fan.mvvrr_khdr
     - conditions:
       - condition: state
         entity_id: input_select.fan_sleep_mode
@@ -616,22 +616,22 @@
       sequence:
       - service: fan.turn_on
         target:
-          device_id: ddda0c7e7b0177094ca218497c439fdb
+          entity_id: fan.mvvrr_khdr
       - service: fan.set_preset_mode
         data:
           preset_mode: sleep
         target:
-          device_id: ddda0c7e7b0177094ca218497c439fdb
+          entity_id: fan.mvvrr_khdr
       - service: fan.set_percentage
         data:
           percentage: 1
         target:
-          device_id: ddda0c7e7b0177094ca218497c439fdb
+          entity_id: fan.mvvrr_khdr
       - service: fan.oscillate
         data:
           oscillating: true
         target:
-          device_id: ddda0c7e7b0177094ca218497c439fdb
+          entity_id: fan.mvvrr_khdr
     - conditions:
       - condition: state
         entity_id: input_select.fan_sleep_mode
@@ -639,17 +639,17 @@
       sequence:
       - service: fan.turn_on
         target:
-          device_id: ddda0c7e7b0177094ca218497c439fdb
+          entity_id: fan.mvvrr_khdr
       - service: fan.set_percentage
         data:
           percentage: 100
         target:
-          device_id: ddda0c7e7b0177094ca218497c439fdb
+          entity_id: fan.mvvrr_khdr
       - service: fan.oscillate
         data:
           oscillating: true
         target:
-          device_id: ddda0c7e7b0177094ca218497c439fdb
+          entity_id: fan.mvvrr_khdr
 - id: sync_fan_sleep_mode_with_real_fan_state
   alias: Sync Fan Sleep Mode with Real Fan State
   triggers:

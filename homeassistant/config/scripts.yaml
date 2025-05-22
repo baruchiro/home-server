@@ -217,7 +217,7 @@ check_device_state_and_notify:
       required: true
     off_state:
       name: Off State
-      description: The state that means the device is off
+      description: List of states that mean the device is off
       required: true
     turn_off_service:
       name: Turn Off Service
@@ -230,7 +230,8 @@ check_device_state_and_notify:
       default: {}
   sequence:
   - condition: template
-    value_template: "{{ states(entity_id) != off_state }}"
+    value_template: >-
+      {{ states(entity_id) not in off_state }}
   - service: "{{ notify_service }}"
     data:
       title: כיבוי מכשירים

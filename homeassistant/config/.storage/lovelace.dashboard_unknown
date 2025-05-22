@@ -219,19 +219,16 @@
             },
             {
               "type": "entity",
-              "show_name": false,
+              "show_name": true,
               "show_state": true,
               "show_icon": true,
               "entity": "switch.heat_spreader",
               "icon": "",
               "show_entity_picture": true,
-              "state_content": [
-                "name",
-                "state"
-              ],
               "tap_action": {
                 "action": "toggle"
-              }
+              },
+              "name": "סלון"
             },
             {
               "type": "entity",

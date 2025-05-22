@@ -10,9 +10,9 @@ sensor:
           devices: >
             [
               {
-                "entity_id": "climate.mm_d",
+                "entity_id": "climate.mamad_ac",
                 "friendly_name": "מזגן ממ״ד",
-                "off_state": "off",
+                "off_state": ["off"],
                 "turn_off_service": "climate.set_hvac_mode",
                 "turn_off_data": {
                   "hvac_mode": "off"
@@ -21,7 +21,14 @@ sensor:
               {
                 "entity_id": "media_player.living_room_speaker",
                 "friendly_name": "רמקול בסלון",
-                "off_state": "idle",
+                "off_state": ["idle", "off"],
                 "turn_off_service": "media_player.media_stop"
+              },
+              {
+                "entity_id": "fan.mvvrr_khdr",
+                "friendly_name": "מאוורר חדר",
+                "off_state": ["off"],
+                "turn_off_service": "fan.turn_off",
+                "turn_off_data": {}
               }
             ] 
