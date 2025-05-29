@@ -59,6 +59,7 @@ services:
       - NODE_ENV=production
       - WEBHOOK_URL=https://n8n.${DOMAIN}/
       - GENERIC_TIMEZONE=Asia/Jerusalem
+      - N8N_LOG_LEVEL=debug
     volumes:
       - n8n-data:/home/node/.n8n
     networks:

@@ -16,6 +16,18 @@ services:
     restart: unless-stopped
     networks:
       - budget_net
+  
+  actual-mcp:
+    image: ghcr.io/baruchiro/baruchiro/actual-mcp:main
+    restart: unless-stopped
+    ports:
+      - '5007:3000'
+    env_file:
+      - shared.env
+      - moneyman.env
+    networks:
+      - budget_net
+      - infra_net
 
   moneyman:
     image: ghcr.io/baruchiro/moneyman:pr-2
@@ -39,6 +51,9 @@ networks:
   budget_net:
     name: budget_network
     driver: bridge
+  infra_net:
+    name: infrastructure_network
+    external: true  # Use the existing infra network
 
 volumes:
   actual-data:
