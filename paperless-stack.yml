@@ -58,6 +58,7 @@ services:
       - paperless_net
   
   paperless-mcp:
+    # port 3000
     image: ghcr.io/baruchiro/baruchiro/paperless-mcp:latest
     restart: unless-stopped
     env_file:

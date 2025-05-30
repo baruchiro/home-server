@@ -51,7 +51,7 @@ ask_zohar_for_glz:
   use_blueprint:
     path: homeassistant/confirmable_notification.yaml
     input:
-      notify_device: b85fff6170a535d2566d4ea2ce88674f
+      notify_device: a4828f12ad5f39a40d1ee7840e7d5218
       title: '{{ title }}'
       message: '{{ message }}'
       confirm_text: כן
@@ -230,18 +230,17 @@ check_device_state_and_notify:
       default: {}
   sequence:
   - condition: template
-    value_template: >-
-      {{ states(entity_id) not in off_state }}
-  - service: "{{ notify_service }}"
+    value_template: '{{ states(entity_id) not in off_state }}'
+  - service: '{{ notify_service }}'
     data:
       title: כיבוי מכשירים
-      message: "{{ friendly_name }} פועל. לכבות?"
+      message: '{{ friendly_name }} פועל. לכבות?'
       data:
         actions:
-          - action: TURN_OFF_DEVICE
-            title: לכבות
-          - action: DISMISS
-            title: להשאיר
+        - action: TURN_OFF_DEVICE
+          title: לכבות
+        - action: DISMISS
+          title: להשאיר
   - wait_for_trigger:
     - platform: event
       event_type: mobile_app_notification_action
@@ -251,9 +250,10 @@ check_device_state_and_notify:
   - choose:
     - conditions:
       - condition: template
-        value_template: "{{ wait.trigger.event.data.action == 'TURN_OFF_DEVICE' }}"
+        value_template: '{{ wait.trigger.event.data.action == ''TURN_OFF_DEVICE''
+          }}'
       sequence:
-      - service: "{{ turn_off_service }}"
+      - service: '{{ turn_off_service }}'
         target:
-          entity_id: "{{ entity_id }}"
-        data: "{{ turn_off_data }}"
+          entity_id: '{{ entity_id }}'
+        data: '{{ turn_off_data }}'
