@@ -171,7 +171,30 @@ services:
       ME_CONFIG_BASICAUTH: false
     networks:
       - infra_net
+  
+  qdrant:
+    image: qdrant/qdrant:latest
+    restart: always
+    container_name: qdrant
+    ports:
+      - 6333:6333
+      - 6334:6334
+    expose:
+      - 6333
+      - 6334
+      - 6335
+    configs:
+      - source: qdrant_config
+        target: /qdrant/config/production.yaml
+    volumes:
+      - qdrant-data:/qdrant/storage
+    networks:
+      - infra_net
 
+configs:
+  qdrant_config:
+    content: |
+      log_level: INFO
 
 networks:
   infra_net:
@@ -195,3 +218,4 @@ volumes:
   postiz-config:
   postiz-uploads:
   mongo-data:
+  qdrant-data:
