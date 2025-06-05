@@ -81,6 +81,22 @@
               "entity": "sensor.baruchiro_url_title_preview_stars",
               "detail": 1,
               "hours_to_show": 672
+            },
+            {
+              "graph": "line",
+              "type": "sensor",
+              "entity": "sensor.actual_mcp_downloads",
+              "detail": 2,
+              "unit": "downloads",
+              "hours_to_show": 168
+            },
+            {
+              "graph": "line",
+              "type": "sensor",
+              "entity": "sensor.paperless_mcp_downloads",
+              "detail": 2,
+              "unit": "downloads",
+              "hours_to_show": 168
             }
           ]
         }

@@ -499,7 +499,7 @@
       }}'
     user_devices:
       זהר:
-        notify_service: notify.mobile_app_m2102j20sg
+        notify_service: notify.mobile_app_zohar
       Baruch Odem:
         notify_service: notify.mobile_app_baruch_mobile
   actions:
@@ -562,7 +562,7 @@
     data:
       title: צום
       message: יצא הצום!
-  - action: notify.mobile_app_m2102j20sg
+  - action: notify.mobile_app_zohar
     metadata: {}
     data:
       message: יצא הצום!

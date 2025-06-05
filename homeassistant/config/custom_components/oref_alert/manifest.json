@@ -12,5 +12,5 @@
     "aiofiles",
     "shapely==2.0.7"
   ],
-  "version": "v2.21.0"
+  "version": "v2.21.1"
 }

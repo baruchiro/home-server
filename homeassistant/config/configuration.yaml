@@ -54,6 +54,7 @@ climate:
     device_code: 51
     controller_data: zigbee2mqtt/remote_ir/set
 
+# TODO: add download count for docker (add paperless-mcp and actual-mcp)
 rest:
   - resource: https://api.npmjs.org/downloads/point/last-week/use-route-as-state
     scan_interval: 43200 # 12 hours
@@ -155,4 +156,19 @@ scrape:
         select: "#stats .fs-body3"
         value_template: "{{ value.replace(',', '') | int }}"
         icon: mdi:stack-overflow
+  
+  - resource: https://github.com/baruchiro/actual-mcp/pkgs/container/baruchiro%2Factual-mcp
+    scan_interval: 86400 # 24 hours
+    sensor:
+      - name: "Actual MCP Downloads"
+        unique_id: "actual_mcp_downloads"
+        select: ".repository-content .pr-1 h3"
+        icon: mdi:docker
+  - resource: https://github.com/baruchiro/paperless-mcp/pkgs/container/baruchiro%2Fpaperless-mcp
+    scan_interval: 86400 # 24 hours
+    sensor:
+      - name: "Paperless MCP Downloads"
+        unique_id: "paperless_mcp_downloads"
+        select: ".repository-content .pr-1 h3"
+        icon: mdi:docker
   
