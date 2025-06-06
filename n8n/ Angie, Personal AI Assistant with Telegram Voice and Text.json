@@ -1,0 +1,721 @@
+{
+  "createdAt": "2025-05-09T13:16:59.061Z",
+  "updatedAt": "2025-06-06T08:36:36.000Z",
+  "id": "8mITXyEcWWQlNAut",
+  "name": "Angie, Personal AI Assistant with Telegram Voice and Text",
+  "active": true,
+  "isArchived": false,
+  "nodes": [
+    {
+      "parameters": {
+        "options": {}
+      },
+      "id": "46511f47-1687-4cbe-ae41-ceb205ed1f11",
+      "name": "OpenAI Chat Model",
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "position": [
+        440,
+        1440
+      ],
+      "typeVersion": 1,
+      "credentials": {
+        "openAiApi": {
+          "id": "CtrTPQy5DUzQE0zC",
+          "name": "OpenAi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "updates": [
+          "message"
+        ],
+        "additionalFields": {}
+      },
+      "id": "64fe44db-af19-43eb-9ff1-de0a72a9e645",
+      "name": "Listen for incoming events",
+      "type": "n8n-nodes-base.telegramTrigger",
+      "position": [
+        0,
+        560
+      ],
+      "webhookId": "322dce18-f93e-4f86-b9b1-3305519b7834",
+      "typeVersion": 1,
+      "credentials": {
+        "telegramApi": {
+          "id": "ZBWpaA7cEYyTvOHu",
+          "name": "AI Bot"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $('Listen for incoming events').first().json.message.from.id }}",
+        "text": "={{ $json.output || $json.error }}",
+        "additionalFields": {
+          "appendAttribution": false,
+          "parse_mode": "Markdown"
+        }
+      },
+      "id": "e35c04ff-a050-4564-8c1b-5b22b556872f",
+      "name": "Telegram",
+      "type": "n8n-nodes-base.telegram",
+      "position": [
+        1540,
+        460
+      ],
+      "typeVersion": 1.1,
+      "webhookId": "7024c419-edb9-46a4-bd03-f9da40a83edf",
+      "credentials": {
+        "telegramApi": {
+          "id": "ZBWpaA7cEYyTvOHu",
+          "name": "AI Bot"
+        }
+      },
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "version": 2,
+            "leftValue": "",
+            "caseSensitive": true,
+            "typeValidation": "strict"
+          },
+          "combinator": "and",
+          "conditions": [
+            {
+              "id": "a0bf9719-4272-46f6-ab3b-eda6f7b44fd8",
+              "operator": {
+                "type": "string",
+                "operation": "empty",
+                "singleValue": true
+              },
+              "leftValue": "={{ $json.message.text }}",
+              "rightValue": ""
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "e791d4f8-2c19-4c14-a71e-39a04f22e944",
+      "name": "If",
+      "type": "n8n-nodes-base.if",
+      "position": [
+        660,
+        460
+      ],
+      "typeVersion": 2.2
+    },
+    {
+      "parameters": {
+        "resource": "audio",
+        "operation": "transcribe",
+        "options": {}
+      },
+      "id": "5bd1788a-3d08-4eb3-8e03-3ce82f44d2a7",
+      "name": "Speech to Text",
+      "type": "@n8n/n8n-nodes-langchain.openAi",
+      "position": [
+        1100,
+        385
+      ],
+      "typeVersion": 1.3,
+      "credentials": {
+        "openAiApi": {
+          "id": "CtrTPQy5DUzQE0zC",
+          "name": "OpenAi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "fields": {
+          "values": [
+            {
+              "name": "text",
+              "stringValue": "={{ $json?.message?.text || \"\" }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "b67a2a93-517b-469e-aaa4-32c422710743",
+      "name": "Voice or Text",
+      "type": "n8n-nodes-base.set",
+      "position": [
+        440,
+        360
+      ],
+      "typeVersion": 3.2
+    },
+    {
+      "parameters": {
+        "resource": "file",
+        "fileId": "={{ $('Listen for incoming events').item.json.message.voice.file_id }}"
+      },
+      "id": "8105c39f-9e87-44c4-9215-b3777f0b4164",
+      "name": "Get Voice File",
+      "type": "n8n-nodes-base.telegram",
+      "position": [
+        880,
+        385
+      ],
+      "typeVersion": 1.1,
+      "webhookId": "b810d4f1-0a8d-4df9-9e3a-e7010de5c71d",
+      "credentials": {
+        "telegramApi": {
+          "id": "ZBWpaA7cEYyTvOHu",
+          "name": "AI Bot"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $json.chatInput }}",
+        "options": {
+          "systemMessage": "=You are a helpful assistant.\n\nToday's date is {{ $now }}.\n\nGuidelines:\n- If you didn't managed to help, response the user with which data may help you, or with a short description of the error."
+        }
+      },
+      "id": "759b975f-d17c-4386-a5b3-12413f0361f4",
+      "name": "Angie, AI Assistant 👩🏻‍🏫",
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "position": [
+        652,
+        1220
+      ],
+      "typeVersion": 1.6,
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "42d08aed-f267-464a-b19d-36ab65e18226",
+              "leftValue": "={{ $json.message.chat.id }}",
+              "rightValue": 50573760,
+              "operator": {
+                "type": "number",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        220,
+        560
+      ],
+      "id": "765d382a-9aac-407b-9e73-b1b9b5fa5f19",
+      "name": "only baruch"
+    },
+    {
+      "parameters": {
+        "chatId": "50573760",
+        "text": "={{ $json.message.from.first_name }} {{ $json.message.from.last_name }} (@{{ $json.message.from.username }}) (ChatID: {{ $json.message.chat.id }}) שלח את ההודעה הבאה:\n{{ $json.message.text }}",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        440,
+        560
+      ],
+      "id": "4d34d8a3-3996-493a-b43c-f9f266ee7787",
+      "name": "report",
+      "webhookId": "f428a76b-85cd-4f7e-af7a-b5366ea35886",
+      "credentials": {
+        "telegramApi": {
+          "id": "Qou6HQrlLUe5yLyE",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $json.message.chat.id }}",
+        "text": "סליחה אבל אתה לא מורשה להשתמש בבוט הזה",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        440,
+        760
+      ],
+      "id": "8c9ad684-2257-4803-aa62-035a00bfaf39",
+      "name": "reply",
+      "webhookId": "c21d5798-599c-4f8c-92be-9bcd1ece4b29",
+      "credentials": {
+        "telegramApi": {
+          "id": "Qou6HQrlLUe5yLyE",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "sendChatAction",
+        "chatId": "={{ $json.message.chat.id }}"
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        660,
+        260
+      ],
+      "id": "12423b82-44e0-4237-9919-f9fe8985e4e6",
+      "name": "Telegram1",
+      "webhookId": "f63575ba-8aa5-4f0e-befa-4358c8d20013",
+      "credentials": {
+        "telegramApi": {
+          "id": "Qou6HQrlLUe5yLyE",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sseEndpoint": "http://paperless-mcp:3000/sse",
+        "include": "except",
+        "excludeTools": [
+          "download_document"
+        ]
+      },
+      "type": "@n8n/n8n-nodes-langchain.mcpClientTool",
+      "typeVersion": 1,
+      "position": [
+        680,
+        1440
+      ],
+      "id": "42885dfe-093f-4265-b567-36594f4abf6c",
+      "name": "Paperless",
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chatTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        0,
+        1220
+      ],
+      "id": "65df77af-5379-4d68-aded-47a2b0d31a10",
+      "name": "When chat message received",
+      "webhookId": "7b301e7c-d061-4416-822e-8e2ed4e17402"
+    },
+    {
+      "parameters": {
+        "workflowInputs": {
+          "values": [
+            {
+              "name": "chatInput"
+            },
+            {
+              "name": "sessionId"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.executeWorkflowTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        0,
+        1020
+      ],
+      "id": "ee58a2ce-bd89-4acf-a18a-0cea497e8298",
+      "name": "When Executed by Another Workflow"
+    },
+    {
+      "parameters": {
+        "workflowId": {
+          "__rl": true,
+          "value": "8mITXyEcWWQlNAut",
+          "mode": "list",
+          "cachedResultName": "Angie, Personal AI Assistant with Telegram Voice and Text"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "chatInput": "={{ $json.text }}",
+            "sessionId": "={{ $json.message.chat.id }}"
+          },
+          "matchingColumns": [
+            "chatInput"
+          ],
+          "schema": [
+            {
+              "id": "chatInput",
+              "displayName": "chatInput",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": false
+            },
+            {
+              "id": "sessionId",
+              "displayName": "sessionId",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": true,
+          "convertFieldsToString": true
+        },
+        "mode": "each",
+        "options": {
+          "waitForSubWorkflow": true
+        }
+      },
+      "type": "n8n-nodes-base.executeWorkflow",
+      "typeVersion": 1.2,
+      "position": [
+        1320,
+        460
+      ],
+      "id": "b24f910f-d7dc-4ee2-91af-9555209b6fc1",
+      "name": "Execute Workflow1",
+      "alwaysOutputData": true
+    },
+    {
+      "parameters": {
+        "sseEndpoint": "http://192.168.1.106:3000/sse",
+        "include": "except",
+        "excludeTools": [
+          "download_document"
+        ]
+      },
+      "type": "@n8n/n8n-nodes-langchain.mcpClientTool",
+      "typeVersion": 1,
+      "position": [
+        800,
+        1440
+      ],
+      "id": "caa6cfdc-d2f9-4a33-b5ff-2020ae8f3117",
+      "name": "paperless-debug",
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "url": "=http://homeassistant:8123/api/history/period/{{ $now.minus(7, 'days').toISO({ includeOffset: false}) }}?filter_entity_id=sensor.npm_downloads_use_route_as_state,sensor.npm_downloads_electron_google_oauth2,sensor.npm_downloads_pursuit_rotor_task,sensor.url_title_preview_downloads,sensor.stack_overflow_reputation,sensor.baruchiro_electron_google_oauth2_stars,sensor.baruchiro_paperless_mcp_stars,sensor.baruchiro_gh_prstuck_stars,sensor.baruchiro_url_title_preview_stars&end_time={{ $now.toISO({ includeOffset: false}) }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        0,
+        0
+      ],
+      "id": "cfd30ecf-7538-408f-ab27-d2f3e5dcbeb9",
+      "name": "HTTP Request"
+    },
+    {
+      "parameters": {
+        "sessionIdType": "customKey",
+        "sessionKey": "={{ $json.sessionId }}",
+        "databaseName": "n8n"
+      },
+      "type": "@n8n/n8n-nodes-langchain.memoryMongoDbChat",
+      "typeVersion": 1,
+      "position": [
+        560,
+        1440
+      ],
+      "id": "55b5fe2d-956a-4ab2-ae79-ea0166c9ed20",
+      "name": "MongoDB Chat Memory",
+      "credentials": {
+        "mongoDb": {
+          "id": "OuAFtv5ZyczW5jGW",
+          "name": "MongoDB home-server"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sseEndpoint": "http://actual-mcp:3000/sse"
+      },
+      "type": "@n8n/n8n-nodes-langchain.mcpClientTool",
+      "typeVersion": 1,
+      "position": [
+        920,
+        1440
+      ],
+      "id": "6c7e27cf-cfca-421d-ad44-444f6d3aac93",
+      "name": "Actual MCP"
+    },
+    {
+      "parameters": {
+        "sseEndpoint": "https://mcp.posthog.com/sse",
+        "authentication": "bearerAuth",
+        "include": "except",
+        "excludeTools": [
+          "feature-flag-get-definition",
+          "feature-flag-get-all",
+          "create-feature-flag",
+          "update-feature-flag",
+          "delete-feature-flag",
+          "get-llm-total-costs-for-project"
+        ]
+      },
+      "type": "@n8n/n8n-nodes-langchain.mcpClientTool",
+      "typeVersion": 1,
+      "position": [
+        1040,
+        1440
+      ],
+      "id": "852f8559-87eb-4883-9091-dc766b84fd79",
+      "name": "PostHog MCP",
+      "credentials": {
+        "httpBearerAuth": {
+          "id": "tCydB4DO67MnszgB",
+          "name": "PostHog Bearer Token"
+        }
+      },
+      "onError": "continueRegularOutput"
+    }
+  ],
+  "connections": {
+    "If": {
+      "main": [
+        [
+          {
+            "node": "Get Voice File",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Execute Workflow1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Voice or Text": {
+      "main": [
+        [
+          {
+            "node": "If",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Telegram1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Voice File": {
+      "main": [
+        [
+          {
+            "node": "Speech to Text",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Speech to Text": {
+      "main": [
+        [
+          {
+            "node": "Execute Workflow1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Angie, AI Assistant 👩🏻‍🏫",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Listen for incoming events": {
+      "main": [
+        [
+          {
+            "node": "only baruch",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Angie, AI Assistant 👩🏻‍🏫": {
+      "main": [
+        [],
+        []
+      ]
+    },
+    "Telegram": {
+      "main": [
+        [],
+        []
+      ]
+    },
+    "only baruch": {
+      "main": [
+        [
+          {
+            "node": "Voice or Text",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "reply",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "report",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "report": {
+      "main": [
+        []
+      ]
+    },
+    "Paperless": {
+      "ai_tool": [
+        [
+          {
+            "node": "Angie, AI Assistant 👩🏻‍🏫",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "When chat message received": {
+      "main": [
+        [
+          {
+            "node": "Angie, AI Assistant 👩🏻‍🏫",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "When Executed by Another Workflow": {
+      "main": [
+        [
+          {
+            "node": "Angie, AI Assistant 👩🏻‍🏫",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Execute Workflow1": {
+      "main": [
+        [
+          {
+            "node": "Telegram",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "paperless-debug": {
+      "ai_tool": [
+        [
+          {
+            "node": "Angie, AI Assistant 👩🏻‍🏫",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Telegram1": {
+      "main": [
+        []
+      ]
+    },
+    "MongoDB Chat Memory": {
+      "ai_memory": [
+        [
+          {
+            "node": "Angie, AI Assistant 👩🏻‍🏫",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Actual MCP": {
+      "ai_tool": [
+        [
+          {
+            "node": "Angie, AI Assistant 👩🏻‍🏫",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "PostHog MCP": {
+      "ai_tool": [
+        [
+          {
+            "node": "Angie, AI Assistant 👩🏻‍🏫",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {},
+  "staticData": null,
+  "meta": {
+    "templateId": "2462",
+    "templateCredsSetupCompleted": true
+  },
+  "pinData": {},
+  "versionId": "d77f50ea-dc02-486b-97a3-54ac5a21cedc",
+  "triggerCount": 2,
+  "tags": []
+}

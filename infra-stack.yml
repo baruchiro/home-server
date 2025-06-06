@@ -62,6 +62,7 @@ services:
       - N8N_LOG_LEVEL=debug
     volumes:
       - n8n-data:/home/node/.n8n
+      - ./n8n:/home/node/backup
     networks:
       - infra_net
 

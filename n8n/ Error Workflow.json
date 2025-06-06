@@ -1,0 +1,66 @@
+{
+  "createdAt": "2025-02-16T07:14:58.692Z",
+  "updatedAt": "2025-02-16T08:12:52.000Z",
+  "id": "DevUOhaB8MkGzKfp",
+  "name": "Error Workflow",
+  "active": false,
+  "isArchived": false,
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.errorTrigger",
+      "typeVersion": 1,
+      "position": [
+        -240,
+        0
+      ],
+      "id": "8c42c116-b6e5-43e2-97ba-24c6c11071b2",
+      "name": "Error Trigger"
+    },
+    {
+      "parameters": {
+        "authentication": "webhook",
+        "content": "={{ $json.workflow.name }}.{{ $json.execution.lastNodeExecuted }}: {{ $json.execution.error.message }}\n\n```\n{{ $json.execution.error.stack }}\n```",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.discord",
+      "typeVersion": 2,
+      "position": [
+        40,
+        0
+      ],
+      "id": "4714fc2b-04d0-4f88-9da5-8337a2a5ff49",
+      "name": "Discord",
+      "credentials": {
+        "discordWebhookApi": {
+          "id": "79hbaRD2DzBqZs58",
+          "name": "Discord Error Webhook"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "Error Trigger": {
+      "main": [
+        [
+          {
+            "node": "Discord",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "pinData": {},
+  "versionId": "5d2236ce-e68e-4c8a-8ade-144e7e05a463",
+  "triggerCount": 0,
+  "tags": []
+}

@@ -1,0 +1,286 @@
+{
+  "createdAt": "2025-05-19T18:51:22.258Z",
+  "updatedAt": "2025-06-01T05:34:46.000Z",
+  "id": "0WwHaqXMYXtwoym8",
+  "name": "weekly_message",
+  "active": true,
+  "isArchived": false,
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "weeks",
+              "triggerAtDay": [
+                5
+              ],
+              "triggerAtHour": 8
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        0,
+        -180
+      ],
+      "id": "4507b72b-d320-4cac-a141-74af8bdad53e",
+      "name": "Schedule Trigger"
+    },
+    {
+      "parameters": {
+        "url": "=http://homeassistant:8123/api/history/period/{{ $now.minus(7, 'days').toISO({ includeOffset: false}) }}?filter_entity_id={{ $json.sensor }}&end_time={{ $now.toISO({ includeOffset: false}) }}",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpBearerAuth",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        660,
+        -180
+      ],
+      "id": "f0b7b38d-8de4-4cca-a44a-e20f55336850",
+      "name": "HTTP Request",
+      "credentials": {
+        "httpBearerAuth": {
+          "id": "hXlUgAYmUUFROUih",
+          "name": "HomeAssistant Bearer Auth account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "fieldToSplitOut": "sensors",
+        "options": {
+          "destinationFieldName": "sensor"
+        }
+      },
+      "type": "n8n-nodes-base.splitOut",
+      "typeVersion": 1,
+      "position": [
+        440,
+        -180
+      ],
+      "id": "b1027d4e-f471-49ec-aa20-5747a5d21656",
+      "name": "Split Out"
+    },
+    {
+      "parameters": {
+        "mode": "raw",
+        "jsonOutput": "{\n  \"sensors\": [\n    \"sensor.npm_downloads_use_route_as_state\",\n    \"sensor.npm_downloads_electron_google_oauth2\",\n    \"sensor.npm_downloads_pursuit_rotor_task\",\n    \"sensor.url_title_preview_downloads\",\n    \"sensor.stack_overflow_reputation\",\n    \"sensor.baruchiro_electron_google_oauth2_stars\",\n    \"sensor.baruchiro_paperless_mcp_stars\",\n    \"sensor.baruchiro_gh_prstuck_stars\",\n    \"sensor.baruchiro_url_title_preview_stars\",\n    \"sensor.actual_mcp_downloads\",\n    \"sensor.paperless_mcp_downloads\"\n  ]\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        220,
+        -180
+      ],
+      "id": "6e0e49fd-2990-464c-9c08-9a1c0fa25cb5",
+      "name": "Sensors List",
+      "executeOnce": false
+    },
+    {
+      "parameters": {
+        "mode": "runOnceForEachItem",
+        "jsCode": "// Assume items[0].json contains your top-level array\nconst data = $json;\n\nconst { attributes, entity_id } = data[0] || {};\n\n// Process each sensor's array\nconst states = data\n  .filter(({ state }) => !!state)\n  .map(({ state, last_changed }) => ({ state, last_changed }))\n  .reduce((acc, curr) => {\n    // Always keep the first entry, or if state changed from previous\n    if (acc.length === 0 || curr.state !== acc[acc.length - 1].state) {\n      acc.push(curr);\n    }\n    return acc;\n  }, []);\n\nreturn {\n  attributes,\n  entity_id,\n  states,\n};\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        880,
+        -180
+      ],
+      "id": "719c4388-3032-42c3-9618-7cd59b8b6286",
+      "name": "Code"
+    },
+    {
+      "parameters": {
+        "aggregate": "aggregateAllItemData",
+        "destinationFieldName": "",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.aggregate",
+      "typeVersion": 1,
+      "position": [
+        1100,
+        -180
+      ],
+      "id": "6b05790f-1dd4-4be2-8573-2f0ef8137ffc",
+      "name": "Aggregate"
+    },
+    {
+      "parameters": {
+        "workflowId": {
+          "__rl": true,
+          "value": "8mITXyEcWWQlNAut",
+          "mode": "list",
+          "cachedResultName": "Angie, Personal AI Assistant with Telegram Voice and Text"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "chatInput": "=התאריך היום הוא {{ $now }}.\nתן לי סיכום שבועי מתאריך {{ $now.minus(7, 'days') }} עד היום על הנתונים שהשתנו.\nאני מעוניין בדוח ממוקד ורלוונטי.\nאל תכתוב לי אם יש נתונים שלא השתנו בצורה משמעותית.\n\nמעניין אותי לדעת על הפרויקטים שלי ברשת, כמה חשיפה הם קיבלו במהלך השבוע וכמה הורדות.\nבנוסף, מעניין אותי לדעת מה מצב המסמכים שלי, כמה מחכים לי בinbox.\nאני גם רוצה לדעת בPostHog כמה אנשים נכנסו לבלוג שלי השבוע לעומת שבוע שעבר, איזה פוסטים היו הכי נצפים השבוע, ועוד.\n\nמצורפים נתונים מהשבוע האחרון על כמות הכוכבים בפרויקטים שלי, ועוד.\n\n{{ JSON.stringify($json[''], null, 4) }}\n\nתשתמש באימוג׳ים כדי לסמן עליה או ירידה של נתונים.\n\nUse this formats:\n**bold**\n*italic*\n`code`\n~~strike~~\n```c++\ncode\n```\nUse **bold** for headers.\n",
+            "sessionId": "weekly_report"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "chatInput",
+              "displayName": "chatInput",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "sessionId",
+              "displayName": "sessionId",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": true
+        },
+        "options": {
+          "waitForSubWorkflow": true
+        }
+      },
+      "type": "n8n-nodes-base.executeWorkflow",
+      "typeVersion": 1.2,
+      "position": [
+        1320,
+        -180
+      ],
+      "id": "26cca33b-854c-4828-ba68-ec720cd20b0f",
+      "name": "Execute Workflow"
+    },
+    {
+      "parameters": {
+        "chatId": "50573760",
+        "text": "={{ $json.output }}",
+        "additionalFields": {
+          "appendAttribution": false,
+          "parse_mode": "Markdown"
+        }
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        1540,
+        -180
+      ],
+      "id": "239a52ed-129c-44d9-b177-69e44f04ea1e",
+      "name": "Telegram",
+      "webhookId": "39ce86ee-1a0f-4718-ae74-66e33713989b",
+      "credentials": {
+        "telegramApi": {
+          "id": "ZBWpaA7cEYyTvOHu",
+          "name": "AI Bot"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "Schedule Trigger": {
+      "main": [
+        [
+          {
+            "node": "Sensors List",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Sensors List": {
+      "main": [
+        [
+          {
+            "node": "Split Out",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Split Out": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request": {
+      "main": [
+        [
+          {
+            "node": "Code",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code": {
+      "main": [
+        [
+          {
+            "node": "Aggregate",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Aggregate": {
+      "main": [
+        [
+          {
+            "node": "Execute Workflow",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Execute Workflow": {
+      "main": [
+        [
+          {
+            "node": "Telegram",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": {
+    "node:Schedule Trigger": {
+      "recurrenceRules": []
+    }
+  },
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "pinData": {},
+  "versionId": "97d95779-679a-46c1-a031-d3d4011fa8f8",
+  "triggerCount": 1,
+  "tags": []
+}

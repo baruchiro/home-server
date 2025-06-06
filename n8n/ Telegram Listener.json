@@ -1,0 +1,159 @@
+{
+  "createdAt": "2025-02-12T10:57:08.582Z",
+  "updatedAt": "2025-05-19T15:32:06.000Z",
+  "id": "JbWQTcnh14OvggKg",
+  "name": "Telegram Listener",
+  "active": true,
+  "isArchived": false,
+  "nodes": [
+    {
+      "parameters": {
+        "updates": [
+          "callback_query"
+        ],
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegramTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        0,
+        0
+      ],
+      "id": "36ec9370-119a-41e1-8003-0eabdb7e05d4",
+      "name": "Telegram Trigger",
+      "webhookId": "3a485e74-6129-4224-803d-ca99819a2291",
+      "credentials": {
+        "telegramApi": {
+          "id": "Qou6HQrlLUe5yLyE",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "chatId": "@BcsStudent",
+        "text": "={{ $json.callback_query.message.text }}",
+        "additionalFields": {
+          "appendAttribution": false
+        }
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        660,
+        0
+      ],
+      "id": "d3f42704-c051-4335-9639-481826a8193d",
+      "name": "Telegram",
+      "webhookId": "04651912-90bb-46f7-b99e-a6226c6e0e10",
+      "credentials": {
+        "telegramApi": {
+          "id": "Qou6HQrlLUe5yLyE",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.callback_query.data }}",
+                    "rightValue": "Forward",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.2,
+      "position": [
+        220,
+        0
+      ],
+      "id": "4e4fe0fc-7142-4f7a-808a-8aa026b2d999",
+      "name": "Switch"
+    },
+    {
+      "parameters": {
+        "operation": "editMessageText",
+        "chatId": "={{ $('Telegram Trigger').item.json.callback_query.message.chat.id }}",
+        "messageId": "={{ $('Telegram Trigger').item.json.callback_query.message.message_id }}",
+        "text": "={{ $('Telegram Trigger').item.json.callback_query.message.text }}",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        240,
+        200
+      ],
+      "id": "c0c9b447-8cf8-46c8-bcaa-58e2c96e206e",
+      "name": "Telegram1",
+      "webhookId": "0577eafc-dfa7-4d4c-98ac-450bb38dc256",
+      "credentials": {
+        "telegramApi": {
+          "id": "Qou6HQrlLUe5yLyE",
+          "name": "Telegram account"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "Telegram Trigger": {
+      "main": [
+        [
+          {
+            "node": "Switch",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Telegram1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Switch": {
+      "main": [
+        [
+          {
+            "node": "Telegram",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "pinData": {},
+  "versionId": "b31ade7f-c740-4dd8-aefa-fd2e34febc7d",
+  "triggerCount": 1,
+  "tags": []
+}

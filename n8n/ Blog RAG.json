@@ -1,0 +1,19 @@
+{
+  "createdAt": "2025-05-30T12:03:35.784Z",
+  "updatedAt": "2025-05-30T12:03:35.000Z",
+  "id": "zGMLtZNjE17ZbyH9",
+  "name": "Blog RAG",
+  "active": false,
+  "isArchived": false,
+  "nodes": [],
+  "connections": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "meta": null,
+  "pinData": {},
+  "versionId": "30d61ff8-41a8-4d00-8ff4-c2192afa715d",
+  "triggerCount": 0,
+  "tags": []
+}

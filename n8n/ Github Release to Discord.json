@@ -1,0 +1,278 @@
+{
+  "createdAt": "2025-05-13T05:05:22.360Z",
+  "updatedAt": "2025-05-13T14:43:57.000Z",
+  "id": "mTgiIN2i83Z8BKvO",
+  "name": "Github Release to Discord",
+  "active": false,
+  "isArchived": false,
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "minutes"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        0,
+        -100
+      ],
+      "id": "1e69d0c6-12da-4566-9329-7026ba958f22",
+      "name": "Schedule Trigger"
+    },
+    {
+      "parameters": {
+        "authentication": "oAuth2",
+        "resource": "release",
+        "operation": "getAll",
+        "owner": {
+          "__rl": true,
+          "value": "https://github.com/eshaham",
+          "mode": "url"
+        },
+        "repository": {
+          "__rl": true,
+          "value": "https://github.com/eshaham/israeli-bank-scrapers",
+          "mode": "url"
+        },
+        "limit": 1
+      },
+      "type": "n8n-nodes-base.github",
+      "typeVersion": 1.1,
+      "position": [
+        220,
+        -100
+      ],
+      "id": "25386d38-195a-46ae-b0f3-3e472886e680",
+      "name": "GitHub",
+      "webhookId": "26f70455-5797-4a36-9600-7af649eb35fe",
+      "credentials": {
+        "githubOAuth2Api": {
+          "id": "nUnA4V2kUY2OCSEk",
+          "name": "GitHub account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "dataToSave": {
+          "values": [
+            {
+              "key": "release",
+              "value": "={{ $json.tag_name }}"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.executionData",
+      "typeVersion": 1,
+      "position": [
+        440,
+        -200
+      ],
+      "id": "d31978d7-05c6-4b2a-a670-27943da229db",
+      "name": "Execution Data"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Get workflow storage (persistent)\nconst workflowData = $getWorkflowStaticData(\"global\");\n\n// Load last updated timestamp (default to null)\nconst lastRelease = workflowData.lastRelease || null;\n\nconst currentRelease = $input.first().json.tag_name\n\nlet isNew = lastRelease !== currentRelease\n\nworkflowData.lastRelease = lastRelease\n\nreturn { isNew }"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        660,
+        0
+      ],
+      "id": "69c345fc-a1ea-4428-94da-5f612d565d75",
+      "name": "isNew"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "371dc80a-b964-41a0-bb46-0bc5e6f22412",
+              "leftValue": "={{ $json.isNew }}",
+              "rightValue": "",
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        880,
+        0
+      ],
+      "id": "a56a48a7-8f01-4a6d-a86d-36c7030aede0",
+      "name": "if isNew"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "8d63afb4-530f-4cd1-b84f-d725a3ebf128",
+              "leftValue": "={{ $json.draft }}",
+              "rightValue": "",
+              "operator": {
+                "type": "boolean",
+                "operation": "false",
+                "singleValue": true
+              }
+            },
+            {
+              "id": "682cc4cf-fdb5-4ea7-8624-f3975ec4339e",
+              "leftValue": "={{ $json.prerelease }}",
+              "rightValue": "",
+              "operator": {
+                "type": "boolean",
+                "operation": "false",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        440,
+        0
+      ],
+      "id": "f097b347-2a3e-4f37-bf0e-da4bfca13711",
+      "name": "not draft"
+    },
+    {
+      "parameters": {
+        "authentication": "webhook",
+        "content": "=📢 New Release! `{{ $('GitHub').item.json.name }}` of israeli-bank-scrapers is now live! 🚀\n\n{{ $('GitHub').item.json.body.replaceAll('\\n\\n', '\\n') }}\n🔗 **GitHub Release:** {{ $('GitHub').item.json.html_url }}",
+        "options": {
+          "avatar_url": "={{ $('GitHub').item.json.author.avatar_url }}",
+          "username": "={{ $('GitHub').item.json.author.login }}"
+        }
+      },
+      "type": "n8n-nodes-base.discord",
+      "typeVersion": 2,
+      "position": [
+        1100,
+        -100
+      ],
+      "id": "64e9abd6-e119-410b-bd33-3408126de4bf",
+      "name": "Discord",
+      "webhookId": "35dc9043-c4ff-424f-9867-3296bc0ba1ab",
+      "credentials": {
+        "discordWebhookApi": {
+          "id": "gTkTJccxgkNgjWYz",
+          "name": "scrapers-release-channel"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "Schedule Trigger": {
+      "main": [
+        [
+          {
+            "node": "GitHub",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "GitHub": {
+      "main": [
+        [
+          {
+            "node": "Execution Data",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "not draft",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "isNew": {
+      "main": [
+        [
+          {
+            "node": "if isNew",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "not draft": {
+      "main": [
+        [
+          {
+            "node": "isNew",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "if isNew": {
+      "main": [
+        [
+          {
+            "node": "Discord",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": {
+    "node:Schedule Trigger": {
+      "recurrenceRules": []
+    },
+    "global": {
+      "lastRelease": null
+    }
+  },
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "pinData": {},
+  "versionId": "00e63b6f-cfe0-40d8-b344-4cb1f74e471d",
+  "triggerCount": 1,
+  "tags": []
+}

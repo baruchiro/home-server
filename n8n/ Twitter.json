@@ -1,0 +1,1050 @@
+{
+  "createdAt": "2025-02-12T07:29:12.423Z",
+  "updatedAt": "2025-05-09T06:48:03.000Z",
+  "id": "w1D6n0jX5t58mEDt",
+  "name": "Twitter",
+  "active": false,
+  "isArchived": false,
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "hours",
+              "hoursInterval": 8
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        60,
+        20
+      ],
+      "id": "0eb5ae6a-eaa7-4eba-b01b-3b8b6c8a1ee9",
+      "name": "Schedule Trigger"
+    },
+    {
+      "parameters": {
+        "operation": "search",
+        "searchText": "from:baruchiro",
+        "limit": 2,
+        "additionalFields": {
+          "tweetFieldsObject": [
+            "in_reply_to_user_id",
+            "text",
+            "id",
+            "referenced_tweets",
+            "source"
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.twitter",
+      "typeVersion": 2,
+      "position": [
+        280,
+        20
+      ],
+      "id": "5d86e8f1-a51b-4e21-8cf6-801d65127a76",
+      "name": "X",
+      "credentials": {
+        "twitterOAuth2Api": {
+          "id": "hzmIR3xc65wfn8aT",
+          "name": "X account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "2bacba76-30da-4a87-9677-18a10c57c4b4",
+              "leftValue": "={{ $json.referenced_tweets }}",
+              "rightValue": "quoted",
+              "operator": {
+                "type": "array",
+                "operation": "notExists",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "or"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.filter",
+      "typeVersion": 2.2,
+      "position": [
+        500,
+        20
+      ],
+      "id": "93e3b4a6-4882-486c-96f2-24a3f039b778",
+      "name": "Filter"
+    },
+    {
+      "parameters": {
+        "chatId": "50573760",
+        "text": "={{ $json.text }}",
+        "replyMarkup": "inlineKeyboard",
+        "inlineKeyboard": {
+          "rows": [
+            {
+              "row": {
+                "buttons": [
+                  {
+                    "text": "Forward",
+                    "additionalFields": {
+                      "callback_data": "Forward"
+                    }
+                  },
+                  {
+                    "text": "Skip",
+                    "additionalFields": {
+                      "callback_data": "Skip"
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "additionalFields": {
+          "appendAttribution": false,
+          "parse_mode": "HTML"
+        }
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        940,
+        20
+      ],
+      "id": "b59207b1-1bf4-4c33-b9de-fee9e1424c7e",
+      "name": "Telegram",
+      "webhookId": "026d3364-485e-420f-95e9-e0ecaeef8da1",
+      "credentials": {
+        "telegramApi": {
+          "id": "Qou6HQrlLUe5yLyE",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const staticData = $getWorkflowStaticData('global');\nconst newTweetIds = $input.all().map(item => item.json.id);\nconst oldTweetIds = staticData.oldTweetIds; \n\nif (!oldTweetIds) {\n  staticData.oldTweetIds = newTweetIds;\n  return $input.all();\n}\n\n\nconst actualNewTweetIds = newTweetIds.filter((id) => !oldTweetIds.includes(id));\nconst actualNewTweets = $input.all().filter((data) => actualNewTweetIds.includes(data.json.id));\nstaticData.oldTweetIds = [...new Set([...actualNewTweetIds, ...oldTweetIds])];\n\nreturn actualNewTweets;"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        720,
+        20
+      ],
+      "id": "645a0b68-1f7c-4fea-b8d0-4a11e609e32b",
+      "name": "Filter1"
+    }
+  ],
+  "connections": {
+    "Schedule Trigger": {
+      "main": [
+        [
+          {
+            "node": "X",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "X": {
+      "main": [
+        [
+          {
+            "node": "Filter",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Filter": {
+      "main": [
+        [
+          {
+            "node": "Filter1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Filter1": {
+      "main": [
+        [
+          {
+            "node": "Telegram",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1",
+    "callerPolicy": "workflowsFromSameOwner",
+    "errorWorkflow": "DevUOhaB8MkGzKfp"
+  },
+  "staticData": {
+    "node:Schedule Trigger": {
+      "recurrenceRules": [
+        8
+      ]
+    },
+    "global": {
+      "oldTweetIds": [
+        "1914547623299592375",
+        "1914525034950934891",
+        "1913892248489537973",
+        "1893541796132671801",
+        "1892814843486302399",
+        "1892656675166814555",
+        "1892271712529494319",
+        "1889614667598717306",
+        "1889552267134525458",
+        "1889335282291364262",
+        "1889291617275707603",
+        "1889280007257645192",
+        "1889278336104292601",
+        "1889274817511141754",
+        "1889274333647753351",
+        "1889270250127901167",
+        "1889191384105603571",
+        "1889047377522102427",
+        "1889046180186734873",
+        "1889007787759345715",
+        "1889007677767835875",
+        "1889007624236257757",
+        "1889007534331040125",
+        "1889004551811858883",
+        "1889004119777546445",
+        "1888967118365859999",
+        "1888964265823944802",
+        "1888964121883734019",
+        "1888864329816060054",
+        "1888677936468840569",
+        "1888677710698037745",
+        "1888677589142958158",
+        "1888677536290210087",
+        "1888647226949611775",
+        "1888644813156757828",
+        "1888643899549212707",
+        "1888642701140348958",
+        "1888641620871962931",
+        "1888638836869157120",
+        "1888585393349472373",
+        "1888582393092616240",
+        "1888523368439197913",
+        "1888519655301513609",
+        "1888517016618778715",
+        "1888513901790187960",
+        "1888513676765777943",
+        "1888478458851782905",
+        "1888435767308882396",
+        "1889191570257129847",
+        "1889005277921370504",
+        "1888952855266009416",
+        "1888646918181433514",
+        "1888646748681224251",
+        "1888643987524776135",
+        "1888638724294013166",
+        "1888537311882748013",
+        "1888516236192907395"
+      ]
+    }
+  },
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "pinData": {
+    "X": [
+      {
+        "json": {
+          "edit_history_tweet_ids": [
+            "1889614667598717306"
+          ],
+          "text": "מבסוט על @n8n_io",
+          "id": "1889614667598717306"
+        }
+      },
+      {
+        "json": {
+          "in_reply_to_user_id": "1509757374852214804",
+          "edit_history_tweet_ids": [
+            "1889552267134525458"
+          ],
+          "text": "@meijin008 אני רציתי להיות אחד מאלה\n\nלא כדי לשרוף את החיים שלי על סטארטאפ עם שעות עבודה לא הגיוניות, אלא לפתח מוצר שבאמת נוגע באנשים ואפשר להתחבר אליו",
+          "referenced_tweets": [
+            {
+              "type": "replied_to",
+              "id": "1889352148846080322"
+            }
+          ],
+          "id": "1889552267134525458"
+        }
+      },
+      {
+        "json": {
+          "in_reply_to_user_id": "1673231730939944961",
+          "edit_history_tweet_ids": [
+            "1889335282291364262"
+          ],
+          "text": "@netadror @cursor_ai אוקיי איך מחברים אותו לMCP הזה?",
+          "referenced_tweets": [
+            {
+              "type": "replied_to",
+              "id": "1889276059691962760"
+            }
+          ],
+          "id": "1889335282291364262"
+        }
+      },
+      {
+        "json": {
+          "in_reply_to_user_id": "2516361668",
+          "edit_history_tweet_ids": [
+            "1889291617275707603"
+          ],
+          "text": "@User_panui @boltdotnew @base_44 @lovable_dev @webdraw_ @Tempo_Labs עכשיו אין לי תירוצים לדחות את הדברים שרציתי לעשות כי זה מורכב מידי",
+          "referenced_tweets": [
+            {
+              "type": "replied_to",
+              "id": "1889281211668836643"
+            }
+          ],
+          "id": "1889291617275707603"
+        }
+      },
+      {
+        "json": {
+          "in_reply_to_user_id": "2516361668",
+          "edit_history_tweet_ids": [
+            "1889280007257645192"
+          ],
+          "text": "@User_panui @boltdotnew @base_44 @lovable_dev @webdraw_ @Tempo_Labs מוזר שלא שמעתי על אף אחד מהם?\n\nויש בעיה בציוץ שלך...\nעכשיו כבר אין תירוצים 😱",
+          "referenced_tweets": [
+            {
+              "type": "replied_to",
+              "id": "1889252618813284604"
+            }
+          ],
+          "id": "1889280007257645192"
+        }
+      },
+      {
+        "json": {
+          "in_reply_to_user_id": "1230069562529501185",
+          "edit_history_tweet_ids": [
+            "1889278336104292601"
+          ],
+          "text": "@OfirOzeri כו גם לזה לא הגעתי, רוצה להריץ Olama",
+          "referenced_tweets": [
+            {
+              "type": "replied_to",
+              "id": "1889275299298181410"
+            }
+          ],
+          "id": "1889278336104292601"
+        }
+      },
+      {
+        "json": {
+          "in_reply_to_user_id": "1230069562529501185",
+          "edit_history_tweet_ids": [
+            "1889274817511141754"
+          ],
+          "text": "@OfirOzeri אין לי כוח לנסות, יש המון כלי AI מגניבים אבל לכולם צריך טוקן, ואין לי",
+          "referenced_tweets": [
+            {
+              "type": "replied_to",
+              "id": "1889274472017887458"
+            }
+          ],
+          "id": "1889274817511141754"
+        }
+      },
+      {
+        "json": {
+          "in_reply_to_user_id": "1230069562529501185",
+          "edit_history_tweet_ids": [
+            "1889274333647753351"
+          ],
+          "text": "@OfirOzeri במקרה העין שלי תפסה שם ישראלי\n\nכל הכבוד",
+          "referenced_tweets": [
+            {
+              "type": "replied_to",
+              "id": "1889272523415568663"
+            }
+          ],
+          "id": "1889274333647753351"
+        }
+      },
+      {
+        "json": {
+          "in_reply_to_user_id": "1230069562529501185",
+          "edit_history_tweet_ids": [
+            "1889270250127901167"
+          ],
+          "text": "@OfirOzeri https://t.co/WRFYxsHU82",
+          "referenced_tweets": [
+            {
+              "type": "quoted",
+              "id": "1889148633313853519"
+            }
+          ],
+          "id": "1889270250127901167"
+        }
+      },
+      {
+        "json": {
+          "edit_history_tweet_ids": [
+            "1889191570257129847"
+          ],
+          "text": "שוקולד 4.0 ואני אפילו לא טעמתי את 3.0 🍫 https://t.co/dC0G8a2aUA",
+          "referenced_tweets": [
+            {
+              "type": "quoted",
+              "id": "1888936209927360694"
+            }
+          ],
+          "id": "1889191570257129847"
+        }
+      },
+      {
+        "json": {
+          "in_reply_to_user_id": "1819114679253221376",
+          "edit_history_tweet_ids": [
+            "1889191384105603571"
+          ],
+          "text": "@helli_conaty זה לא \"היוש\", זה יותר כמו \"וואי וואי מה יקרה אם לא מקום בזמן אמאל'ה אתה המוח שלי אבל אני אתנקם בך למה עשית לי את זה אין מצב\"",
+          "referenced_tweets": [
+            {
+              "type": "replied_to",
+              "id": "1888886201748275524"
+            }
+          ],
+          "id": "1889191384105603571"
+        }
+      },
+      {
+        "json": {
+          "in_reply_to_user_id": "1718706163062063104",
+          "edit_history_tweet_ids": [
+            "1889047377522102427"
+          ],
+          "text": "@GiladSch123 עצם ההגדרה של רב זה מה שהתלמידים עושים ממנו",
+          "referenced_tweets": [
+            {
+              "type": "replied_to",
+              "id": "1889041996464943283"
+            }
+          ],
+          "id": "1889047377522102427"
+        }
+      },
+      {
+        "json": {
+          "in_reply_to_user_id": "50008721",
+          "edit_history_tweet_ids": [
+            "1889046180186734873"
+          ],
+          "text": "@Eran_Efrat אני יש לי את תמנע תודה",
+          "referenced_tweets": [
+            {
+              "type": "replied_to",
+              "id": "1889038573376098680"
+            }
+          ],
+          "id": "1889046180186734873"
+        }
+      },
+      {
+        "json": {
+          "in_reply_to_user_id": "1509757374852214804",
+          "edit_history_tweet_ids": [
+            "1889007787759345715"
+          ],
+          "text": "@meijin008 גם אנחנו עם אנטנות פתוחות\n\nאבל לא שמעתי על גיוס",
+          "referenced_tweets": [
+            {
+              "type": "replied_to",
+              "id": "1889006568475070740"
+            }
+          ],
+          "id": "1889007787759345715"
+        }
+      },
+      {
+        "json": {
+          "in_reply_to_user_id": "66348470",
+          "edit_history_tweet_ids": [
+            "1889007677767835875"
+          ],
+          "text": "@VeryFalseNeto אפילו שזה לא הארי פוטר",
+          "referenced_tweets": [
+            {
+              "type": "replied_to",
+              "id": "1889007624236257757"
+            }
+          ],
+          "id": "1889007677767835875"
+        }
+      },
+      {
+        "json": {
+          "in_reply_to_user_id": "1403093475319595009",
+          "edit_history_tweet_ids": [
+            "1889007624236257757"
+          ],
+          "text": "@VeryFalseNeto אני",
+          "referenced_tweets": [
+            {
+              "type": "replied_to",
+              "id": "1888876978553360569"
+            }
+          ],
+          "id": "1889007624236257757"
+        }
+      },
+      {
+        "json": {
+          "in_reply_to_user_id": "58142131",
+          "edit_history_tweet_ids": [
+            "1889007534331040125"
+          ],
+          "text": "@AviadLevy מאוד רציתי לעבוד עם נודרד אבל מתברר שאת רוב האוטומציות אני כותב על הדרך מהפלאפון בזמנים מתים.",
+          "referenced_tweets": [
+            {
+              "type": "replied_to",
+              "id": "1889004953999389043"
+            }
+          ],
+          "id": "1889007534331040125"
+        }
+      },
+      {
+        "json": {
+          "edit_history_tweet_ids": [
+            "1889005277921370504"
+          ],
+          "text": "אתם לא רוצים שג'ונס יחזור https://t.co/ih2he31ebi",
+          "referenced_tweets": [
+            {
+              "type": "quoted",
+              "id": "1888989762523992537"
+            }
+          ],
+          "id": "1889005277921370504"
+        }
+      },
+      {
+        "json": {
+          "in_reply_to_user_id": "1056278375348756480",
+          "edit_history_tweet_ids": [
+            "1889004551811858883"
+          ],
+          "text": "@ehudgeraMD @ruthlessrousso אתה שופט את התחום הזה בצורה מדעית אבל מלכתחילה הוא לא מדעי",
+          "referenced_tweets": [
+            {
+              "type": "replied_to",
+              "id": "1889000216516268259"
+            }
+          ],
+          "id": "1889004551811858883"
+        }
+      },
+      {
+        "json": {
+          "in_reply_to_user_id": "58142131",
+          "edit_history_tweet_ids": [
+            "1889004119777546445"
+          ],
+          "text": "@AviadLevy אגב, את כל האוטומציות אתה מנהל מהממשק משתמש? מyaml? NodeRed?",
+          "referenced_tweets": [
+            {
+              "type": "replied_to",
+              "id": "1888988819225239709"
+            }
+          ],
+          "id": "1889004119777546445"
+        }
+      },
+      {
+        "json": {
+          "in_reply_to_user_id": "542109150",
+          "edit_history_tweet_ids": [
+            "1888967118365859999"
+          ],
+          "text": "@oriSomething רציתי לכתוב בילדר שחייבים להשתמש בפונקציות שלו בסדר מסוים 🤩",
+          "referenced_tweets": [
+            {
+              "type": "replied_to",
+              "id": "1888965125698113908"
+            }
+          ],
+          "id": "1888967118365859999"
+        }
+      },
+      {
+        "json": {
+          "in_reply_to_user_id": "542109150",
+          "edit_history_tweet_ids": [
+            "1888964265823944802"
+          ],
+          "text": "@oriSomething מימשתי בילדר וסטרטג׳י אז אני מניח שההגדרה היא מה שהופיע בGang of Four",
+          "referenced_tweets": [
+            {
+              "type": "replied_to",
+              "id": "1888961923107946986"
+            }
+          ],
+          "id": "1888964265823944802"
+        }
+      },
+      {
+        "json": {
+          "in_reply_to_user_id": "1603432351727509506",
+          "edit_history_tweet_ids": [
+            "1888964121883734019"
+          ],
+          "text": "@goodenoughprgrm נייטרלי",
+          "referenced_tweets": [
+            {
+              "type": "replied_to",
+              "id": "1888957307351884245"
+            }
+          ],
+          "id": "1888964121883734019"
+        }
+      },
+      {
+        "json": {
+          "edit_history_tweet_ids": [
+            "1888952855266009416"
+          ],
+          "text": "לא יודע מה קרה פתאום\n\n(ויש שיגידו שלא ברור איך לא קרה עד עכשיו)\n\nאבל זה כבר הDesign Pattern השני שאני מממש בשבוע האחרון בTypeScript.",
+          "id": "1888952855266009416"
+        }
+      },
+      {
+        "json": {
+          "in_reply_to_user_id": "891757727520874496",
+          "edit_history_tweet_ids": [
+            "1888864329816060054"
+          ],
+          "text": "@ShaharAvigezer נניח שisPaymentFlow=true",
+          "referenced_tweets": [
+            {
+              "type": "replied_to",
+              "id": "1888863332871938193"
+            }
+          ],
+          "id": "1888864329816060054"
+        }
+      },
+      {
+        "json": {
+          "in_reply_to_user_id": "409127403",
+          "edit_history_tweet_ids": [
+            "1888677936468840569"
+          ],
+          "text": "@barnashon נכנסתי וגיליתי שאני שלילי",
+          "referenced_tweets": [
+            {
+              "type": "replied_to",
+              "id": "1888654698548236303"
+            }
+          ],
+          "id": "1888677936468840569"
+        }
+      },
+      {
+        "json": {
+          "in_reply_to_user_id": "542109150",
+          "edit_history_tweet_ids": [
+            "1888677710698037745"
+          ],
+          "text": "@oriSomething אני לפעמים אוהב לתקוע דווקא שעה עגולה, ולפעמים להיפך",
+          "referenced_tweets": [
+            {
+              "type": "replied_to",
+              "id": "1888662430848352310"
+            }
+          ],
+          "id": "1888677710698037745"
+        }
+      },
+      {
+        "json": {
+          "in_reply_to_user_id": "542109150",
+          "edit_history_tweet_ids": [
+            "1888677589142958158"
+          ],
+          "text": "@oriSomething אפשר להמציא",
+          "referenced_tweets": [
+            {
+              "type": "replied_to",
+              "id": "1888661908749799751"
+            }
+          ],
+          "id": "1888677589142958158"
+        }
+      },
+      {
+        "json": {
+          "in_reply_to_user_id": "58142131",
+          "edit_history_tweet_ids": [
+            "1888677536290210087"
+          ],
+          "text": "@AviadLevy אני עושה את זה כדי לתזמן",
+          "referenced_tweets": [
+            {
+              "type": "replied_to",
+              "id": "1888655666664849838"
+            }
+          ],
+          "id": "1888677536290210087"
+        }
+      },
+      {
+        "json": {
+          "in_reply_to_user_id": "1751157816503500800",
+          "edit_history_tweet_ids": [
+            "1888647226949611775"
+          ],
+          "text": "@Motherland66058 @AviadLevy ליד הכפתורים של הוספת תמונה, מיקום, סקר",
+          "referenced_tweets": [
+            {
+              "type": "replied_to",
+              "id": "1888644930433650837"
+            }
+          ],
+          "id": "1888647226949611775"
+        }
+      },
+      {
+        "json": {
+          "edit_history_tweet_ids": [
+            "1888646918181433514"
+          ],
+          "text": "RT @ItaiWithTwoEyes: פיד קורפורטים: איך אתם מעודדים סקרנות ומאפשרים מחקר אישי של טכנולוגיות חדשות תוך שמירה על אבטחת המידע בארגון?\n\n(השאלה…",
+          "referenced_tweets": [
+            {
+              "type": "retweeted",
+              "id": "1888623911497052347"
+            }
+          ],
+          "id": "1888646918181433514"
+        }
+      },
+      {
+        "json": {
+          "edit_history_tweet_ids": [
+            "1888646748681224251"
+          ],
+          "text": "האם שמעתם על התפקיד platform engineer?",
+          "id": "1888646748681224251"
+        }
+      },
+      {
+        "json": {
+          "in_reply_to_user_id": "1058828707433984001",
+          "edit_history_tweet_ids": [
+            "1888644813156757828"
+          ],
+          "text": "@talsharon5 בשבת אמרו לי שגם מי שלמד במקומות הנכונים, אסור לו יותר לספור נק\"ז לתואר ומעכשיו מיישרים קו עם נ\"ז",
+          "referenced_tweets": [
+            {
+              "type": "replied_to",
+              "id": "1888620665160212514"
+            }
+          ],
+          "id": "1888644813156757828"
+        }
+      },
+      {
+        "json": {
+          "edit_history_tweet_ids": [
+            "1888643987524776135"
+          ],
+          "text": "למי שעוד לא יודע איך לתזמן ציוצים https://t.co/vCSODtSyY1",
+          "referenced_tweets": [
+            {
+              "type": "quoted",
+              "id": "1888643899549212707"
+            }
+          ],
+          "id": "1888643987524776135"
+        }
+      },
+      {
+        "json": {
+          "in_reply_to_user_id": "58142131",
+          "edit_history_tweet_ids": [
+            "1888643899549212707"
+          ],
+          "text": "@AviadLevy מטוויטר בדפדפן אתה יכול לתזמן",
+          "referenced_tweets": [
+            {
+              "type": "replied_to",
+              "id": "1888642594336276912"
+            }
+          ],
+          "id": "1888643899549212707"
+        }
+      },
+      {
+        "json": {
+          "in_reply_to_user_id": "1731384818749861888",
+          "edit_history_tweet_ids": [
+            "1888642701140348958"
+          ],
+          "text": "@Tchiya_Kot אופי \nותוספי תזונה",
+          "referenced_tweets": [
+            {
+              "type": "replied_to",
+              "id": "1888613342916251812"
+            }
+          ],
+          "id": "1888642701140348958"
+        }
+      },
+      {
+        "json": {
+          "in_reply_to_user_id": "58142131",
+          "edit_history_tweet_ids": [
+            "1888641620871962931"
+          ],
+          "text": "@AviadLevy אם כבר דראפטים, אתה יודע שאפשר לתזמן, כן? \n\nבכל מקרה, אולי אחר כך תשרשר אותם",
+          "referenced_tweets": [
+            {
+              "type": "replied_to",
+              "id": "1888640417362596262"
+            }
+          ],
+          "id": "1888641620871962931"
+        }
+      },
+      {
+        "json": {
+          "in_reply_to_user_id": "58142131",
+          "edit_history_tweet_ids": [
+            "1888638836869157120"
+          ],
+          "text": "@AviadLevy זה לא שרשור",
+          "referenced_tweets": [
+            {
+              "type": "replied_to",
+              "id": "1888629864435011656"
+            }
+          ],
+          "id": "1888638836869157120"
+        }
+      },
+      {
+        "json": {
+          "edit_history_tweet_ids": [
+            "1888638724294013166"
+          ],
+          "text": "RT @AviadLevy: מתחיל שרשור של #אוטומציה_ביום - אוטומציות שיש לי ב #בית_חכם\nחלקן מטופשות, חלקן שטותיות וחלקן משפרות חיים ברמה אחרת. בוא נראה…",
+          "referenced_tweets": [
+            {
+              "type": "retweeted",
+              "id": "1888628701190840703"
+            }
+          ],
+          "id": "1888638724294013166"
+        }
+      },
+      {
+        "json": {
+          "in_reply_to_user_id": "2189589031",
+          "edit_history_tweet_ids": [
+            "1888585393349472373"
+          ],
+          "text": "@AmitmizrA שטוף המוח, השונא והמוסת 😂",
+          "referenced_tweets": [
+            {
+              "type": "replied_to",
+              "id": "1888193182682304813"
+            }
+          ],
+          "id": "1888585393349472373"
+        }
+      },
+      {
+        "json": {
+          "in_reply_to_user_id": "1386755975575654403",
+          "edit_history_tweet_ids": [
+            "1888582393092616240"
+          ],
+          "text": "@devvestor נראה לי שכבר לא",
+          "referenced_tweets": [
+            {
+              "type": "replied_to",
+              "id": "1888580103350690209"
+            }
+          ],
+          "id": "1888582393092616240"
+        }
+      },
+      {
+        "json": {
+          "edit_history_tweet_ids": [
+            "1888537311882748013"
+          ],
+          "text": "הלוואי שישתמשו בו יותר, ויפחיתו שימוש בנקודתיים, כשכותבים על חוק יסוד: הממשלה באמצע משפט https://t.co/4dUJjIHA3Y",
+          "referenced_tweets": [
+            {
+              "type": "quoted",
+              "id": "1888483746115993605"
+            }
+          ],
+          "id": "1888537311882748013"
+        }
+      },
+      {
+        "json": {
+          "in_reply_to_user_id": "1621220461181865984",
+          "edit_history_tweet_ids": [
+            "1888523368439197913"
+          ],
+          "text": "@lilach_caspi וואלה לא יודע, אני באיזור הר הרצל אבל אין רכבת קלה",
+          "referenced_tweets": [
+            {
+              "type": "replied_to",
+              "id": "1888521323472703902"
+            }
+          ],
+          "id": "1888523368439197913"
+        }
+      },
+      {
+        "json": {
+          "in_reply_to_user_id": "1609269510204280833",
+          "edit_history_tweet_ids": [
+            "1888519655301513609"
+          ],
+          "text": "@itzikdev כן אני לא סומך על שיטוט בטוויטר, אבל יש מצב, נראה.\n\nאין רכבת קלה אז..",
+          "referenced_tweets": [
+            {
+              "type": "replied_to",
+              "id": "1888517266460831778"
+            }
+          ],
+          "id": "1888519655301513609"
+        }
+      },
+      {
+        "json": {
+          "in_reply_to_user_id": "1609269510204280833",
+          "edit_history_tweet_ids": [
+            "1888517016618778715"
+          ],
+          "text": "@itzikdev אתה שואל אותי?",
+          "referenced_tweets": [
+            {
+              "type": "replied_to",
+              "id": "1888516779296645426"
+            }
+          ],
+          "id": "1888517016618778715"
+        }
+      },
+      {
+        "json": {
+          "edit_history_tweet_ids": [
+            "1888516236192907395"
+          ],
+          "text": "מקום לעבוד בו אחרי הצהריים בירושלים?",
+          "id": "1888516236192907395"
+        }
+      },
+      {
+        "json": {
+          "in_reply_to_user_id": "1320101764578816002",
+          "edit_history_tweet_ids": [
+            "1888513901790187960"
+          ],
+          "text": "@LiorShapira2 @TamarGuttman אז למה היא הסתובבה? 🤔",
+          "referenced_tweets": [
+            {
+              "type": "replied_to",
+              "id": "1888485088976875625"
+            }
+          ],
+          "id": "1888513901790187960"
+        }
+      },
+      {
+        "json": {
+          "in_reply_to_user_id": "1435911102",
+          "edit_history_tweet_ids": [
+            "1888513676765777943"
+          ],
+          "text": "@YonatanZipori העיקר אמרו לי \"הימין הוא הבעיה. כל עוד החטופים שם לא אכפת לי מזכויות אדם\"",
+          "referenced_tweets": [
+            {
+              "type": "replied_to",
+              "id": "1888278965296484580"
+            }
+          ],
+          "id": "1888513676765777943"
+        }
+      },
+      {
+        "json": {
+          "in_reply_to_user_id": "414618047",
+          "edit_history_tweet_ids": [
+            "1888478458851782905"
+          ],
+          "text": "@guywiener וזאת הזדמנות לשרש טעויות שגויות שהשתרשו",
+          "referenced_tweets": [
+            {
+              "type": "replied_to",
+              "id": "1888477833443352965"
+            }
+          ],
+          "id": "1888478458851782905"
+        }
+      },
+      {
+        "json": {
+          "in_reply_to_user_id": "1386310439341015043",
+          "edit_history_tweet_ids": [
+            "1888435767308882396"
+          ],
+          "text": "@AnalysisParal אצלי זה היה בגלל האקדח",
+          "referenced_tweets": [
+            {
+              "type": "replied_to",
+              "id": "1888170122033950844"
+            }
+          ],
+          "id": "1888435767308882396"
+        }
+      }
+    ]
+  },
+  "versionId": "a1cdd3a5-a405-40f0-b73e-b36d4504f385",
+  "triggerCount": 1,
+  "tags": []
+}

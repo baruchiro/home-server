@@ -1,0 +1,798 @@
+{
+  "createdAt": "2025-02-11T17:46:01.330Z",
+  "updatedAt": "2025-02-16T06:15:54.000Z",
+  "id": "0nmb2pnVxcfj8Vxi",
+  "name": "Github Webhook",
+  "active": true,
+  "isArchived": false,
+  "nodes": [
+    {
+      "parameters": {
+        "operation": "upsert",
+        "schema": {
+          "__rl": true,
+          "mode": "list",
+          "value": "public"
+        },
+        "table": {
+          "__rl": true,
+          "value": "GithubUser",
+          "mode": "list",
+          "cachedResultName": "GithubUser"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "id": "={{ $('Code').item.json.user.id }}",
+            "username": "={{ $('Code').item.json.user.login }}",
+            "avatarUrl": "={{ $('Code').item.json.user.avatar_url }}",
+            "type": "={{ $('Code').item.json.user.type }}"
+          },
+          "matchingColumns": [
+            "id"
+          ],
+          "schema": [
+            {
+              "id": "id",
+              "displayName": "id",
+              "required": true,
+              "defaultMatch": true,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "username",
+              "displayName": "username",
+              "required": true,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "avatarUrl",
+              "displayName": "avatarUrl",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": false
+            },
+            {
+              "id": "type",
+              "displayName": "type",
+              "required": true,
+              "defaultMatch": false,
+              "display": true,
+              "type": "options",
+              "canBeUsedToMatch": false,
+              "options": [
+                {
+                  "name": "Bot",
+                  "value": "Bot"
+                },
+                {
+                  "name": "Organization",
+                  "value": "Organization"
+                },
+                {
+                  "name": "User",
+                  "value": "User"
+                }
+              ]
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.5,
+      "position": [
+        340,
+        -20
+      ],
+      "id": "0b5d6b53-25a6-4428-ae81-7cb4cc93f38c",
+      "name": "PR user",
+      "credentials": {
+        "postgres": {
+          "id": "bBLk96gSMYTn24Hc",
+          "name": "Postgres account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "upsert",
+        "schema": {
+          "__rl": true,
+          "mode": "list",
+          "value": "public"
+        },
+        "table": {
+          "__rl": true,
+          "value": "GithubUser",
+          "mode": "list",
+          "cachedResultName": "GithubUser"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "id": "={{ $json.base.repo.owner.id }}",
+            "username": "={{ $json.base.repo.owner.login }}",
+            "avatarUrl": "={{ $json.base.repo.owner.avatar_url }}",
+            "type": "={{ $json.base.repo.owner.type }}"
+          },
+          "matchingColumns": [
+            "id"
+          ],
+          "schema": [
+            {
+              "id": "id",
+              "displayName": "id",
+              "required": true,
+              "defaultMatch": true,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "username",
+              "displayName": "username",
+              "required": true,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "avatarUrl",
+              "displayName": "avatarUrl",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": false
+            },
+            {
+              "id": "type",
+              "displayName": "type",
+              "required": true,
+              "defaultMatch": false,
+              "display": true,
+              "type": "options",
+              "canBeUsedToMatch": false,
+              "options": [
+                {
+                  "name": "Organization",
+                  "value": "Organization"
+                },
+                {
+                  "name": "User",
+                  "value": "User"
+                }
+              ]
+            },
+            {
+              "id": "url",
+              "displayName": "url",
+              "required": true,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": false,
+              "removed": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.5,
+      "position": [
+        140,
+        -20
+      ],
+      "id": "dccfc6e1-6812-4cbd-9448-bac9dde4038a",
+      "name": "repo owner",
+      "credentials": {
+        "postgres": {
+          "id": "bBLk96gSMYTn24Hc",
+          "name": "Postgres account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "upsert",
+        "schema": {
+          "__rl": true,
+          "value": "public",
+          "mode": "list",
+          "cachedResultName": "public"
+        },
+        "table": {
+          "__rl": true,
+          "value": "Repository",
+          "mode": "list",
+          "cachedResultName": "Repository"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "isPrivate": "={{ $('Code').item.json.base.repo.private }}",
+            "id": "={{ $('Code').item.json.base.repo.id }}",
+            "fullName": "={{ $('Code').item.json.base.repo.full_name }}",
+            "description": "={{ $('Code').item.json.base.repo.description }}",
+            "defaultBranch": "={{ $('Code').item.json.base.repo.default_branch }}",
+            "ownerId": "={{ $('Code').item.json.base.repo.owner.id }}"
+          },
+          "matchingColumns": [
+            "id"
+          ],
+          "schema": [
+            {
+              "id": "id",
+              "displayName": "id",
+              "required": true,
+              "defaultMatch": true,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "fullName",
+              "displayName": "fullName",
+              "required": true,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "description",
+              "displayName": "description",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": false
+            },
+            {
+              "id": "isPrivate",
+              "displayName": "isPrivate",
+              "required": true,
+              "defaultMatch": false,
+              "display": true,
+              "type": "boolean",
+              "canBeUsedToMatch": false
+            },
+            {
+              "id": "defaultBranch",
+              "displayName": "defaultBranch",
+              "required": true,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": false
+            },
+            {
+              "id": "ownerId",
+              "displayName": "ownerId",
+              "required": true,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.5,
+      "position": [
+        540,
+        -20
+      ],
+      "id": "b16bad10-1dfa-4fc2-849a-546335b3769f",
+      "name": "Repo",
+      "credentials": {
+        "postgres": {
+          "id": "bBLk96gSMYTn24Hc",
+          "name": "Postgres account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "upsert",
+        "schema": {
+          "__rl": true,
+          "mode": "list",
+          "value": "public"
+        },
+        "table": {
+          "__rl": true,
+          "value": "PullRequest",
+          "mode": "list",
+          "cachedResultName": "PullRequest"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "isDraft": "={{ $('Code').item.json.draft }}",
+            "number": "={{ $('Code').item.json.number }}",
+            "id": "={{ $('Code').item.json.id }}",
+            "title": "={{ $('Code').item.json.title }}",
+            "state": "={{ $('Code').item.json.state }}",
+            "createdAt": "={{ $('Code').item.json.created_at }}",
+            "updatedAt": "={{ $('Code').item.json.updated_at }}",
+            "closedAt": "={{ $('Code').item.json.closed_at }}",
+            "mergedAt": "={{ $('Code').item.json.merged_at }}",
+            "headRef": "={{ $('Code').item.json.head.ref }}",
+            "baseRef": "={{ $('Code').item.json.base.ref }}",
+            "authorId": "={{ $('Code').item.json.user.id }}",
+            "repoId": "={{ $('Code').item.json.base.repo.id }}"
+          },
+          "matchingColumns": [
+            "id"
+          ],
+          "schema": [
+            {
+              "id": "id",
+              "displayName": "id",
+              "required": true,
+              "defaultMatch": true,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "number",
+              "displayName": "number",
+              "required": true,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "title",
+              "displayName": "title",
+              "required": true,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": false
+            },
+            {
+              "id": "state",
+              "displayName": "state",
+              "required": true,
+              "defaultMatch": false,
+              "display": true,
+              "type": "options",
+              "canBeUsedToMatch": false,
+              "options": [
+                {
+                  "name": "closed",
+                  "value": "closed"
+                },
+                {
+                  "name": "open",
+                  "value": "open"
+                }
+              ]
+            },
+            {
+              "id": "isDraft",
+              "displayName": "isDraft",
+              "required": true,
+              "defaultMatch": false,
+              "display": true,
+              "type": "boolean",
+              "canBeUsedToMatch": false
+            },
+            {
+              "id": "createdAt",
+              "displayName": "createdAt",
+              "required": true,
+              "defaultMatch": false,
+              "display": true,
+              "type": "dateTime",
+              "canBeUsedToMatch": false
+            },
+            {
+              "id": "updatedAt",
+              "displayName": "updatedAt",
+              "required": true,
+              "defaultMatch": false,
+              "display": true,
+              "type": "dateTime",
+              "canBeUsedToMatch": false
+            },
+            {
+              "id": "closedAt",
+              "displayName": "closedAt",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "dateTime",
+              "canBeUsedToMatch": false
+            },
+            {
+              "id": "mergedAt",
+              "displayName": "mergedAt",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "dateTime",
+              "canBeUsedToMatch": false
+            },
+            {
+              "id": "baseRef",
+              "displayName": "baseRef",
+              "required": true,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": false
+            },
+            {
+              "id": "headRef",
+              "displayName": "headRef",
+              "required": true,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": false
+            },
+            {
+              "id": "authorId",
+              "displayName": "authorId",
+              "required": true,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": false
+            },
+            {
+              "id": "repoId",
+              "displayName": "repoId",
+              "required": true,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.5,
+      "position": [
+        740,
+        -20
+      ],
+      "id": "cc02c9e2-fbbd-475c-85c8-17f2fbe8ca58",
+      "name": "Pull request",
+      "credentials": {
+        "postgres": {
+          "id": "bBLk96gSMYTn24Hc",
+          "name": "Postgres account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "authentication": "webhook",
+        "content": "=Pull Request \"{{ $json.title }}\" on {{ $('Repo').item.json.fullName }} from @{{ $('PR user').item.json.username }} is {{ $json.state }}",
+        "options": {
+          "avatar_url": "={{ $('PR user').item.json.avatarUrl }}",
+          "username": "={{ $('PR user').item.json.username }}"
+        }
+      },
+      "type": "n8n-nodes-base.discord",
+      "typeVersion": 2,
+      "position": [
+        960,
+        -20
+      ],
+      "id": "ce5e1218-c8ba-4ac8-a4b9-c9df8b6a77a8",
+      "name": "Discord",
+      "credentials": {
+        "discordWebhookApi": {
+          "id": "YY8k8bWCuuYt5nbE",
+          "name": "Discord Webhook account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "minutes",
+              "minutesInterval": 20
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        -240,
+        -300
+      ],
+      "id": "962b3c18-555c-481e-8d71-505fede9313a",
+      "name": "Schedule Trigger"
+    },
+    {
+      "parameters": {
+        "authentication": "oAuth2",
+        "resource": "repository",
+        "operation": "getPullRequests",
+        "owner": {
+          "__rl": true,
+          "value": "={{ $json['0'] }}",
+          "mode": "name"
+        },
+        "repository": {
+          "__rl": true,
+          "value": "={{ $json['1'] }}",
+          "mode": "name"
+        },
+        "limit": 10,
+        "getRepositoryPullRequestsFilters": {
+          "state": "all",
+          "sort": "updated",
+          "direction": "desc"
+        }
+      },
+      "type": "n8n-nodes-base.github",
+      "typeVersion": 1,
+      "position": [
+        400,
+        -300
+      ],
+      "id": "d7819a2b-f67f-424f-94b5-ac790f7519eb",
+      "name": "GitHub",
+      "credentials": {
+        "githubOAuth2Api": {
+          "id": "nUnA4V2kUY2OCSEk",
+          "name": "GitHub account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "// Get workflow storage (persistent)\nconst workflowData = $getWorkflowStaticData(\"global\");\n\n// Load last updated timestamp (default to null)\nconst lastUpdated = workflowData.lastUpdated || null;\n\n// Get input data\nconst items = $input.all();\nconst dataArray = items.map(item => item.json);\n\n// If no stored timestamp, save the newest and return all\nlet newItems;\nif (!lastUpdated) {\n    newItems = dataArray;\n} else {\n    // Filter only items newer than lastUpdated\n    newItems = dataArray.filter(item => new Date(item.updated_at) > new Date(lastUpdated));\n}\n\n// Update stored last updated timestamp\nif (newItems.length > 0) {\n    workflowData.lastUpdated = newItems[0].updated_at\n}\n\n// Return filtered data\nreturn newItems.map(item => ({ json: item }));\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        820,
+        -300
+      ],
+      "id": "c21580f1-da40-4fcc-a5fc-b9b08ee4e766",
+      "name": "Code"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "loose",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "34694f68-186d-4d10-9c86-ffa2895cd56b",
+              "leftValue": "={{ $json.user.type }}",
+              "rightValue": "User",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "looseTypeValidation": true,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.filter",
+      "typeVersion": 2.2,
+      "position": [
+        620,
+        -300
+      ],
+      "id": "3fdb65e2-9579-4dfa-b168-8906e0f2b92e",
+      "name": "Filter"
+    },
+    {
+      "parameters": {
+        "mode": "raw",
+        "jsonOutput": "{\n  \"repos\": [\n[\n\"brafdlog\",\n\"caspion\"\n],\n[\n\"eshaham\",\n\"israeli-bank-scrapers\"\n],\n[\n\"baruchiro\",\n\"BcsStudent\"\n]\n  ]\n}\n",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -20,
+        -300
+      ],
+      "id": "c8aa5e6d-bde4-4262-b162-8c2ab4e5954e",
+      "name": "Edit Fields"
+    },
+    {
+      "parameters": {
+        "fieldToSplitOut": "repos",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitOut",
+      "typeVersion": 1,
+      "position": [
+        180,
+        -300
+      ],
+      "id": "c88fe7a6-bb95-4ba2-943d-69cdab04d3f0",
+      "name": "Split Out"
+    }
+  ],
+  "connections": {
+    "PR user": {
+      "main": [
+        [
+          {
+            "node": "Repo",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "repo owner": {
+      "main": [
+        [
+          {
+            "node": "PR user",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Repo": {
+      "main": [
+        [
+          {
+            "node": "Pull request",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Pull request": {
+      "main": [
+        [
+          {
+            "node": "Discord",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Schedule Trigger": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "GitHub": {
+      "main": [
+        [
+          {
+            "node": "Filter",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code": {
+      "main": [
+        [
+          {
+            "node": "repo owner",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Filter": {
+      "main": [
+        [
+          {
+            "node": "Code",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields": {
+      "main": [
+        [
+          {
+            "node": "Split Out",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Split Out": {
+      "main": [
+        [
+          {
+            "node": "GitHub",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1",
+    "callerPolicy": "workflowsFromSameOwner"
+  },
+  "staticData": {
+    "node:Github Trigger": {},
+    "node:Schedule Trigger": {
+      "recurrenceRules": []
+    },
+    "node:Schedule Trigger1": {
+      "recurrenceRules": []
+    },
+    "global": {
+      "Identifier": 48,
+      "brafdlog/caspion": {
+        "lastUpdated": "2025-02-13T15:10:15Z"
+      },
+      "lastUpdated": "2025-06-06T09:29:06Z"
+    }
+  },
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "pinData": {},
+  "versionId": "de92bef9-5699-4e22-9db3-70dd28005e41",
+  "triggerCount": 1,
+  "tags": []
+}
